@@ -1,0 +1,31 @@
+package jboss.cloud
+dialect "mvel"
+
+
+
+rule "Always prefer empty server"
+    salience 100
+    when
+        req: ApplicationRequest()
+        ins: Instance(numberOfApps == 0, freeMemory >= req.memory, freeDisk >= req.disk)
+    then
+        allocateApplication(req, ins)
+end
+
+rule "Can't colocate"
+    when
+        req: ApplicationRequest(canColocate == false)
+        not Instance(numberOfApps == 0, freeMemory >= req.memory, freeDisk >= req.disk)
+    then
+        insert(new RequestServer(req))
+end
+
+rule "Can colocate"
+    when
+        req: ApplicationRequest(canColocate == true)
+        ins: Instance(numberOfApps < 4, freeMemory >= (req.memory * 1.2), freeDisk >= (req.disk * 1.5))
+    then
+        allocateApplication(req, ins)
+end
+
+

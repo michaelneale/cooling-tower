@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cooling-tower-api" failures="0" tests="1" time="0.046" errors="0">
+  <properties/>
+  <testcase name="singleRunningInstance" time="0.034" classname="jboss.cloud.AssignmentTest"/>
+</testsuite>
