@@ -2,30 +2,72 @@ package jboss.cloud
 dialect "mvel"
 
 
+rule "Setup default memory"
+    salience 200
+    when
+        req: ApplicationRequest(memory == 0)
+    then
+        modify(req) {
+            memory = 512
+        }
+end
+
+rule "Setup default disk"
+    salience 200
+    when
+        req: ApplicationRequest(disk == 0)
+    then
+        modify(req) {
+            disk == 512
+        }
+end
 
 rule "Always prefer empty server"
     salience 100
     when
         req: ApplicationRequest()
-        ins: Instance(numberOfApps == 0, freeMemory >= req.memory, freeDisk >= req.disk)
-    then
-        allocateApplication(req, ins)
+        ins: Instance(numberOfApps == 0, spareMemory >= req.memory, spareDisk >= req.disk)
+   then
+        insert(new AssignmentRequest(req, ins))
+        retract(req)
 end
 
-rule "Can't colocate"
+rule "Can't colocate - so need a new server"
     when
         req: ApplicationRequest(canColocate == false)
-        not Instance(numberOfApps == 0, freeMemory >= req.memory, freeDisk >= req.disk)
+        not Instance(numberOfApps == 0, spareMemory >= req.memory, spareDisk >= req.disk)
     then
-        insert(new RequestServer(req))
+        insert(new ServerRequest(req))
+        retract(req)
 end
 
-rule "Can colocate"
+#
+#TIP: you can lock it down to specific image types here if you like...
+#
+rule "Can colocate - see if we can fit it in somewhere"
     when
         req: ApplicationRequest(canColocate == true)
-        ins: Instance(numberOfApps < 4, freeMemory >= (req.memory * 1.2), freeDisk >= (req.disk * 1.5))
+        ins: Instance(numberOfApps < 4,
+                        spareMemory >= (req.memory * 1.2),
+                        spareDisk >= (req.disk * 1.5) )
+        forall(RunningApplication(requirements.canColocate == true) from ins.applications)
     then
-        allocateApplication(req, ins)
+        insert(new AssignmentRequest(req, ins))
+        retract(req)
 end
+
+rule "Nothing suitable to colocate - so need a new server"
+    salience -100
+    when
+        req: ApplicationRequest(canColocate == true)
+    then
+        insert(new ServerRequest(req))
+end
+
+
+
+
+
+
 
 
