@@ -70,6 +70,10 @@ rule "Can colocate - see if we can fit it in somewhere"
         instance: Instance(numberOfApps < 4,
                             spareMemory >= (application.memory * 1.2),
                             spareStorage >= (application.disk * 1.5) )
+        #we want to make sure there is no other instance with less apps !                            
+        not Instance(numberOfApps < instance.numberOfApps,
+                            spareMemory >= (application.memory * 1.2),
+                            spareStorage >= (application.disk * 1.5) )
         forall(Application(canCoExist == true) from instance.applications)
     then
         insert(new Assignment(application, instance))

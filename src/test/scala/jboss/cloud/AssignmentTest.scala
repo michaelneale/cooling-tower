@@ -45,6 +45,9 @@ class AssignmentTest {
     ks.setGlobal("results", results)
     ks.insert(img)
     ks.insert(flv1)
+    ks.insert(flv2)
+    ks.insert(flv3)
+
     ks.insert(app)
     ks.insert(ins)
     ks.fireAllRules

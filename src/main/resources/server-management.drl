@@ -1,0 +1,8 @@
+package jboss.cloud
+dialect "mvel"
+global java.util.List results
+
+
+#The purpose of this is to take an instance request for an application, and match it up to images and flavors, realms etc..
+#flavours, and images and realms can be loaded from deltacloud on demand.
+
