@@ -21,7 +21,13 @@ case class Instance(id: Int, name: String, image: Image, flavor: Flavor, var app
 }
 
 
-case class SimpleFact(name: String, id: Int)
+/** Control fact for tracking assignment to instances */
+case class Assignment(application: Application, instance: Instance)
+
+/** Control fact for tracking request for a new instance */
+case class InstanceRequest(application: Application)
+
+
 
 
 

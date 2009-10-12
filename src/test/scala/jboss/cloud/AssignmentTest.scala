@@ -1,10 +1,13 @@
 package jboss.cloud
 
 
+import java.util.ArrayList
 import org.drools.builder.{KnowledgeBuilderFactory, ResourceType}
 import org.drools.io.ResourceFactory
-import org.drools.KnowledgeBaseFactory
+import org.drools.{ObjectFilter, KnowledgeBaseFactory}
 import org.testng.annotations.Test
+import org.testng.Assert._
+
 
 /**
  * 
@@ -31,22 +34,28 @@ class AssignmentTest {
 
     val app = Application("mike", "war", true, 42, 100, 1, 0, 0, 0)
 
+    val ins = Instance(1, "mic22", img, flv3, Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
 
 
+    val ks = kb.newStatefulKnowledgeSession
+    val results = new ArrayList[Any]
+    ks.setGlobal("results", results)
+    ks.insert(img)
+    ks.insert(flv1)
+    ks.insert(app)
+    ks.insert(ins)
+    ks.fireAllRules
+    ks.dispose
 
+    assertEquals(1, results.size)
 
+    val assig = results.get(0).asInstanceOf[Assignment]
+    assertEquals(app, assig.application)
+    assertEquals(ins, assig.instance)
 
 
     println("ok")
   }
 
-  @Test def mvelFunctions = {
-    val kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder
-    //kbuilder.add(ResourceFactory.newClassPathResource("functions.drl"), ResourceType.DRL)
-    kbuilder.add(ResourceFactory.newClassPathResource("mylang.dsl"), ResourceType.DSL)
-    kbuilder.add(ResourceFactory.newClassPathResource("simple-rules.drl"), ResourceType.DSLR)
-    println(kbuilder.getErrors)
-
-  }
 
 }

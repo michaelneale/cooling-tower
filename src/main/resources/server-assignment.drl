@@ -1,5 +1,7 @@
 package jboss.cloud
 dialect "mvel"
+global java.util.List results
+
 
 
 #
@@ -35,13 +37,17 @@ rule "Setup default disk"
         }
 end
 
+
+#TIP: can lock this down to specific image types
 rule "Always prefer empty server"
     salience 100
     when
         application: Application()
-        instance: Instance(numberOfApps == 0, spareMemory >= application.memory, spareStorage >= application.disk)
+        instance: Instance(numberOfApps == 0,
+                            spareMemory >= application.memory,
+                            spareStorage >= application.disk)
    then
-        System.err.println("assigning")
+        insert(new Assignment(application, instance))
 
 end
 
@@ -52,7 +58,7 @@ rule "Can't colocate - so need a new server"
                      spareMemory >= application.memory,
                      spareStorage >= application.disk)
     then
-        System.err.println("new")
+        insert(new InstanceRequest(application))
 end
 
 #
@@ -62,12 +68,25 @@ rule "Can colocate - see if we can fit it in somewhere"
     when
         application: Application(canCoExist == true)
         instance: Instance(numberOfApps < 4,
-                        spareMemory >= (application.memory * 1.2),
-                        spareStorage >= (application.disk * 1.5) )
+                            spareMemory >= (application.memory * 1.2),
+                            spareStorage >= (application.disk * 1.5) )
         forall(Application(canCoExist == true) from instance.applications)
     then
-        System.err.println("assigning")
+        insert(new Assignment(application, instance))
 end
+
+
+rule "Act on assigment or instance request"
+    salience 1000
+    when
+        ap: Application()
+        as: Assignment(application == ap) or InstanceRequest(application == ap)
+
+    then
+        results.add(as)
+        retract(ap)
+end
+
 
 
 
