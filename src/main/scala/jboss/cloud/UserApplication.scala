@@ -1,16 +1,29 @@
 package jboss.cloud
 
 
-case class ApplicationRequirements(memory: Int, disk: Int, canCoExist: Boolean, cpu: Int)
-case class Image(name: String, id: Int)
-case class Flavor(id: Int, memory: Int, storage: Int)
+case class Image( id: Int, name: String)
+case class Flavor(id: Int, memory: Int, storage: Int, architecture: String)
 
-case class RunningApplication(requirements: ApplicationRequirements, version: Int, dateCreated: Long, dateLastUpdated: Long)
+case class Application(name: String,
+                       applicationType: String,
+                       var canCoExist: Boolean,
+                       var memory: Int,
+                       var disk: Int,
+                       var cpu: Int,
+                       var version: Int,
+                       var dateCreated: Long,
+                       var dateLastUpdated: Long)
 
-case class Instance(id: Int, name: String, image: Image, flavor: Flavor, var applications: List[RunningApplication]) {
-  def getSpareMemory = flavor.memory - applications.foldLeft(0)(_ + _.requirements.memory)
-  def getSpareStorage = flavor.disk - applications.foldLeft(0)(_ + _.requirements.disk)
+case class Instance(id: Int, name: String, image: Image, flavor: Flavor, var applications: Array[Application]) {
+  def getSpareMemory = flavor.memory - applications.foldLeft(0)(_ + _.memory)
+  def getSpareStorage = flavor.storage - applications.foldLeft(0)(_ + _.disk)
+  def getNumberOfApps = applications.length
 }
+
+
+case class SimpleFact(name: String, id: Int)
+
+
 
 
 

@@ -2,10 +2,23 @@ package jboss.cloud
 dialect "mvel"
 
 
+#
+# General principles:
+# 
+# If an application request has no preferred values, defaults should be set.
+# If there is a vacant Instance which is suitable, use it up.
+# If the application can or should not be colocated, then request a new instance for it.
+# If there is a suitable existing server, with less then N apps on it, and you can colocate, do it
+# If there is no suitable colo server, request a new one
+#
+# If a new server is requested, and the app is colocatable, create an instance
+# If a new server is requested and the app is not colocatable, find a minimal suitable flavour, and create an instance.
+#
+
 rule "Setup default memory"
     salience 200
     when
-        req: ApplicationRequest(memory == 0)
+        req: Application(memory == 0)
     then
         modify(req) {
             memory = 512
@@ -15,30 +28,31 @@ end
 rule "Setup default disk"
     salience 200
     when
-        req: ApplicationRequest(disk == 0)
+        req: Application(disk == 0)
     then
         modify(req) {
-            disk == 512
+            disk = 512
         }
 end
 
 rule "Always prefer empty server"
     salience 100
     when
-        req: ApplicationRequest()
-        ins: Instance(numberOfApps == 0, spareMemory >= req.memory, spareDisk >= req.disk)
+        application: Application()
+        instance: Instance(numberOfApps == 0, spareMemory >= application.memory, spareStorage >= application.disk)
    then
-        insert(new AssignmentRequest(req, ins))
-        retract(req)
+        System.err.println("assigning")
+
 end
 
 rule "Can't colocate - so need a new server"
     when
-        req: ApplicationRequest(canColocate == false)
-        not Instance(numberOfApps == 0, spareMemory >= req.memory, spareDisk >= req.disk)
+        application: Application(canCoExist == false)
+        not Instance(numberOfApps == 0,
+                     spareMemory >= application.memory,
+                     spareStorage >= application.disk)
     then
-        insert(new ServerRequest(req))
-        retract(req)
+        System.err.println("new")
 end
 
 #
@@ -46,23 +60,23 @@ end
 #
 rule "Can colocate - see if we can fit it in somewhere"
     when
-        req: ApplicationRequest(canColocate == true)
-        ins: Instance(numberOfApps < 4,
-                        spareMemory >= (req.memory * 1.2),
-                        spareDisk >= (req.disk * 1.5) )
-        forall(RunningApplication(requirements.canColocate == true) from ins.applications)
+        application: Application(canCoExist == true)
+        instance: Instance(numberOfApps < 4,
+                        spareMemory >= (application.memory * 1.2),
+                        spareStorage >= (application.disk * 1.5) )
+        forall(Application(canCoExist == true) from instance.applications)
     then
-        insert(new AssignmentRequest(req, ins))
-        retract(req)
+        System.err.println("assigning")
 end
 
-rule "Nothing suitable to colocate - so need a new server"
-    salience -100
-    when
-        req: ApplicationRequest(canColocate == true)
-    then
-        insert(new ServerRequest(req))
-end
+
+
+
+
+
+
+
+
 
 
 
