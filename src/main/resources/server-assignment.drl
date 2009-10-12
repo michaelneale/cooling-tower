@@ -75,16 +75,31 @@ rule "Can colocate - see if we can fit it in somewhere"
         insert(new Assignment(application, instance))
 end
 
+rule "Can colocate, but no instance available"
+    when
+        application: Application(canCoExist == true)
+        not Instance(numberOfApps < 4)
+    then
+        insert(new InstanceRequest(application))
+end
 
-rule "Act on assigment or instance request"
+
+rule "Collect assigment or instance requests to return as advice"
     salience 1000
     when
         ap: Application()
-        as: Assignment(application == ap) or InstanceRequest(application == ap)
-
+        as: (Assignment(application == ap) or InstanceRequest(application == ap))
     then
         results.add(as)
         retract(ap)
+end
+
+rule "Still nothing found, create an instance anyway"
+    salience -200
+    when
+        as: Application()
+    then
+        insert(new InstanceRequest(application))
 end
 
 

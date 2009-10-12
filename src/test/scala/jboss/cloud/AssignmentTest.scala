@@ -17,14 +17,17 @@ import org.testng.Assert._
 @Test
 class AssignmentTest {
 
-  @Test def singleRunningInstance = {
-
+  private def newSession = {
     val kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder
     kbuilder.add(ResourceFactory.newClassPathResource("server-assignment.drl"), ResourceType.DRL)
     println(kbuilder.getErrors)
 
     val kb = KnowledgeBaseFactory.newKnowledgeBase
     kb.addKnowledgePackages(kbuilder.getKnowledgePackages)
+    kb.newStatefulKnowledgeSession
+  }
+
+  @Test def singleRunningInstance = {
 
 
     val img = Image(1, "fedora11")
@@ -37,7 +40,7 @@ class AssignmentTest {
     val ins = Instance(1, "mic22", img, flv3, Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
 
 
-    val ks = kb.newStatefulKnowledgeSession
+    val ks = newSession
     val results = new ArrayList[Any]
     ks.setGlobal("results", results)
     ks.insert(img)
@@ -53,8 +56,24 @@ class AssignmentTest {
     assertEquals(app, assig.application)
     assertEquals(ins, assig.instance)
 
-
     println("ok")
+  }
+
+  @Test def noExistingInstances = {
+    val ks = newSession
+    val app = Application("mike", "war", true, 42, 100, 1, 0, 0, 0)
+    ks.insert(app)       
+    val ls = new ArrayList[Any]
+    ks.setGlobal("results", ls)
+
+    ks.fireAllRules
+    ks.dispose
+
+    assertEquals(ls.size, 1)
+    val insr = ls.get(0).asInstanceOf[InstanceRequest]
+    assertEquals(app, insr.application)
+
+    ks.dispose
   }
 
 
