@@ -1,8 +1,70 @@
 package jboss.cloud
-dialect "mvel"
+dialect "mvel"                                                                                              
 global java.util.List results
-
 
 #The purpose of this is to take an instance request for an application, and match it up to images and flavors, realms etc..
 #flavours, and images and realms can be loaded from deltacloud on demand.
+#The app will then take care of provisioning...
+
+rule "Find a suitable flavor for non colocatable app"
+    when
+        application: Application(canCoExist == false)
+        image: Image() #TIP: put in list of image  IDs here... if you like...
+        flavor: Flavor(memory >= application.memory, storage >= application.disk)
+        #don't want to over do it :
+        not Flavor(memory <= flavor.memory, memory >= application.memory, storage <= flavor.storage, storage >= application.disk)
+    then
+        insert(new InstanceCreateRequest(flavor, image, application))
+end
+
+rule "If there are a few colocated apps out there already"
+    when
+        exists Instance(numberOfApps > 0)
+        application: Application(canCoExist == true)
+        image: Image()
+        flavor: Flavor(memory >= (application.memory * 4), storage >= (application.disk * 4))
+    then
+        insert(new InstanceCreateRequest(flavor, image, application))
+end          
+
+rule "Find any old suitable flavor for colocatable app"
+    salience -200
+    when
+        application: Application(canCoExist == true)
+        image: Image() #TIP: put in list of image  IDs here... if you like...
+        flavor: Flavor(memory >= application.memory, storage >= application.disk)
+        not Flavor(memory <= flavor.memory, memory >= application.memory, storage <= flavor.storage, storage >= application.disk)
+    then
+        System.err.println("hey there !")
+        insert(new InstanceCreateRequest(flavor, image, application))
+end
+
+
+rule "Destroy instance if no apps on it, and older then 1 hour - otherwise let it hang out"
+    when
+        instance: Instance(numberOfApps == 0, state == "RUNNING", age > 3600000)
+    then
+        insert(new InstanceDestroyRequest(instance))
+end
+
+rule "Collect server requests"
+    salience 200
+    when
+        app: Application()
+        server: InstanceCreateRequest(application == app)   #CHANGE this to use Instance ! that is what it is for !
+    then
+        results.add(server)
+        retract(app)
+end
+
+rule "Collect destroy requests"
+    salience 200
+    when
+        instance: InstanceDestroyRequest()
+    then
+        results.add(instance)
+        retract(instance)
+end
+
+
 

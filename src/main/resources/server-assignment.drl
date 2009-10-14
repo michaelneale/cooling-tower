@@ -58,7 +58,7 @@ rule "Can't colocate - so need a new server"
                      spareMemory >= application.memory,
                      spareStorage >= application.disk)
     then
-        insert(new InstanceRequest(application))
+        insert(new NewInstanceNeeded(application))
 end
 
 #
@@ -72,8 +72,8 @@ rule "Can colocate - see if we can fit it in somewhere"
                             spareStorage >= (application.disk * 1.5) )
         #we want to make sure there is no other instance with less apps !                            
         not Instance(numberOfApps < instance.numberOfApps,
-                            spareMemory >= (application.memory * 1.2),
-                            spareStorage >= (application.disk * 1.5) )
+                     spareMemory >= (application.memory * 1.2),
+                     spareStorage >= (application.disk * 1.5) )
         forall(Application(canCoExist == true) from instance.applications)
     then
         insert(new Assignment(application, instance))
@@ -84,27 +84,29 @@ rule "Can colocate, but no instance available"
         application: Application(canCoExist == true)
         not Instance(numberOfApps < 4)
     then
-        insert(new InstanceRequest(application))
+        insert(new NewInstanceNeeded(application))
 end
 
-
-rule "Collect assigment or instance requests to return as advice"
-    salience 1000
-    when
-        ap: Application()
-        as: (Assignment(application == ap) or InstanceRequest(application == ap))
-    then
-        results.add(as)
-        retract(ap)
-end
 
 rule "Still nothing found, create an instance anyway"
     salience -200
     when
         as: Application()
     then
-        insert(new InstanceRequest(application))
+        insert(new NewInstanceNeeded(application))
 end
+
+rule "Collect assigment or instance requests to return as advice"
+    salience 1000
+    when
+        ap: Application()
+        as: (Assignment(application == ap) or NewInstanceNeeded(application == ap))
+    then
+        results.add(as)
+        retract(ap)
+end
+
+
 
 
 

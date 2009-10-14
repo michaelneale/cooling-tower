@@ -14,10 +14,17 @@ case class Application(name: String,
                        var dateCreated: Long,
                        var dateLastUpdated: Long)
 
-case class Instance(id: Int, name: String, image: Image, flavor: Flavor, var applications: Array[Application]) {
+case class Instance(id: Int,
+                    name: String, 
+                    image: Image,
+                    flavor: Flavor,
+                    state: String /* PENDING, STOPPED, RUNNING */,
+                    var applications: Array[Application]) {
+  var createdOn = System.currentTimeMillis
   def getSpareMemory = flavor.memory - applications.foldLeft(0)(_ + _.memory)
   def getSpareStorage = flavor.storage - applications.foldLeft(0)(_ + _.disk)
   def getNumberOfApps = applications.length
+  def getAge = System.currentTimeMillis - createdOn  
 }
 
 
@@ -25,7 +32,13 @@ case class Instance(id: Int, name: String, image: Image, flavor: Flavor, var app
 case class Assignment(application: Application, instance: Instance)
 
 /** Control fact for tracking request for a new instance */
-case class InstanceRequest(application: Application)
+case class NewInstanceNeeded(application: Application)
+
+/** Control fact for creating an instance of a certain type, and then binding the application to it */
+case class InstanceCreateRequest(flavor: Flavor, image: Image, application: Application)
+
+/** Control fact for disposing an instance */
+case class InstanceDestroyRequest(instance: Instance)
 
 
 

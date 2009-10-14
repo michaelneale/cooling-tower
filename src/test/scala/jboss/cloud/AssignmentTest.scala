@@ -21,8 +21,9 @@ class AssignmentTest {
     val kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder
     kbuilder.add(ResourceFactory.newClassPathResource("server-assignment.drl"), ResourceType.DRL)
     println(kbuilder.getErrors)
-
-    val kb = KnowledgeBaseFactory.newKnowledgeBase
+    val conf = KnowledgeBaseFactory.newKnowledgeBaseConfiguration
+    conf.setProperty("drools.removeIdentities", "true")
+    val kb = KnowledgeBaseFactory.newKnowledgeBase(conf)
     kb.addKnowledgePackages(kbuilder.getKnowledgePackages)
     kb.newStatefulKnowledgeSession
   }
@@ -37,7 +38,7 @@ class AssignmentTest {
 
     val app = Application("mike", "war", true, 42, 100, 1, 0, 0, 0)
 
-    val ins = Instance(1, "mic22", img, flv3, Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
+    val ins = Instance(1, "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
 
 
     val ks = newSession
@@ -73,11 +74,13 @@ class AssignmentTest {
     ks.dispose
 
     assertEquals(ls.size, 1)
-    val insr = ls.get(0).asInstanceOf[InstanceRequest]
+    val insr = ls.get(0).asInstanceOf[NewInstanceNeeded]
     assertEquals(app, insr.application)
 
     ks.dispose
   }
+
+
 
 
 }
