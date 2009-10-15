@@ -1,6 +1,7 @@
 package jboss.cloud
 
 
+import com.thoughtworks.xstream.XStream
 import java.util.ArrayList
 import org.drools.builder.{KnowledgeBuilderFactory, ResourceType}
 import org.drools.io.ResourceFactory
@@ -28,6 +29,9 @@ class AssignmentTest {
     kb.newStatefulKnowledgeSession
   }
 
+
+
+
   @Test def singleRunningInstance = {
 
 
@@ -45,6 +49,7 @@ class AssignmentTest {
     val results = new ArrayList[Any]
     ks.setGlobal("results", results)
     ks.insert(img)
+
     ks.insert(flv1)
     ks.insert(flv2)
     ks.insert(flv3)
@@ -78,6 +83,22 @@ class AssignmentTest {
     assertEquals(app, insr.application)
 
     ks.dispose
+  }
+
+  @Test def testXStreaming = {
+    val img = Image(1, "fedora11")
+    val flv1 = Flavor(1, 256, 1024, "x86")
+    val flv2 = Flavor(2, 512, 1024, "x86")
+    val flv3 = Flavor(3, 1024, 10000, "x86")
+
+    val app = Application("mike", "war", true, 42, 100, 1, 0, 0, 0)
+
+    val ins = Instance(1, "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
+    val xs = new XStream
+    val xml = xs.toXML(Array(ins, ins).toArray)
+    println("hey" + xml)
+
+
   }
 
 

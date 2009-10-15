@@ -1,9 +1,5 @@
-package jboss.cloud
-dialect "mvel"
-global java.util.List results
-
-
-
+#
+# This contains the rules for assigning apps to instances. 
 #
 # General principles:
 # 
@@ -13,9 +9,12 @@ global java.util.List results
 # If there is a suitable existing server, with less then N apps on it, and you can colocate, do it
 # If there is no suitable colo server, request a new one
 #
-# If a new server is requested, and the app is colocatable, create an instance
-# If a new server is requested and the app is not colocatable, find a minimal suitable flavour, and create an instance.
+# Apps should be allocated in a balanced fashion where possible.
 #
+package jboss.cloud
+dialect "mvel"
+global java.util.List results
+
 
 rule "Setup default memory"
     salience 200
