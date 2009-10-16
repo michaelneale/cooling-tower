@@ -33,19 +33,23 @@ class Advisor {
 
     val recommendations = ls.asScala// convertList(ls)
 
-    return recommendations.filter(!_.isInstanceOf[NewInstanceNeeded]) ++
-                 recommendInstances(recommendations.filter(_.isInstanceOf[NewInstanceNeeded]), data)
+    return recommendations.filter(!_.isInstanceOf[NewInstanceNeeded]) ++ recommendInstances(recommendations.filter(_.isInstanceOf[NewInstanceNeeded]), data)
 
 
   }
 
 
-  private def recommendInstances(needed: Seq[Recommendation], data: Seq[Any]) = {
+  def recommendInstances(needed: Seq[Recommendation], data: Seq[Any]) : Seq[Recommendation] = {
     val session = newServerSession
     val ls = new ArrayList[Recommendation]
     session.setGlobal("results", ls)
+    
     data.map(session.insert(_))
-    needed.map(_.asInstanceOf[NewInstanceNeeded].application).map(session.insert(_))
+    data.map(println(_))
+
+    session.insert(Realm(1, "hey", "RUNNING", 0))
+    val instanceNeeds = needed.map(_.asInstanceOf[NewInstanceNeeded].application)
+    instanceNeeds.map(session.insert(_))
     session.fireAllRules
     session.dispose
     ls.asScala

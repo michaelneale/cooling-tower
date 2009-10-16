@@ -25,6 +25,7 @@ rule "Find a suitable flavor for non colocatable app"
         insert(new InstanceCreateRequest(flavor, image, realm, application))
 end
 
+
 rule "If there are a few colocated apps out there already"
     when
         exists Instance(numberOfApps > 0)
