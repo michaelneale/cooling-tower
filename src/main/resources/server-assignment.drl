@@ -22,7 +22,7 @@ rule "Setup default memory"
         req: Application(memory == 0)
     then
         modify(req) {
-            memory = 512
+            memory = 1.5
         }
 end
 
@@ -32,7 +32,7 @@ rule "Setup default disk"
         req: Application(disk == 0)
     then
         modify(req) {
-            disk = 512
+            disk = 200
         }
 end
 

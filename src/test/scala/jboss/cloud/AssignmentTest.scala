@@ -10,6 +10,7 @@ import org.testng.annotations.Test
 import org.testng.Assert._
 
 
+
 /**
  * 
  * @author Michael Neale
@@ -85,7 +86,12 @@ class AssignmentTest {
     ks.dispose
   }
 
+
+  
+
   @Test def testXStreaming = {
+
+    import org.scala_tools.javautils.Imports._
     val img = Image(1, "fedora11")
     val flv1 = Flavor(1, 256, 1024, "x86")
     val flv2 = Flavor(2, 512, 1024, "x86")
@@ -95,7 +101,13 @@ class AssignmentTest {
 
     val ins = Instance(1, "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
     val xs = new XStream
-    val xml = xs.toXML(Array(ins, ins).toArray)
+    val ls = new ArrayList[Instance]
+    ls.add(ins)
+
+
+
+
+    val xml = xs.toXML( Database(Array(ins)))
     println("hey" + xml)
 
 

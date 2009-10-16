@@ -7,6 +7,7 @@ import org.drools.io.ResourceFactory
 import org.drools.KnowledgeBaseFactory
 import org.drools.runtime.{StatelessKnowledgeSession, StatefulKnowledgeSession}
 import org.scala_tools.javautils.Imports._
+
 /**
  * Provides an API for getting recommendations of what instance to run a given application on, or what to start up etc.
  * Uses Drools knowledge base to decide this.
