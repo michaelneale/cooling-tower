@@ -44,7 +44,6 @@ case class InstanceCreateRequest(flavor: Flavor, image: Image, realm : Realm, ap
 case class InstanceDestroyRequest(instance: Instance) extends Recommendation
 
 
-case class Database(instances: Array[Instance])
 
 
 

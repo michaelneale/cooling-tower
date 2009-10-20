@@ -125,6 +125,12 @@
          <scope>test</scope>
       </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+
 
       <dependency>
          <groupId>org.testng</groupId>

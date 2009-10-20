@@ -24,7 +24,7 @@ class SSHFlinger {
 
     val sess = conn.openSession
 
-    sess.execCommand("uname -a && date && uptime && who")
+    sess.execCommand("uname -a && date && uptime && who")  //will need to copy over after deploy? 
 
 			/*
 			 * This basic example does not handle stderr, which is sometimes dangerous

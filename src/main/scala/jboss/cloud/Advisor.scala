@@ -18,6 +18,9 @@ import org.scala_tools.javautils.Imports._
 class Advisor {
 
 
+  /**
+   * Return a list of recommendations. If empty returned, that is a problem as no suitable matches were found. 
+   */
   def allocateApplication(application: Application,
                           instances: Seq[Instance],
                           images: Seq[Image],

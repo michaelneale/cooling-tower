@@ -6,6 +6,8 @@ package jboss.cloud.deltacloud
  */
 
 class DeltaClient {
-  
+  def images: Seq[Image] = List()
+  def flavors: Seq[Flavor] = List()
+  def realms: Seq[Realm] = List()
 }
 
