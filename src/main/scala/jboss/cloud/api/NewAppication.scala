@@ -47,11 +47,7 @@ class NewAppication {
         Services.tasks.add(DeployApplication(a.application, a.instance))
       }
       case c: InstanceCreateRequest => Services.tasks.add(CreateInstance(c))
-
-      case _ => {
-        //ignore for now
-      }
-
+      case _ => //ignore for now
     }
   }
 

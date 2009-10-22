@@ -2,7 +2,7 @@ package jboss.cloud.api
 
 
 import deltacloud.DeltaClient
-import deploy.TaskManager
+import deploy.{Deployer, TaskManager}
 import mapping.{LocalDatabase, AppAnalyser}
 /**
  * Launching point for getting access to services.
@@ -13,9 +13,11 @@ object Services {
   var appAnalyser = new AppAnalyser
   var db = new LocalDatabase
   var taskManager = new TaskManager
+  var dep = new Deployer
 
   def deltaCloud = deltaClient
   def analyser = appAnalyser
   def database = db
   def tasks = taskManager
+  def deployer = dep
 }

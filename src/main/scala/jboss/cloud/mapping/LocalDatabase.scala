@@ -2,6 +2,7 @@ package jboss.cloud.mapping
 
 
 import com.thoughtworks.xstream.XStream
+import deploy.Task
 import java.io.{FileInputStream, FileOutputStream, File, InputStream}
 import org.apache.commons.io.IOUtils
 /**
@@ -15,6 +16,7 @@ class LocalDatabase {
   var ROOT = new File(".")
   var applications = dir("applications")
   var instances = dir("instances")
+  var tasks = dir("tasks")
   val xstream = new XStream
 
   def storeApplicationBinary(application: Application, appBinary: Array[Byte]) = {
@@ -26,8 +28,18 @@ class LocalDatabase {
   }
 
   def listInstances = instances.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Instance])
-
   def saveInstance(ins: Instance) = xstream.toXML(ins, new FileOutputStream(new File(instances, ins.id + ".xml")))
+  
+  def updateInstanceState(id: Int, state: String) = {
+    val ins: Instance = xstream.fromXML(new FileInputStream(new File(instances, id + ".xml"))).asInstanceOf[Instance]
+    ins.state = state
+    saveInstance(ins)
+  }
+
+  def addTask(ts: Task) = xstream.toXML(ts, new FileOutputStream(new File(tasks, ts.id + ".xml")));
+  def removeTask(ts: Task) = (new File(tasks, ts.id + ".xml")).delete
+  def listTasks = tasks.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Task])
+
 
 
   private def dir(sub: String) = {

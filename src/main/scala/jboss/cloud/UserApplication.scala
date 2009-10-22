@@ -19,7 +19,7 @@ case class Instance(id: Int,
                     name: String, 
                     image: Image,
                     flavor: Flavor,
-                    state: String /* PENDING, STOPPED, RUNNING */,
+                    var state: String /* PENDING, STOPPED, RUNNING */,
                     var applications: Array[Application]) {
   var createdOn = System.currentTimeMillis
   def getSpareMemory = flavor.memory - applications.foldLeft(0: Float)(_ + _.memory)
