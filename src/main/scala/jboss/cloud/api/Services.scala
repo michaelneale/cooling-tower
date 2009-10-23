@@ -14,6 +14,7 @@ object Services {
   var db = new LocalDatabase
   var taskManager = new TaskManager
   var dep = new Deployer
+  
 
   def deltaCloud = deltaClient
   def analyser = appAnalyser

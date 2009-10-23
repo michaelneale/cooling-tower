@@ -1,14 +1,16 @@
 package jboss.cloud.deploy
 
 import api.Services
-import scala.actors.Actor
-import scala.actors.Actor._
+import scala.concurrent.ops._
+
 
 sealed trait Task {
   var id = System.nanoTime
 }
 
-case class DeployApplication(app: Application, ins: Instance) extends Task
+case class DeployApplication(appName: String, ins: Instance) extends Task {
+  def application = ins.applications.filter(_.name == appName)(0)
+}
 case class CreateInstance(req: InstanceCreateRequest) extends Task
 
 /**
@@ -21,54 +23,40 @@ class TaskManager {
 
     var WAIT_FOR_STATE = 30000
 
-    def add(ts: Task) : Unit = {
-      Services.database.addTask(ts)
-      performTaskAsync(ts)
+    def add(t: Task) : Unit = {
+      Services.database.saveTask(t)
+      t match {
+        case a: DeployApplication => spawn { deployApp(a) }
+        case b: CreateInstance => spawn { createInstance(b) }
+      }
     }
 
-    def remove(ts: Task) = {
-      Services.database.removeTask(ts)  
-    }
+    def remove(ts: Task) = Services.database.removeTask(ts)
 
-    def performTaskAsync(tsk: Task) = {
-      val t = new Thread(new Runnable {
-        def run = {
-          tsk match {
-            case d: DeployApplication => deployApp(d)
-            case c: CreateInstance => requestInstance(c)
-          }
-        }
-      })
-      t.start
-    }
 
-    def requestInstance(c: CreateInstance) = {
+    def createInstance(c: CreateInstance) = {
       val instance = Services.deltaCloud.createInstance(c.req.flavor, c.req.image, c.req.realm)
       instance.applications = Array(c.req.application)
       Services.database.saveInstance(instance)
       remove(c)
-      add(DeployApplication(c.req.application, instance))
+      add(DeployApplication(c.req.application.name, instance))
     }
 
 
     def deployApp(d: DeployApplication) = {
       d.ins.state match {
         case "RUNNING" =>  {
-          Services.deployer.deploy(d.app, d.ins)
+          Services.deployer.deploy(d.application, d.ins)
           remove(d)
         }
         case "PENDING" => {
-          var state = "PENDING"
-          var i = 0
-          while (state != "RUNNING" && i < 100) {
-            Thread.sleep(WAIT_FOR_STATE)
-            state = Services.deltaCloud.pollInstanceState(d.ins.id)
-            if (state == "RUNNING") {
+          val state = pollForRunning(d.ins)
+          if (state == "RUNNING") {
               d.ins.state = state
               Services.database.updateInstanceState(d.ins.id, state)
-              Services.deployer.deploy(d.app, d.ins)
-            }
-            i = i + 1
+              Services.deployer.deploy(d.application, d.ins)
+           } else {
+              println("UNABLE TO DEPLOY AS SERVER NOT WAKING UP")
           }
           remove(d)
         }
@@ -76,6 +64,18 @@ class TaskManager {
           println("WILL NOT BE ABLE TO DEPLOY")
           remove(d)
         }
+      }
+    }
+
+    def pollForRunning(ins: Instance) = poll(0, ins)
+
+    def poll(tries: Int, ins: Instance) : String = {
+      val state = Services.deltaCloud.pollInstanceState(ins.id)
+      if (state != "RUNNING" && tries < 100) {
+        Thread.sleep(WAIT_FOR_STATE)
+        poll(tries + 1, ins)
+      } else {
+        state
       }
     }
 

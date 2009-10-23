@@ -27,7 +27,7 @@ class NewAppication {
     val flavors = Services.deltaCloud.flavors
     val (application, appBinary) = Services.analyser.parseApplication(name, app)
 
-    Services.database.storeApplicationBinary(application, appBinary) //stores it as version 1
+    Services.database.saveApplicationBinary(application, appBinary) //stores it as version 1
 
     val rec = advisor.allocateApplication(application, instances, images, flavors, realms)
     if (rec.filter(_.isInstanceOf[Assignment]).size == 0 && rec.filter(_.isInstanceOf[InstanceCreateRequest]).size == 0) {
@@ -44,7 +44,7 @@ class NewAppication {
       case a: Assignment => {
         a.instance.applications = a.instance.applications ++ Array(a.application)
         Services.database.saveInstance(a.instance)
-        Services.tasks.add(DeployApplication(a.application, a.instance))
+        Services.tasks.add(DeployApplication(a.application.name, a.instance))
       }
       case c: InstanceCreateRequest => Services.tasks.add(CreateInstance(c))
       case _ => //ignore for now

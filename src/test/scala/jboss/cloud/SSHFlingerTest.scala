@@ -14,7 +14,7 @@ import org.testng.annotations.Test
  * @author Michael Neale
  */
 
-@Test
+
 class SSHFlingerTest {
 
 
