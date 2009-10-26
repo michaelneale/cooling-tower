@@ -3,9 +3,12 @@ package jboss.cloud
 
 import api.Services
 import deltacloud.DeltaClient
-import deploy.{TaskManager, Deployer}
-import org.testng.annotations.Test
-
+import deploy.{CreateInstance, DeployApplication, TaskManager, Deployer}
+import java.security.SecureRandom
+import java.util.concurrent.{Future, Callable, Executors, Executor}
+import java.util.Random
+import org.testng.annotations.{AfterTest, BeforeTest, Test}
+import org.testng.Assert._
 /**
  * 
  * @author Michael Neale
@@ -13,32 +16,112 @@ import org.testng.annotations.Test
 
 class TaskManagerTest {
 
-  @Test def canMockOut = {
+  @AfterTest def setup = {
+    Services.configure
+  }
+
+  @Test def checkDeployTask = {
+    var instanceState = "RUNNING"
     class MockDC extends DeltaClient {
-      override def createInstance(flavor: Flavor, image: Image, realm: Realm) = null
-
-      override def pollInstanceState(id: Int) = "RUNNING"
-
+      override def createInstance(flavor: Flavor, image: Image, realm: Realm) = {
+        val id = (new SecureRandom).nextInt
+        Instance(id, "faux", image, flavor, "PENDING", Array())
+      }
+      override def pollInstanceState(id: Int) = instanceState
       override def images = null
-
       override def stopInstance(id: Int) = null
-
       override def realms = null
-
       override def flavors = null
     }
 
+    var deployedApp: Application = null
+    var deployedInstance: Instance = null
+
     class MockDeployer extends Deployer {
-      override def deploy(application: Application, instance: Instance) = null
+      override def deploy(application: Application, instance: Instance) = {
+        deployedApp = application
+        deployedInstance = instance
+      }
     }
 
     Services.deltaClient = new MockDC
     Services.dep = new MockDeployer
+    Services.db = TestDB.getDB
 
+
+    //Test simple deploy
+    val tm = new TaskManager
+    tm.WAIT_FOR_STATE = 500 
+
+    assertEquals(Services.database.listTasks.length, 0)
     
 
+    val app = Application("mic", "war", true, 1, /* in GB */ 5, /* In GB */1, 1,System.currentTimeMillis, System.currentTimeMillis)
+
+    val instance = Instance(42, "ins1", Image(42, "my image"), Flavor(42, 42, 42, "x86"), "RUNNING", Array(app))
+    Services.database.saveInstance(instance)
+    tm.add(DeployApplication("mic", instance))
+    Thread.sleep(100)
+
+    assertEquals(Services.database.listTasks.length, 0)
 
 
+    assertNotNull(deployedApp)
+    assertNotNull(deployedInstance)
+
+    assertSame(app, deployedApp)
+    assertSame(instance, deployedInstance)
+
+    //and now deploy another
+    val app2 = Application("jo", "war", true, 1, /* in GB */ 5, /* In GB */1, 1,System.currentTimeMillis, System.currentTimeMillis)
+    instance.applications = instance.applications ++ Array(app2)
+    Services.database.saveInstance(instance)
+
+
+    tm.add(DeployApplication("jo", instance))
+    Thread.sleep(100)
+    assertSame(app2, deployedApp)
+    assertSame(instance, deployedInstance)
+    deployedApp = null
+    assertEquals(Services.database.listTasks.length, 0)
+
+
+    //check a unready instance
+    instance.state = "PENDING"
+    instanceState = "PENDING"
+    Services.database.saveInstance(instance)    
+
+    tm.add(DeployApplication("jo", instance))
+    Thread.sleep(100)
+
+    assertEquals(Services.database.listTasks.length, 1)
+    assertEquals(deployedApp, null)
+
+    instanceState = "RUNNING"
+    Thread.sleep(1000)
+
+
+    assertEquals(Services.database.listTasks.length, 0)
+    assertEquals(app2, deployedApp)
+
+
+    deployedApp = null
+    deployedInstance = null
+    instanceState = "RUNNING"
+
+    //and now for creating a new instance to host an application
+    val appNew = Application("chloe", "war", true, 1, /* in GB */ 5, /* In GB */1, 1,System.currentTimeMillis, System.currentTimeMillis)
+    val icr = InstanceCreateRequest(Flavor(42, 42, 42, "x86"), Image(42, "my image"), Realm(42, "foo", "AVAILABLE", 0), appNew)
+    tm.add(CreateInstance(icr))
+
+    assertEquals(Services.database.listTasks.length, 1)
+    Thread.sleep(1000)
+    assertEquals(Services.database.listTasks.length, 0)
+    assertNotNull(deployedInstance)
+    assertSame(appNew, deployedApp)
+    
+
+    
 
   }
 }

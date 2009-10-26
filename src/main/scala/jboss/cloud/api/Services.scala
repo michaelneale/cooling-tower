@@ -20,4 +20,15 @@ object Services {
   def database = db
   def tasks = taskManager
   def deployer = dep
+  
+
+  /** Load up the dependencies */
+  def configure = {
+    deltaClient = new DeltaClient
+    appAnalyser = new AppAnalyser
+    db = new LocalDatabase
+    taskManager = new TaskManager
+    dep = new Deployer
+  }
+
 }
