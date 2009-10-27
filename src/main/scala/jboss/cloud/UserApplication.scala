@@ -1,9 +1,9 @@
 package jboss.cloud
 
 
-case class Image( id: Int, name: String)
-case class Flavor(id: Int, memory: Float, storage: Float, architecture: String)
-case class Realm(id: Int, name: String, state: String /* AVAILABLE or UNAVAILABLE */, limit: Int)
+case class Image(id: String, name: String)
+case class Flavor(id: String, memory: Float, storage: Float, architecture: String)
+case class Realm(id: String, name: String, state: String /* AVAILABLE or UNAVAILABLE */, limit: Int)
 
 case class Application(name: String,
                        applicationType: String,
@@ -15,7 +15,7 @@ case class Application(name: String,
                        var dateCreated: Long,
                        var dateLastUpdated: Long)
 
-case class Instance(id: Int,
+case class Instance(id: String,
                     name: String, 
                     image: Image,
                     flavor: Flavor,

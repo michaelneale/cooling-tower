@@ -27,6 +27,7 @@ class NewAppication {
     val flavors = Services.deltaCloud.flavors
     val (application, appBinary) = Services.analyser.parseApplication(name, app)
 
+    Services.database.saveApplication(application)
     Services.database.saveApplicationBinary(application, appBinary) //stores it as version 1
 
     val rec = advisor.allocateApplication(application, instances, images, flavors, realms)

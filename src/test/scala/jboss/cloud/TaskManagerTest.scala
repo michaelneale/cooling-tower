@@ -16,18 +16,18 @@ import org.testng.Assert._
 
 class TaskManagerTest {
 
-  @AfterTest def setup = {
-    Services.configure
-  }
+  @AfterTest def resetDependencies = Services.configure
 
   @Test def checkDeployTask = {
     var instanceState = "RUNNING"
+    var createdInstance: Instance = null
     class MockDC extends DeltaClient {
       override def createInstance(flavor: Flavor, image: Image, realm: Realm) = {
-        val id = (new SecureRandom).nextInt
-        Instance(id, "faux", image, flavor, "PENDING", Array())
+        val id = "" + (new SecureRandom).nextInt
+        createdInstance = Instance(id, "faux", image, flavor, "PENDING", Array())
+        createdInstance
       }
-      override def pollInstanceState(id: Int) = instanceState
+      override def pollInstanceState(id: String) = instanceState
       override def images = null
       override def stopInstance(id: Int) = null
       override def realms = null
@@ -58,7 +58,7 @@ class TaskManagerTest {
 
     val app = Application("mic", "war", true, 1, /* in GB */ 5, /* In GB */1, 1,System.currentTimeMillis, System.currentTimeMillis)
 
-    val instance = Instance(42, "ins1", Image(42, "my image"), Flavor(42, 42, 42, "x86"), "RUNNING", Array(app))
+    val instance = Instance("42", "ins1", Image("42", "my image"), Flavor("42", 42, 42, "x86"), "RUNNING", Array(app))
     Services.database.saveInstance(instance)
     tm.add(DeployApplication("mic", instance))
     Thread.sleep(100)
@@ -110,18 +110,29 @@ class TaskManagerTest {
     instanceState = "RUNNING"
 
     //and now for creating a new instance to host an application
+    createdInstance = null
     val appNew = Application("chloe", "war", true, 1, /* in GB */ 5, /* In GB */1, 1,System.currentTimeMillis, System.currentTimeMillis)
-    val icr = InstanceCreateRequest(Flavor(42, 42, 42, "x86"), Image(42, "my image"), Realm(42, "foo", "AVAILABLE", 0), appNew)
+    val flv = Flavor("42", 42, 42, "x86")
+    val icr = InstanceCreateRequest(flv, Image("42", "my image"), Realm("42", "foo", "AVAILABLE", 0), appNew)
     tm.add(CreateInstance(icr))
 
     assertEquals(Services.database.listTasks.length, 1)
     Thread.sleep(1000)
     assertEquals(Services.database.listTasks.length, 0)
     assertNotNull(deployedInstance)
+    assertNotNull(createdInstance)
+    assertSame(deployedInstance, createdInstance)
+    assertSame(createdInstance.flavor, flv)
     assertSame(appNew, deployedApp)
-    
 
+    assertEquals(1, Services.database.listInstances.filter(_.id == createdInstance.id).size)
+    val loadedInstance = Services.database.listInstances.filter(_.id == createdInstance.id)(0)
+    assertEquals(flv.id, loadedInstance.flavor.id)
+    assertEquals(1, loadedInstance.applications.size)
     
+    assertEquals(loadedInstance.applications(0).name, "chloe")
+
+
 
   }
 }

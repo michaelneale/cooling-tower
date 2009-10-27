@@ -31,17 +31,17 @@ class ServerManagementTest {
   }
 
   @Test def findInstanceForColoApp = {
-    val img = Image(1, "fedora11")
-    val flv1 = Flavor(1, 256, 1024, "x86")
-    val flv2 = Flavor(2, 512, 1024, "x86")
-    val flv3 = Flavor(3, 1024, 10000, "x86")
+    val img = Image("1", "fedora11")
+    val flv1 = Flavor("1", 256, 1024, "x86")
+    val flv2 = Flavor("2", 512, 1024, "x86")
+    val flv3 = Flavor("3", 1024, 10000, "x86")
 
     val app = Application("mike", "war", true, 360, 100, 1, 0, 0, 0)
     val sess = newSession
     sess.insert(img)
     List(flv1, flv2, flv3).map(sess.insert(_))
     sess.insert(app)
-    val r = Realm(1, "mike", "AVAILABLE", 100)
+    val r = Realm("1", "mike", "AVAILABLE", 100)
     sess.insert(r)
 
     val ls = new ArrayList[Recommendation]
@@ -65,10 +65,10 @@ class ServerManagementTest {
 
 
   @Test def findInstanceForNonColoApp = {
-    val img = Image(1, "fedora11")
-    val flv1 = Flavor(1, 256, 1024, "x86")
-    val flv2 = Flavor(2, 512, 1024, "x86")
-    val flv3 = Flavor(3, 1024, 10000, "x86")
+    val img = Image("1", "fedora11")
+    val flv1 = Flavor("1", 256, 1024, "x86")
+    val flv2 = Flavor("2", 512, 1024, "x86")
+    val flv3 = Flavor("3", 1024, 10000, "x86")
 
     val app = Application("mike", "war", false, 42, 100, 1, 0, 0, 0)
     val sess = newSession
@@ -77,7 +77,7 @@ class ServerManagementTest {
     sess.insert(flv2)
     sess.insert(flv3)
     sess.insert(app)
-    sess.insert(Realm(1, "mike", "AVAILABLE", 100))
+    sess.insert(Realm("1", "mike", "AVAILABLE", 100))
 
 
     val ls = new ArrayList[Any]
@@ -93,10 +93,10 @@ class ServerManagementTest {
 
 
   @Test def someAppsAlreadyCoLocated = {
-    val img = Image(1, "fedora11")
-    val flv1 = Flavor(1, 256, 1024, "x86")
-    val flv2 = Flavor(2, 512, 1024, "x86")
-    val flv3 = Flavor(3, 1024, 10000, "x86")
+    val img = Image("1", "fedora11")
+    val flv1 = Flavor("1", 256, 1024, "x86")
+    val flv2 = Flavor("2", 512, 1024, "x86")
+    val flv3 = Flavor("3", 1024, 10000, "x86")
 
     val app = Application("mike", "war", true, 200, 1000, 1, 0, 0, 0)
     val sess = newSession
@@ -105,15 +105,15 @@ class ServerManagementTest {
     sess.insert(flv1)
     sess.insert(flv2)
     sess.insert(flv3)
-    sess.insert(Realm(1, "mike", "AVAILABLE", 100))
+    sess.insert(Realm("1", "mike", "AVAILABLE", 100))
 
-    sess.insert(Instance(1, "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0))))
+    sess.insert(Instance("1", "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0))))
 
     val ls = new ArrayList[Any]
     sess.setGlobal("results", ls)
     sess.fireAllRules
 
-    assertEquals(1, ls.size)
+    assertEquals("1", ls.size)
 
     assertEquals(ls.get(0).asInstanceOf[InstanceCreateRequest].flavor, flv3)
     assertEquals(app, ls.get(0).asInstanceOf[InstanceCreateRequest].application)

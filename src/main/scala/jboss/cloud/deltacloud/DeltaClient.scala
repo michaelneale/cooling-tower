@@ -18,7 +18,7 @@ class DeltaClient {
     println("stopping")
   }
 
-  def pollInstanceState(id: Int) : String = {
+  def pollInstanceState(id: String) : String = {
     null
   }
 }

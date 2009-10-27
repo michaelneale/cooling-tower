@@ -27,16 +27,19 @@ class LocalDatabase {
     fout.close
   }
 
+  def saveApplication(a: Application) = xstream.toXML(a, new FileOutputStream(new File(applications, a.name + ".xml")))
+  def listApplications = applications.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Application])
+
+
   def loadApplicationBinary(application: Application) : Array[Byte] = {
     val f = new File(applications, application.name + "." + application.applicationType + "." + application.version)
     IOUtils.toByteArray(new FileInputStream(f))      
   }
 
   def listInstances = instances.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Instance])
-
   def saveInstance(ins: Instance) = xstream.toXML(ins, new FileOutputStream(new File(instances, ins.id + ".xml")))
   
-  def updateInstanceState(id: Int, state: String) = {
+  def updateInstanceState(id: String, state: String) = {
     val ins: Instance = xstream.fromXML(new FileInputStream(new File(instances, id + ".xml"))).asInstanceOf[Instance]
     ins.state = state
     saveInstance(ins)
