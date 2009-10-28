@@ -2,56 +2,34 @@ package jboss.cloud.deltacloud
 
 
 import java.io.StringReader
-import org.apache.commons.httpclient.methods.GetMethod
-import org.apache.commons.httpclient.{HostConfiguration, HttpClient}
+import java.net.{URL, URI}
+import org.apache.commons.httpclient.auth.AuthScope
+import org.apache.commons.httpclient.methods.{PostMethod, GetMethod}
+import org.apache.commons.httpclient.{UsernamePasswordCredentials, HostConfiguration, HttpClient}
 import org.testng.annotations.Test
 import xml.{NodeSeq, Node, XML}
+
+
 /**
- * 
+ * More a smoke test then anything.  
  * @author Michael Neale
  */
-
+@Test
 class DeltaClientTest {
 
-  implicit def valueFromNode(n: NodeSeq) : NodeVal = new NodeVal(n)
 
-  @Test def listImages = {
-    var client = new HttpClient
-    val hostConfig = new HostConfiguration
-
-    hostConfig.setHost("localhost", 3000)
-    client.setHostConfiguration(hostConfig)
-
-    val get = new GetMethod("/api/flavors")
-    get.setRequestHeader("Accept", "application/xml")
-    client.executeMethod(get)
-
-    val dom = XML.load(new StringReader(get.getResponseBodyAsString))
-    val flavors =  dom \\ "flavor"
-    val result = flavors.map((n: Node) => Flavor(n.string("id"), n.float("memory"), n.float("storage"), n.string("architecture") ))
-    println(result)
-
+  def listStuff = {
+    val dc = new DeltaClient
+    val res = dc.images
+    println(res)
   }
 
 
-  class NodeVal(n: NodeSeq) {
-    def string(name: String) = (n \\ name).text
-    def float(name: String) = (n \\ name).text.toFloat
+  def instance = {
+    val dc = new DeltaClient
+    val ins = dc.createInstance(Flavor("m1-small", 42, 42, "x"), Image("img1", "mic"), Realm("us", "US of A", "AVAILABLE"))
+    println(ins)
+    println(dc.pollInstanceState(ins.id))
   }
 
-  @Test def testFindAPI = {
-    var client = new HttpClient
-    val hostConfig = new HostConfiguration
-
-    hostConfig.setHost("localhost", 3000)
-    client.setHostConfiguration(hostConfig)
-
-    val get = new GetMethod("/api")
-    get.setRequestHeader("Accept", "application/xml")
-    client.executeMethod(get)
-
-    println(get.getResponseBodyAsString)
-
-
-  }
 }

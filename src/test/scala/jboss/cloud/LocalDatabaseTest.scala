@@ -39,10 +39,17 @@ import org.testng.Assert._
       assertEquals("42", ins.id)
       assertEquals(1, ins.applications.size)
 
-      ldb.saveInstance(Instance("43", "blah", Image("42", "blah"), Flavor("42", 42, 42, "x86"), "RUNNING", Array(Application("foo", "war", true, 0,0,0,0,0,0))))
+
+      val saveIns = Instance("43", "blah", Image("42", "blah"), Flavor("42", 42, 42, "x86"), "RUNNING", Array(Application("foo", "war", true, 0,0,0,0,0,0)))
+      saveIns.publicAddresses = Array("foo.bar")
+      ldb.saveInstance(saveIns)
       assertEquals(ldb.listInstances.size, 2)
       assertTrue(ldb.listInstances.filter(_.id == "43").size == 1)
       assertTrue(ldb.listInstances.filter(_.id == "42").size == 1)
+
+      val loadedIns : Instance = ldb.listInstances.filter(_.id == "43")(0)
+      assertEquals("foo.bar", loadedIns.publicAddresses(0))
+
 
 
       assertEquals("BLAH", ins.state)

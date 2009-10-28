@@ -3,7 +3,7 @@ package jboss.cloud
 
 case class Image(id: String, name: String)
 case class Flavor(id: String, memory: Float, storage: Float, architecture: String)
-case class Realm(id: String, name: String, state: String /* AVAILABLE or UNAVAILABLE */, limit: Int)
+case class Realm(id: String, name: String, state: String /* AVAILABLE or UNAVAILABLE */)
 
 case class Application(name: String,
                        applicationType: String,
@@ -22,10 +22,13 @@ case class Instance(id: String,
                     var state: String /* PENDING, STOPPED, RUNNING */,
                     var applications: Array[Application]) {
   var createdOn = System.currentTimeMillis
+  var publicAddresses: Array[String] = Array()
   def getSpareMemory = flavor.memory - applications.foldLeft(0: Float)(_ + _.memory)
   def getSpareStorage = flavor.storage - applications.foldLeft(0: Float)(_ + _.disk)
   def getNumberOfApps = applications.length
-  def getAge = System.currentTimeMillis - createdOn  
+  def getAge = System.currentTimeMillis - createdOn
+
+
 }
 
 /** The result of asking what you should do - is a Recommendation ! */

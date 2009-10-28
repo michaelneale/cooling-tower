@@ -43,9 +43,11 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/UserApplication.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/NewAppication.scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala" charset="UTF-8" />
   </component>
   <component name="FacetAutodetectingManager">
     <autodetection-disabled>

@@ -2,7 +2,7 @@ package jboss.cloud.api
 
 
 import deltacloud.DeltaClient
-import deploy.{Deployer, TaskManager}
+import deploy.{DefaultDeployer, Deployer, TaskManager}
 import mapping.{LocalDatabase, AppAnalyser}
 /**
  * Launching point for getting access to services.
@@ -13,13 +13,15 @@ object Services {
   var appAnalyser = new AppAnalyser
   var db = new LocalDatabase
   var taskManager = new TaskManager
-  var dep = new Deployer
+  var dep : Deployer  = new DefaultDeployer
+
 
   def deltaCloud = deltaClient
   def analyser = appAnalyser
   def database = db
   def tasks = taskManager
   def deployer = dep
+  def deltaCloudConfig = new DeltaCloudConfig
   
 
   /** Load up the dependencies */
@@ -28,7 +30,13 @@ object Services {
     appAnalyser = new AppAnalyser
     db = new LocalDatabase
     taskManager = new TaskManager
-    dep = new Deployer
+    dep = new DefaultDeployer
   }
 
+}
+
+class DeltaCloudConfig {
+  var userName = "mockuser"
+  var password = "mockpassword"
+  var apiURL = "http://localhost:3000/api"
 }

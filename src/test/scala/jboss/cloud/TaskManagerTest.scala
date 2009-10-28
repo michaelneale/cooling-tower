@@ -29,7 +29,6 @@ class TaskManagerTest {
       }
       override def pollInstanceState(id: String) = instanceState
       override def images = null
-      override def stopInstance(id: Int) = null
       override def realms = null
       override def flavors = null
     }
@@ -113,7 +112,7 @@ class TaskManagerTest {
     createdInstance = null
     val appNew = Application("chloe", "war", true, 1, /* in GB */ 5, /* In GB */1, 1,System.currentTimeMillis, System.currentTimeMillis)
     val flv = Flavor("42", 42, 42, "x86")
-    val icr = InstanceCreateRequest(flv, Image("42", "my image"), Realm("42", "foo", "AVAILABLE", 0), appNew)
+    val icr = InstanceCreateRequest(flv, Image("42", "my image"), Realm("42", "foo", "AVAILABLE"), appNew)
     tm.add(CreateInstance(icr))
 
     assertEquals(Services.database.listTasks.length, 1)
