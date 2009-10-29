@@ -1,0 +1,32 @@
+= Cooling Tower - java web app deployment via deltacloud
+
+== Summary
+CoolingTower builds on deltacloud.org to provide a simple way to intelligently deploy web apps. Deltacloud is an api that abstracts away the differences between cloud providers.
+With CoolingTower you deploy your web app (say, a war) and it will work out where to run it, how to run it, and start and stop instances of the appropriate type if needed (via deltacloud).
+
+== How it works
+Currently CT has a RESTEasy provided api: 
+Using a rulebase (via drools) there are some pre configured rules that match up apps with containers (a container is app server + server instance running somewhere in the cloud), and if necessary, select appropriate images and flavors for a new cloud server. This is designed to keep costs low, so it will only startup servers as needed, using a suitable flavor, and then shutting down when not needed. Of course being rules, these can be tuned over time ! 
+
+== Usage of REST api (draft)
+   GET /cooling-tower -- get a list of links to something like the following:
+   POST /cooling-tower/applications --- post the war/app contents, will return a link to status
+   GET /cooling-tower/applications/your-app -- return the status of it (where it is running, if it is ready etc)
+   POST /cooling-tower/applications/your-app -- update the version
+   DELETE /cooling-tower/applications/your-app -- decommission the app (may result in some server savings)
+   GET /cooling-tower/applications -- list the apps available and status
+
+
+== Status and roadmap
+Current status is Very Early PoC - not all moving pieces are yet, uhhh... moving. As some credentials need to be cached, care must be taken. 
+Integration with JOPR is required: most likely in the form of a plugin to make JOPR aware of cloud fabrics, and also allow deployment via CT from JOPR console.
+The current agent functionality is (probably) adequate for this. 
+Further: 
+* Database provisioning
+* Auto Cluster configuration
+* DNS registration of app name
+* Eclipse plugin
+
+
+=== Usage Examples
+TBD (curl, ant etc...)
