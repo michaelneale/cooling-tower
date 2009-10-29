@@ -149,7 +149,7 @@
       <file leaf-file-name="Deployer.scala" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="19" selection-start="56" selection-end="56" vertical-scroll-proportion="0.13129103">
+            <state line="1" column="86" selection-start="27" selection-end="27" vertical-scroll-proportion="0.032822758">
               <folding />
             </state>
           </provider>
@@ -1543,7 +1543,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="19" selection-start="56" selection-end="56" vertical-scroll-proportion="0.13129103">
+        <state line="1" column="86" selection-start="27" selection-end="27" vertical-scroll-proportion="0.032822758">
           <folding />
         </state>
       </provider>
