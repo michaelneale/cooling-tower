@@ -20,6 +20,7 @@ class TaskManagerTest {
 
   @Test def checkDeployTask = {
     var instanceState = "RUNNING"
+    var publicAddresses = Array("foo.bar")
     var createdInstance: Instance = null
     class MockDC extends DeltaClient {
       override def createInstance(flavor: Flavor, image: Image, realm: Realm) = {
@@ -27,7 +28,7 @@ class TaskManagerTest {
         createdInstance = Instance(id, "faux", image, flavor, "PENDING", Array())
         createdInstance
       }
-      override def pollInstanceState(id: String) = instanceState
+      override def pollInstanceState(id: String) = (instanceState, publicAddresses)
       override def images = null
       override def realms = null
       override def flavors = null
@@ -102,6 +103,7 @@ class TaskManagerTest {
 
     assertEquals(Services.database.listTasks.length, 0)
     assertEquals(app2, deployedApp)
+    assertEquals("foo.bar", Services.database.loadInstance(instance.id).publicAddresses(0))
 
 
     deployedApp = null

@@ -48,6 +48,7 @@
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/NewAppication.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala" charset="UTF-8" />
   </component>
   <component name="FacetAutodetectingManager">
     <autodetection-disabled>
@@ -492,6 +493,20 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
@@ -506,8 +521,36 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.9/testng-5.9-jdk15-sources.jar!/" />
@@ -654,17 +697,6 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/scala-tools/javautils/2.7.4-0.1/javautils-2.7.4-0.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/ganymed/ganymed-ssh2/build210/ganymed-ssh2-build210.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/ganymed/ganymed-ssh2/build210/ganymed-ssh2-build210-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/ganymed/ganymed-ssh2/build210/ganymed-ssh2-build210-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: commons-io:commons-io:1.4">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4.jar!/" />
@@ -674,6 +706,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/ganymed/ganymed-ssh2/build210/ganymed-ssh2-build210.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/ganymed/ganymed-ssh2/build210/ganymed-ssh2-build210-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/ganymed/ganymed-ssh2/build210/ganymed-ssh2-build210-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

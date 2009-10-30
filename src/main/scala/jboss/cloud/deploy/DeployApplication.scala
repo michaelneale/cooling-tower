@@ -50,10 +50,12 @@ class TaskManager {
           remove(d)
         }
         case "PENDING" => {
-          val state = pollForRunning(d.ins)
+          val (state, publicAddresses) = pollForRunning(d.ins)
           if (state == "RUNNING") {
+              //TODO could run post startup script here??
               d.ins.state = state
-              Services.database.updateInstanceState(d.ins.id, state)
+              d.ins.publicAddresses = publicAddresses
+              Services.database.saveInstance(d.ins)
               Services.deployer.deploy(d.application, d.ins)
            } else {
               println("UNABLE TO DEPLOY AS SERVER NOT WAKING UP")
@@ -69,13 +71,13 @@ class TaskManager {
 
     def pollForRunning(ins: Instance) = poll(0, ins)
 
-    def poll(tries: Int, ins: Instance) : String = {
-      val state = Services.deltaCloud.pollInstanceState(ins.id)
+    def poll(tries: Int, ins: Instance) : (String, Array[String]) = {
+      val (state, addresses) = Services.deltaCloud.pollInstanceState(ins.id)
       if (state != "RUNNING" && tries < 100) {
         Thread.sleep(WAIT_FOR_STATE)
         poll(tries + 1, ins)
       } else {
-        state
+        (state, addresses)
       }
     }
 

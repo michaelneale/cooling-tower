@@ -14,7 +14,6 @@ import xml.{NodeSeq, Node, XML}
  * More a smoke test then anything.  
  * @author Michael Neale
  */
-@Test
 class DeltaClientTest {
 
 

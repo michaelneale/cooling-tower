@@ -1,6 +1,7 @@
 package jboss.cloud.deploy
 
 
+import api.Services
 import java.io.InputStream
 
 /**
@@ -17,8 +18,15 @@ class DefaultDeployer extends Deployer {
 
 
   def deploy(application: Application, instance: Instance) = {
-    //load app binary, and fling it...
-    println("deploying...")
+    val scl = new SSHClient
+    scl.connect(instance.publicAddresses(0), "root", "bar")
+    val appFileName = application.name + "." + application.applicationType
+    scl.putFile(Services.database.loadApplicationBinary(application), appFileName, "cooling-deployments")
+    val installScript: String = ""
+    if (installScript != "") {
+      scl.runScript(installScript.replace(("$APPLICATION", appFileName)).replace("$VERSION", application.version))
+    }
+    scl.disconnect
   }
 
 }

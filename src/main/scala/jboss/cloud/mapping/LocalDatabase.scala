@@ -38,12 +38,7 @@ class LocalDatabase {
 
   def listInstances = instances.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Instance])
   def saveInstance(ins: Instance) = xstream.toXML(ins, new FileOutputStream(new File(instances, ins.id + ".xml")))
-  
-  def updateInstanceState(id: String, state: String) = {
-    val ins: Instance = xstream.fromXML(new FileInputStream(new File(instances, id + ".xml"))).asInstanceOf[Instance]
-    ins.state = state
-    saveInstance(ins)
-  }
+  def loadInstance(id: String) = xstream.fromXML(new FileInputStream(new File(instances, id + ".xml"))).asInstanceOf[Instance]
 
   def saveTask(ts: Task) = xstream.toXML(ts, new FileOutputStream(new File(tasks, ts.id + ".xml")));
   def removeTask(ts: Task) = (new File(tasks, ts.id + ".xml")).delete

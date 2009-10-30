@@ -40,3 +40,4 @@ class DeltaCloudConfig {
   var password = "mockpassword"
   var apiURL = "http://localhost:3000/api"
 }
+

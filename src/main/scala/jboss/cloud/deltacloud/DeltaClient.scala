@@ -50,7 +50,12 @@ class DeltaClient {
   }
   
 
-  def pollInstanceState(id: String) : String =  XML.load(doGet(lookup("instances") + "/" + id).getResponseBodyAsStream).string("state")
+  def pollInstanceState(id: String) : (String, Array[String]) =  {
+    val resp = XML.load(doGet(lookup("instances") + "/" + id).getResponseBodyAsStream)
+    val publicAddresses = (resp \\ "public-addresses").foldLeft(Array[String]())((list, node) => list ++ Array(node.string("address")))
+    val state = resp.string("state")
+    (state, publicAddresses)
+  }
 
 
   class NodeVal(n: NodeSeq) {
