@@ -24,7 +24,7 @@ class DefaultDeployer extends Deployer {
     scl.putFile(Services.database.loadApplicationBinary(application), appFileName, "cooling-deployments")
     val installScript: String = ""
     if (installScript != "") {
-      scl.runScript(installScript.replace(("$APPLICATION", appFileName)).replace("$VERSION", application.version))
+ //      scl.runScript(installScript.replace(("$APPLICATION", appFileName)).replace("$VERSION", application.version))
     }
     scl.disconnect
   }

@@ -16,7 +16,6 @@ import xml.{Node, XML, NodeSeq}
 class DeltaClient {
 
 
-
   implicit def valueFromNode(n: NodeSeq) : NodeVal = new NodeVal(n)
 
   def images: Seq[Image] = {
@@ -63,7 +62,7 @@ class DeltaClient {
     def float(name: String) = (n \\ name).text.toFloat
   }
 
-  val resources : Map[String, String] = {
+  lazy val resources : Map[String, String] = {
     val links = XML.load(doGet(Services.deltaCloudConfig.apiURL).getResponseBodyAsStream) \\ "link"
     links.foldLeft(Map[String, String]()) ( (m , n) => m ++ Map(n.string("@rel") -> n.string("@href")) )
   }

@@ -3,6 +3,7 @@ package jboss.cloud.api
 
 import deploy.{TaskManager, CreateInstance, DeployApplication}
 import java.io.InputStream
+import javax.servlet.http.HttpServletResponse
 import javax.ws.rs.core.Response
 import javax.ws.rs.core.Response.Status
 
@@ -32,10 +33,10 @@ class NewAppication {
 
     val rec = advisor.allocateApplication(application, instances, images, flavors, realms)
     if (rec.filter(_.isInstanceOf[Assignment]).size == 0 && rec.filter(_.isInstanceOf[InstanceCreateRequest]).size == 0) {
-      "BAD"
+      Response.status(HttpServletResponse.SC_BAD_REQUEST).entity("Unable find an instance to run that application.").build
     } else {
       rec map(processRecommendation)
-      <status application={application.name}><link href={"status/" + application.name}>{application.name}</link></status>.toString  //need to return app URL etc...
+      Response.ok.entity(<status application={application.name}><link href={application.name}>{application.name}</link></status>.toString).build 
     }
   }
 
@@ -52,7 +53,17 @@ class NewAppication {
     }
   }
 
-  def status(name: String) = {
+  def status(appName: String) = {
+    val outstandingTasks = Services.database.listTasks.filter(_ match  {
+      case d: DeployApplication => d.appName == appName
+      case c: CreateInstance => c.req.application.name == appName
+    })
+
+    if (outstandingTasks.size == 0) {
+      //val instance: Instance = Services.database.listInstances.filter(_.applications.filter(_.name == appName).size == 1)(0)
+
+    }
+    //Services.database.listApplications
     println("OK")
     //search outstanding tasks - if not there, then check in instances, if there, cool, Otherwise, its AWOL.
   }

@@ -1,6 +1,7 @@
 package jboss.cloud
 
 
+import com.jcraft.jsch.{JSch, ChannelSftp}
 import deploy.SSHClient
 import java.io.{FileInputStream, File}
 import org.apache.commons.io.IOUtils
@@ -38,6 +39,26 @@ class SSHClientTest {
     c.runScript("mv deployment-uploads/mycode.txt ./mycode.txt")
     println(c.runScript("ls -l"))           
     c.disconnect
+  }
+
+  def testJSCH = {
+
+            //
+            //First Create a JSch session
+            //
+            System.out.println("Creating session.");
+            val jsch = new JSch()
+            jsch.addIdentity("path/to/pem")
+            val session = jsch.getSession("root", "ec2-174-129-173-78.compute-1.amazonaws.com")
+            val config = new java.util.Properties
+            config.put("StrictHostKeyChecking", "no")
+            session.setConfig(config)
+            session.connect
+            println("connected !")
+            //Session session = null;
+            //Channel channel = null;
+            //ChannelSftp c = null;
+            session.disconnect
   }
 
 }

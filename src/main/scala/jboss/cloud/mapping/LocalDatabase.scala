@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils
 
 class LocalDatabase {
   var ROOT = new File(".")
+  
   def applications = dir("applications")
   def instances = dir("instances")
   def tasks = dir("tasks")

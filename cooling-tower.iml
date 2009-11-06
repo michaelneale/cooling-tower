@@ -113,6 +113,10 @@
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/lib/" />
           </containerElement>
+          <containerElement type="library" name="Maven: com.jcraft:jsch:0.1.42" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
         </packaging>
       </configuration>
     </facet>
@@ -165,6 +169,7 @@
     <orderEntry type="library" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.scala-tools:javautils:2.7.4-0.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.jcraft:jsch:0.1.42" level="project" />
   </component>
 </module>
 

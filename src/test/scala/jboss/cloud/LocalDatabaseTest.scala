@@ -21,6 +21,7 @@ import org.testng.Assert._
       assertEquals(new String(result), "some data")
     }
 
+
     def checkInstances = {
       val ldb = TestDB.getDB
       println(ldb.ROOT.getAbsolutePath)
@@ -34,13 +35,14 @@ import org.testng.Assert._
 
       assertEquals("RUNNING", ins.state)
 
-      ldb.updateInstanceState(ins.id, "BLAH")
+      ins.state = "BLAH"
+      ldb.saveInstance(ins)
       ins = ldb.listInstances(0)
       assertEquals("42", ins.id)
       assertEquals(1, ins.applications.size)
 
 
-      val saveIns = Instance("43", "blah", Image("42", "blah"), Flavor("42", 42, 42, "x86"), "RUNNING", Array(Application("foo", "war", true, 0,0,0,0,0,0)))
+      val saveIns = Instance("43", "blah", Image("42", "blah"), Flavor("42", 42, 42, "x86"), "RUNNING", Array(Application("foo2", "war", true, 0,0,0,0,0,0)))
       saveIns.publicAddresses = Array("foo.bar")
       ldb.saveInstance(saveIns)
       assertEquals(ldb.listInstances.size, 2)
@@ -53,6 +55,11 @@ import org.testng.Assert._
 
 
       assertEquals("BLAH", ins.state)
+
+      val x = ldb.listInstances.filter(_.applications.filter(a => a.name == "foo" && a.applicationType == "war").size == 1)
+      assertEquals(1, x.size)
+      assertEquals("BLAH", x(0).state) 
+
     }
 
     def checkTasks = {
