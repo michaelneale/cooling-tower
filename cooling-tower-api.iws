@@ -83,19 +83,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdvisorTest.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/AdvisorTest.scala">
+      <file leaf-file-name="Deployer.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="6" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0">
+            <state line="8" column="20" selection-start="109" selection-end="109" vertical-scroll-proportion="0.19672132">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Deployer.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
+      <file leaf-file-name="SSHClient.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="6" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
+            <state line="20" column="6" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -113,7 +113,7 @@
       <file leaf-file-name="DeltaClient.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="7" selection-start="2431" selection-end="2431" vertical-scroll-proportion="0.0">
+            <state line="15" column="6" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -122,7 +122,7 @@
       <file leaf-file-name="Services.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="25" selection-start="458" selection-end="458" vertical-scroll-proportion="0.0">
+            <state line="35" column="25" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -146,10 +146,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServicesTest.scala" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ServicesTest.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ServicesTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="104" selection-start="728" selection-end="728" vertical-scroll-proportion="0.6639344">
+            <state line="27" column="36" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -952,13 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="6" selection-start="245" selection-end="245" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/SSHClientTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="1" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0">
@@ -976,13 +969,6 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="149" column="0" selection-start="4521" selection-end="4521" vertical-scroll-proportion="1.1174377">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="6" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1008,13 +994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/mapping/LocalDatabase.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="2" selection-start="340" selection-end="340" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/cooling-tower.config">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="58" selection-start="723" selection-end="767" vertical-scroll-proportion="0.0">
@@ -1022,23 +1001,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/mapping/LocalDatabase.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="2" selection-start="340" selection-end="340" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="7" selection-start="2431" selection-end="2431" vertical-scroll-proportion="0.0">
+        <state line="15" column="6" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="25" selection-start="458" selection-end="458" vertical-scroll-proportion="0.0">
+        <state line="35" column="25" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ServicesTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="104" selection-start="728" selection-end="728" vertical-scroll-proportion="0.6639344">
+        <state line="27" column="36" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="6" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="20" selection-start="109" selection-end="109" vertical-scroll-proportion="0.19672132">
           <folding />
         </state>
       </provider>

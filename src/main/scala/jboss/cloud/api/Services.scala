@@ -2,7 +2,7 @@ package jboss.cloud.api
 
 
 import deltacloud.DeltaClient
-import deploy.{DefaultDeployer, Deployer, TaskManager}
+import deploy.{SSHDeployer, Deployer, TaskManager}
 import java.io.{File, FileInputStream}
 import java.util.Properties
 import mapping.{LocalDatabase, AppAnalyser}
@@ -16,7 +16,7 @@ object Services {
   var appAnalyser = new AppAnalyser
   var db = new LocalDatabase
   var taskManager = new TaskManager
-  var dep : Deployer  = new DefaultDeployer
+  var dep : Deployer  = new SSHDeployer
   var deltaCloudConfig = new DeltaCloudConfig
   var newInstanceConfig = new NewInstanceConfig
 
@@ -33,7 +33,7 @@ object Services {
     appAnalyser = new AppAnalyser
     db = new LocalDatabase
     taskManager = new TaskManager
-    dep = new DefaultDeployer
+    dep = new SSHDeployer
     deltaCloudConfig = new DeltaCloudConfig
     newInstanceConfig = new NewInstanceConfig
 

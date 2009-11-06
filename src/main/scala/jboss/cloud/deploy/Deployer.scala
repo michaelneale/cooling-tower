@@ -14,18 +14,19 @@ trait Deployer {
   def deploy(application: Application, instance: Instance)
 }
 
-class DefaultDeployer extends Deployer {
-
-
+class SSHDeployer extends Deployer {
   def deploy(application: Application, instance: Instance) = {
     val scl = new SSHClient
-    scl.connect(instance.publicAddresses(0), "root", "bar")
-    val appFileName = application.name + "." + application.applicationType
-    scl.putFile(Services.database.loadApplicationBinary(application), appFileName, "cooling-deployments")
-    val installScript: String = ""
-    if (installScript != "") {
- //      scl.runScript(installScript.replace(("$APPLICATION", appFileName)).replace("$VERSION", application.version))
+    val instanceConfig = Services.newInstanceConfig
+    if (instanceConfig.privateKey != null) {
+      scl.connect(instance.publicAddresses(0), instanceConfig.userName, instanceConfig.privateKey.toCharArray, null )
+    } else {
+      scl.connect(instance.publicAddresses(0), instanceConfig.userName, instanceConfig.password)
     }
+    val appFileName = application.name + "." + application.applicationType
+    scl.runScript("mkdir ct-temp")
+    scl.putFile(Services.database.loadApplicationBinary(application), appFileName, "ct-temp")
+    scl.runScript("mv ct-temp/" + appFileName + " " + instanceConfig.targetDir)
     scl.disconnect
   }
 
