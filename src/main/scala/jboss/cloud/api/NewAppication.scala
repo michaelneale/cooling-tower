@@ -63,9 +63,7 @@ class NewAppication {
       //val instance: Instance = Services.database.listInstances.filter(_.applications.filter(_.name == appName).size == 1)(0)
 
     }
-    //Services.database.listApplications
     println("OK")
-    //search outstanding tasks - if not there, then check in instances, if there, cool, Otherwise, its AWOL.
   }
 
 

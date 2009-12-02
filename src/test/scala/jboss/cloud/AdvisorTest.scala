@@ -23,7 +23,7 @@ class AdvisorTest {
     val ins = Instance("1", "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0)))
 
     val a = new Advisor
-    val res = a.allocateApplication(app, List(ins), List(img), List(flv1, flv2, flv3), List(Realm("1", "hey", "RUNNING", 0)))
+    val res = a.allocateApplication(app, List(ins), List(img), List(flv1, flv2, flv3), List(Realm("1", "hey", "RUNNING")))
     assertEquals(1, res.size)
     assertTrue(res(0).isInstanceOf[Assignment])
     val as = res(0).asInstanceOf[Assignment]
@@ -40,7 +40,7 @@ class AdvisorTest {
 
     val app = Application("mike", "war", true, 42, 100, 1, 0, 0, 0)
     val a = new Advisor
-    val res = a.allocateApplication(app, List(), List(img), List(flv1, flv2, flv3), List(Realm("1", "hey", "AVAILABLE", 0)))
+    val res = a.allocateApplication(app, List(), List(img), List(flv1, flv2, flv3), List(Realm("1", "hey", "AVAILABLE")))
     assertEquals(1, res.size)
     val req = res(0).asInstanceOf[InstanceCreateRequest]
     assertEquals(req.image, img)

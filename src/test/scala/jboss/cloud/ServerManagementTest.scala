@@ -41,7 +41,7 @@ class ServerManagementTest {
     sess.insert(img)
     List(flv1, flv2, flv3).map(sess.insert(_))
     sess.insert(app)
-    val r = Realm("1", "mike", "AVAILABLE", 100)
+    val r = Realm("1", "mike", "AVAILABLE")
     sess.insert(r)
 
     val ls = new ArrayList[Recommendation]
@@ -77,7 +77,7 @@ class ServerManagementTest {
     sess.insert(flv2)
     sess.insert(flv3)
     sess.insert(app)
-    sess.insert(Realm("1", "mike", "AVAILABLE", 100))
+    sess.insert(Realm("1", "mike", "AVAILABLE"))
 
 
     val ls = new ArrayList[Any]
@@ -105,7 +105,7 @@ class ServerManagementTest {
     sess.insert(flv1)
     sess.insert(flv2)
     sess.insert(flv3)
-    sess.insert(Realm("1", "mike", "AVAILABLE", 100))
+    sess.insert(Realm("1", "mike", "AVAILABLE"))
 
     sess.insert(Instance("1", "mic22", img, flv3, "RUNNING", Array(Application("other", "war", true, 42, 100, 1, 0, 0, 0))))
 
@@ -113,7 +113,7 @@ class ServerManagementTest {
     sess.setGlobal("results", ls)
     sess.fireAllRules
 
-    assertEquals("1", ls.size)
+    assertEquals(1, ls.size)
 
     assertEquals(ls.get(0).asInstanceOf[InstanceCreateRequest].flavor, flv3)
     assertEquals(app, ls.get(0).asInstanceOf[InstanceCreateRequest].application)

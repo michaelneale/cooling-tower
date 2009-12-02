@@ -51,7 +51,7 @@ class Advisor {
     data.map(session.insert(_))
     data.map(println(_))
 
-    session.insert(Realm("1", "hey", "RUNNING", 0))
+    session.insert(Realm("1", "hey", "RUNNING"))
     val instanceNeeds = needed.map(_.asInstanceOf[NewInstanceNeeded].application)
     instanceNeeds.map(session.insert(_))
     session.fireAllRules

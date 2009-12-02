@@ -19,21 +19,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ParaTest.scala" line="17" class="Class at ParaTest.scala:17" package="">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -74,37 +59,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DeployApplication.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/DeployApplication.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="11" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Deployer.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="20" selection-start="109" selection-end="109" vertical-scroll-proportion="0.19672132">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SSHClient.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="6" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="cooling-tower.config" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/cooling-tower.config">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="58" selection-start="723" selection-end="767" vertical-scroll-proportion="0.0">
+            <state line="15" column="47" selection-start="465" selection-end="465" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -113,52 +71,70 @@
       <file leaf-file-name="DeltaClient.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="6" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0">
+            <state line="15" column="29" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Services.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala">
+      <file leaf-file-name="SSHClient.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="25" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
+            <state line="10" column="6" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LocalDatabase.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/mapping/LocalDatabase.scala">
+      <file leaf-file-name="SSHClientTest.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/SSHClientTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="2" selection-start="340" selection-end="340" vertical-scroll-proportion="0.0">
+            <state line="3" column="1" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Predef.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.7.5/scala-library-2.7.5.jar!/scala/Predef.class">
+      <file leaf-file-name="ServerManagementTest.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ServerManagementTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="6" selection-start="129" selection-end="129" vertical-scroll-proportion="0.0">
+            <state line="115" column="18" selection-start="3110" selection-end="3110" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServicesTest.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ServicesTest.scala">
+      <file leaf-file-name="AdvisorTest.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/AdvisorTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="36" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0">
+            <state line="42" column="118" selection-start="1344" selection-end="1344" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Map.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/src.jar!/src/java/util/Map.java">
+      <file leaf-file-name="Deployer.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="176" column="6" selection-start="8656" selection-end="8656" vertical-scroll-proportion="0.0">
+            <state line="16" column="6" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="157" column="30" selection-start="4710" selection-end="4710" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskManagerTest.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/TaskManagerTest.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="125" column="42" selection-start="4047" selection-end="4047" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -208,154 +184,6 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="cooling-tower" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower-api" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Maven: org.scala-lang:scala-library:2.7.5" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scala-library-2.7.5.jar" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower-api" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Maven: org.scala-lang:scala-library:2.7.5" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scala-library-2.7.5.jar" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="scala" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower-api" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="&lt; 1.6 &gt;" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower-api" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="&lt; 1.6 &gt;" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="classes.jar" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower-api" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="&lt; 1.6 &gt;" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="classes.jar" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="util" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower-api" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="cooling-tower" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Libraries" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.LibraryGroupNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="&lt; 1.6 &gt;" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="classes.jar" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -670,13 +498,13 @@
     </navigator>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="errors" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="project.structure.side.proportion" value="0.21965317" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -695,21 +523,21 @@
       <recent name="jboss.cloud.mapping" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.ServicesTest.checkProps">
-    <tempConfiguration default="false" name="ServicesTest.checkProps" type="TestNG" factoryName="TestNG" enabled="false" merge="false" sample_coverage="true" runner="emma">
+  <component name="RunManager" selected="TestNG.ServerManagementTest">
+    <tempConfiguration default="false" name="ServerManagementTest" type="TestNG" factoryName="TestNG" enabled="false" merge="false" runner="emma">
       <module name="cooling-tower" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="SUITE_NAME" value="" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
       <option name="PACKAGE_NAME" value="jboss.cloud" />
-      <option name="MAIN_CLASS_NAME" value="jboss.cloud.ServicesTest" />
-      <option name="METHOD_NAME" value="checkProps" />
-      <option name="GROUP_NAME" value="" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="MAIN_CLASS_NAME" value="jboss.cloud.ServerManagementTest" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
       <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
@@ -717,7 +545,7 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
       </option>
-      <option name="PROPERTIES_FILE" value="" />
+      <option name="PROPERTIES_FILE" />
       <envs />
       <properties />
       <listeners />
@@ -823,7 +651,7 @@
       <setting name="params" value="" />
     </configuration>
     <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="TestNG.ServicesTest.checkProps" />
+      <item index="0" class="java.lang.String" itemvalue="TestNG.ServerManagementTest" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -845,6 +673,7 @@
     <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
     <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
     <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
     <configuration useDefault="true">$PROJECT_DIR$/../../../michaelneale/.subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
     <supportedVersion>125</supportedVersion>
@@ -870,29 +699,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1174" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1920" height="878" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756326" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3271523" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28449097" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27402472" sideWeight="0.98869723" order="7" side_tool="false" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38013244" sideWeight="0.98869723" order="7" side_tool="false" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980132" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18589744" sideWeight="0.6251189" order="0" side_tool="false" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18589744" sideWeight="0.4781457" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36822075" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5125828" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6983825" order="2" side_tool="false" />
@@ -931,97 +760,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/LocalDatabaseTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="123" selection-start="1842" selection-end="1947" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/UserApplication.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="11" selection-start="663" selection-end="663" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/NewAppication.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="8" selection-start="2353" selection-end="2353" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/SSHClientTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="1" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/AdvisorTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="6" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="0" selection-start="4521" selection-end="4521" vertical-scroll-proportion="1.1174377">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/src.jar!/src/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="6" selection-start="8656" selection-end="8656" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/DeployApplication.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="11" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.7.5/scala-library-2.7.5.jar!/scala/Predef.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="6" selection-start="129" selection-end="129" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/cooling-tower.config">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="58" selection-start="723" selection-end="767" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/mapping/LocalDatabase.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="2" selection-start="340" selection-end="340" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="6" selection-start="403" selection-end="403" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="25" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ServicesTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="36" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0">
@@ -1029,16 +767,100 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="6" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
+        <state line="49" column="23" selection-start="1692" selection-end="1692" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/UserApplication.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="11" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/Advisor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="83" selection-start="2040" selection-end="2040" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar!/org/apache/commons/httpclient/auth/AuthScope.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="172" selection-end="172" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/commons-httpclient/commons-httpclient/2.0.2/commons-httpclient-2.0.2.jar!/org/apache/commons/httpclient/methods/PostMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/cooling-tower.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="47" selection-start="465" selection-end="465" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="29" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/Deployer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="20" selection-start="109" selection-end="109" vertical-scroll-proportion="0.19672132">
+        <state line="16" column="6" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="6" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/AdvisorTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="118" selection-start="1344" selection-end="1344" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/SSHClientTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="1" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="157" column="30" selection-start="4710" selection-end="4710" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/TaskManagerTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="42" selection-start="4047" selection-end="4047" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/ServerManagementTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="18" selection-start="3110" selection-end="3110" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
