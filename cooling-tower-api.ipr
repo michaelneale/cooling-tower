@@ -46,7 +46,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/UserApplication.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/NewAppication.scala" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Services.scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/config/Services.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deltacloud/DeltaClient.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/deploy/SSHClient.scala" charset="UTF-8" />
   </component>

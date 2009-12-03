@@ -1,6 +1,6 @@
 package jboss.cloud.deploy
 
-import api.Services
+import config.Services
 import scala.concurrent.ops._
 
 

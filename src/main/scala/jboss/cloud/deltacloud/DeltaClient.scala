@@ -1,7 +1,7 @@
 package jboss.cloud.deltacloud
 
 
-import api.Services
+import config.Services
 import java.io.StringReader
 import javax.servlet.http.HttpServletResponse
 import org.apache.commons.httpclient.auth.AuthScope

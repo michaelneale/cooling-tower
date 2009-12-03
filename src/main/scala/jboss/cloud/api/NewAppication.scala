@@ -1,6 +1,7 @@
 package jboss.cloud.api
 
 
+import config.Services
 import deploy.{TaskManager, CreateInstance, DeployApplication}
 import java.io.InputStream
 import javax.servlet.http.HttpServletResponse

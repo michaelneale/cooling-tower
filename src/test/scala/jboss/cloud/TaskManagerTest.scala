@@ -1,7 +1,7 @@
 package jboss.cloud
 
 
-import api.Services
+import config.Services
 import deltacloud.DeltaClient
 import deploy.{CreateInstance, DeployApplication, TaskManager, Deployer}
 import java.security.SecureRandom

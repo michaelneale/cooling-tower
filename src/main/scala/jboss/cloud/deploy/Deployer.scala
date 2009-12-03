@@ -1,7 +1,7 @@
 package jboss.cloud.deploy
 
 
-import api.Services
+import config.Services
 import java.io.InputStream
 
 /**

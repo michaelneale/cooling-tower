@@ -1,4 +1,4 @@
-package jboss.cloud.api
+package jboss.cloud.config
 
 
 import deltacloud.DeltaClient

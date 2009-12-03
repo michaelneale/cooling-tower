@@ -1,7 +1,7 @@
 package jboss.cloud
 
 
-import api.Services
+import config.Services
 import org.testng.annotations.Test
 import org.testng.Assert._
 
