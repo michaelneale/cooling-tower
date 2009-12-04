@@ -46,7 +46,7 @@ class LocalDatabase {
   def listTasks = tasks.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Task])
 
 
-
+  def clearDatabase = (applications.listFiles.map(_.delete), tasks.listFiles.map(_.delete), instances.listFiles.map(_.delete))
   private def dir(sub: String) = {
     if (!ROOT.exists) ROOT.mkdir
     val f = new File(ROOT, sub)

@@ -44,7 +44,7 @@
       <plugins>
          <plugin>
             <groupId>org.scala-tools</groupId>
-            <artifactId>maven-scala-plugin</artifactId>
+            <artifactId>maven-scala-plugin</artifactId> 
             <executions>
                <execution>
                   <id>compile</id>

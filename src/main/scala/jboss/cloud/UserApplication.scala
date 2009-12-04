@@ -5,6 +5,7 @@ case class Image(id: String, name: String)
 case class Flavor(id: String, memory: Float, storage: Float, architecture: String)
 case class Realm(id: String, name: String, state: String /* AVAILABLE or UNAVAILABLE */)
 
+/** Represents an application 'bundle' */
 case class Application(name: String,
                        applicationType: String,
                        var canCoExist: Boolean,

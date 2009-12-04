@@ -11,7 +11,7 @@ import java.io.InputStream
 trait Deployer {
 
   /** Will be called and expects to push the app to the given instance, and run any post install scripts */
-  def deploy(application: Application, instance: Instance)
+  def deploy(application: Application, instance: Instance) : Unit
 }
 
 class SSHDeployer extends Deployer {

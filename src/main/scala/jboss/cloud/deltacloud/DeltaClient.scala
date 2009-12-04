@@ -8,12 +8,19 @@ import org.apache.commons.httpclient.auth.AuthScope
 import org.apache.commons.httpclient.methods.{PostMethod, GetMethod}
 import org.apache.commons.httpclient.{UsernamePasswordCredentials, HttpClient}
 import xml.{Node, XML, NodeSeq}
-/**
- * 
- * @author Michael Neale
- */
 
-class DeltaClient {
+trait CloudClient {
+  def images: Seq[Image]
+  def flavors: Seq[Flavor]
+  def realms: Seq[Realm]
+  def createInstance(flavor: Flavor, image: Image, realm : Realm) : Instance
+
+  /** Return the status name and a list of public IPs */
+  def pollInstanceState(id: String) : (String, Array[String])
+
+}
+
+class DeltaClient extends CloudClient {
 
 
   implicit def valueFromNode(n: NodeSeq) : NodeVal = new NodeVal(n)

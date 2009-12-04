@@ -1,7 +1,7 @@
 package jboss.cloud.config
 
 
-import deltacloud.DeltaClient
+import deltacloud.{CloudClient, DeltaClient}
 import deploy.{SSHDeployer, Deployer, TaskManager}
 import java.io.{File, FileInputStream}
 import java.util.Properties
@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils
  * @author Michael Neale
  */
 object Services {
-  var deltaClient = new DeltaClient
+  var deltaClient : CloudClient = new DeltaClient
   var appAnalyser = new AppAnalyser
   var db = new LocalDatabase
   var taskManager = new TaskManager
