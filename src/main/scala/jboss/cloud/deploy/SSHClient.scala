@@ -24,9 +24,7 @@ class SSHClient {
     conn.authenticateWithPublicKey(userName, key, passphrase)    
   }
 
-  def disconnect = {
-    conn.close
-  }
+  def disconnect = conn.close
 
   def putFile(file: Array[Byte], fileName: String, path: String) = {
     val scp = new SCPClient(conn)

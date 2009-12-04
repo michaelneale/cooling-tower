@@ -61,8 +61,9 @@ class NewAppication {
     })
 
     if (outstandingTasks.size == 0) {
-      //val instance: Instance = Services.database.listInstances.filter(_.applications.filter(_.name == appName).size == 1)(0)
-
+      //it is ok and running??
+    } else {
+      //it is pending??
     }
     println("OK")
   }
