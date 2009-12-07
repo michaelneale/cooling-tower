@@ -7,7 +7,7 @@
     
     <context-param>
         <param-name>resteasy.resources</param-name>
-        <param-value>org.jboss.jae.Server</param-value>
+        <param-value>jboss.cloud.api.Server</param-value>
     </context-param>
 
     <listener>

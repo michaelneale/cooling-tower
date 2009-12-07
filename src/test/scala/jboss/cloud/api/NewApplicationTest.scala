@@ -22,8 +22,17 @@ class NewApplicationTest extends ApiHelper {
     println("helo")
     cleanDatabase
     Services.database.listApplications.size shouldBe 0
-    
-    get("/applications") shouldBe("<applications/>")
+
+
+
+    //configure cloud images
+    //configure cloud flavors
+
+    //configure any existing instances
+
+
+
+    get("/applications").body shouldBe <applications/>.toString
     post("/applications/something.war", "data".getBytes) shouldMatch("<status>")
     get("/applications") shouldMatch("<application name=\"something\">")
     put("/applications/something.war", "data".getBytes)  shouldMatch  ("status")

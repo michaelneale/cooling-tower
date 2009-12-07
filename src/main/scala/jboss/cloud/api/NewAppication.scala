@@ -20,7 +20,6 @@ class NewAppication {
    * Deploy an app.
    * This should return a URL to request the state of the app deployment (as it is asynchronous, if a new
    * server is required it will typically take a fair bit longer).
-   * OR: should this only take config, and take an app later on? 
    */
   def deploy(name: String, app: InputStream) = {
     val instances = Services.database.listInstances
