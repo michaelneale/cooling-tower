@@ -14,7 +14,7 @@ case class Application(name: String,
                        var cpu: Int,
                        var version: Int,
                        var dateCreated: Long,
-                       var dateLastUpdated: Long)
+                       var dateLastUpdated: Long) 
 
 case class Instance(id: String,
                     name: String, 

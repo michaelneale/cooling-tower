@@ -16,26 +16,6 @@ dialect "mvel"
 global java.util.List results
 
 
-rule "Setup default memory"
-    salience 200
-    when
-        req: Application(memory == 0)
-    then
-        modify(req) {
-            memory = 1.5
-        }
-end
-
-rule "Setup default disk"
-    salience 200
-    when
-        req: Application(disk == 0)
-    then
-        modify(req) {
-            disk = 200
-        }
-end
-
 
 #TIP: can lock this down to specific image types
 rule "Always prefer empty server"

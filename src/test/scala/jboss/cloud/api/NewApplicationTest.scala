@@ -11,9 +11,6 @@ import org.testng.Assert._
 class NewApplicationTest extends ApiHelper {
 
   
-  @Test def another = {
-    fail("here")
-  }
 
 
 
@@ -42,7 +39,7 @@ class NewApplicationTest extends ApiHelper {
 
 
     get("/applications").body shouldBe <applications/>.toString
-    post("/applications/something.war", "data".getBytes) shouldMatch("<status>")
+    post("/applications/something.war", "data".getBytes, "application/octet-stream").body shouldMatch("<status>")
     get("/applications") shouldMatch("<application name=\"something\">")
     //put("/applications/something.war", "data".getBytes)  shouldMatch  ("status")
     

@@ -3,6 +3,7 @@ package jboss.cloud
 
 import java.util.{Arrays, ArrayList}
 import org.drools.builder.{KnowledgeBuilderFactory, ResourceType}
+import org.drools.event.rule._
 import org.drools.io.ResourceFactory
 import org.drools.KnowledgeBaseFactory
 import org.drools.runtime.{StatelessKnowledgeSession, StatefulKnowledgeSession}
@@ -78,7 +79,16 @@ class Advisor {
     conf.setProperty("drools.removeIdentities", "true")
     val kb = KnowledgeBaseFactory.newKnowledgeBase(conf)
     kb.addKnowledgePackages(kbuilder.getKnowledgePackages)
-    kb.newStatefulKnowledgeSession
+    val sess = kb.newStatefulKnowledgeSession
+    sess.addEventListener(new AgendaEventListener {
+      def activationCreated(p1: ActivationCreatedEvent) = {}
+      def beforeActivationFired(p1: BeforeActivationFiredEvent) = { println("Firing " + p1.getActivation.getRule.getName)}
+      def activationCancelled(p1: ActivationCancelledEvent) = {}
+      def afterActivationFired(p1: AfterActivationFiredEvent) = {}
+      def agendaGroupPushed(p1: AgendaGroupPushedEvent) = {}
+      def agendaGroupPopped(p1: AgendaGroupPoppedEvent) = {}
+    })
+    sess
 
   }
 

@@ -2,7 +2,8 @@ package jboss.cloud.api
 
 
 import config.Services
-import org.apache.commons.httpclient.methods.GetMethod
+import java.io.ByteArrayInputStream
+import org.apache.commons.httpclient.methods.{PostMethod, GetMethod}
 import org.apache.commons.httpclient.{HttpClient, HttpMethodBase}
 import org.jboss.resteasy.plugins.server.servlet.{ResteasyBootstrap, HttpServletDispatcher}
 import org.mortbay.jetty.servlet.Context
@@ -24,7 +25,12 @@ class ApiHelper {
 
   def cleanDatabase = Services.database.clearDatabase
   def get(url: String) = Client.call(new GetMethod(HOST + url))
-  def post(url: String, data: Array[Byte]) = ""
+  def post(url: String, data: Array[Byte], contentType: String) = {
+    val pm = new PostMethod(HOST + url)
+    pm.setRequestBody(new ByteArrayInputStream(data))
+    pm.setRequestHeader("Content-Type", contentType)
+    Client.call(pm)
+  }
   def put(url: String, data: Array[Byte]) = ""
 
   def deployer = Services.deployer.asInstanceOf[MockDeployer]
