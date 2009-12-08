@@ -29,7 +29,7 @@ class LocalDatabase {
   }
 
   def saveApplication(a: Application) = xstream.toXML(a, new FileOutputStream(new File(applications, a.name + ".xml")))
-  def listApplications = applications.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Application])
+  def listApplications = applications.listFiles.filter(_.getName.endsWith(".xml")).map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Application])
 
 
   def loadApplicationBinary(application: Application) : Array[Byte] = {
@@ -46,7 +46,6 @@ class LocalDatabase {
   def listTasks = tasks.listFiles.map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Task])
 
 
-  def clearDatabase = (applications.listFiles.map(_.delete), tasks.listFiles.map(_.delete), instances.listFiles.map(_.delete))
   private def dir(sub: String) = {
     if (!ROOT.exists) ROOT.mkdir
     val f = new File(ROOT, sub)

@@ -19,12 +19,12 @@ class ApiHelper {
   val HOST = "http://localhost:8888/api"
 
   Services.configure
+  Services.db = TestDB.getDB
   Services.dep = new MockDeployer
 
 
   implicit def should(v: Any) = new Checker(v)
 
-  def cleanDatabase = Services.database.clearDatabase
   def get(url: String) = Client.call(new GetMethod(HOST + url))
   def post(url: String, data: Array[Byte], contentType: String) = {
     val pm = new PostMethod(HOST + url)

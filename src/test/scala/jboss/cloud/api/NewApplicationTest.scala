@@ -18,7 +18,7 @@ class NewApplicationTest extends ApiHelper {
 
 
     println("helo")
-    cleanDatabase
+
     Services.database.listApplications.size shouldBe 0
 
 
@@ -38,9 +38,17 @@ class NewApplicationTest extends ApiHelper {
 
 
 
+    
     get("/applications").body shouldBe <applications/>
-    post("/applications/something.war", "data".getBytes, "application/octet-stream").body shouldMatch(<application name="something.war"><link href="status"/></application>)
-    get("/applications").body shouldMatch(<applications><link name="something"/></applications>)
+
+    post("/applications/something.war", "data".getBytes, "application/octet-stream")
+            .body shouldMatch <application name="something.war"><link href="status"/></application>
+
+    println(Services.database.applications.getAbsolutePath)
+
+    get("/applications")
+            .body shouldMatch <applications><link href="something"/></applications>
+    
     //put("/applications/something.war", "data".getBytes)  shouldMatch  ("status")
     
 
