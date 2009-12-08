@@ -3,6 +3,8 @@ package jboss.cloud.api
 
 import deltacloud.CloudClient
 import deploy.Deployer
+import java.security.SecureRandom
+import java.util.Random
 
 /**
  * Mocks for testing purposes.
@@ -18,15 +20,16 @@ class MockDeployer extends Deployer {
   }
 }
 
-class MockCloudClient extends CloudClient {
-  def images = null
-
-  def flavors = null
-
-  def pollInstanceState(id: String) = null
-
-  def createInstance(flavor: Flavor, image: Image, realm: Realm) = null
-
-  def realms = null
-  
+case class MockCloud(flvs: Seq[Flavor], imgs: Seq[Image]) extends CloudClient {
+  var instances: Map[String, Instance] = Map()
+  def images = imgs
+  def flavors = flvs
+  def pollInstanceState(id: String) = (instances(id).state, instances(id).publicAddresses)
+  def createInstance(flavor: Flavor, image: Image, realm: Realm) = {
+    var id = "X" + (new SecureRandom).nextInt
+    val ins = Instance(id, "NAME_" + id, image, flavor, "PENDING", Array())
+    instances = instances ++ Map(id -> ins)
+    ins
+  }
+  def realms = List(Realm("1", "AU", "AVAILABLE"))
 }

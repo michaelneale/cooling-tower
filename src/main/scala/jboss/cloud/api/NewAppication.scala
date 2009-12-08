@@ -12,16 +12,14 @@ import javax.ws.rs.core.Response.Status
  * This is for creating apps.  
  * @author Michael Neale
  */
-class NewAppication {
+class NewApplication {
 
   val advisor = new Advisor
 
   /**
    * Deploy an app.
-   * This should return a URL to request the state of the app deployment (as it is asynchronous, if a new
-   * server is required it will typically take a fair bit longer).
    */
-  def deploy(name: String, app: InputStream) = {
+  def deploy(name: String, app: InputStream) : Option[Failed] = {
     val instances = Services.database.listInstances
     val images = Services.deltaCloud.images
     val realms = Services.deltaCloud.realms
@@ -33,12 +31,14 @@ class NewAppication {
 
     val rec = advisor.allocateApplication(application, instances, images, flavors, realms)
     if (rec.filter(_.isInstanceOf[Assignment]).size == 0 && rec.filter(_.isInstanceOf[InstanceCreateRequest]).size == 0) {
-      Response.status(HttpServletResponse.SC_BAD_REQUEST).entity("Unable find an instance to run that application.").build
+      Some(Failed("Unable find an instance to run that application."))
     } else {
       rec map(processRecommendation)
-      Response.ok.entity(<status application={application.name}><link href={application.name}>{application.name}</link></status>.toString).build 
+      None 
     }
   }
+
+  case class Failed(message: String)
 
 
   def processRecommendation(rec: Recommendation) = {

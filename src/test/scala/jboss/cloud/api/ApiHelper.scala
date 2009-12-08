@@ -17,7 +17,6 @@ class ApiHelper {
   val HOST = "http://localhost:8888/api"
 
   Services.configure
-  Services.deltaClient = new MockCloudClient
   Services.dep = new MockDeployer
 
 
@@ -28,7 +27,6 @@ class ApiHelper {
   def post(url: String, data: Array[Byte]) = ""
   def put(url: String, data: Array[Byte]) = ""
 
-  def cloudClient = Services.deltaClient.asInstanceOf[MockCloudClient]
   def deployer = Services.deployer.asInstanceOf[MockDeployer]
 
 
