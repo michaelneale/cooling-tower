@@ -8,6 +8,7 @@ import org.apache.commons.httpclient.{HttpClient, HttpMethodBase}
 import org.jboss.resteasy.plugins.server.servlet.{ResteasyBootstrap, HttpServletDispatcher}
 import org.mortbay.jetty.servlet.Context
 import org.testng.Assert._
+import xml.Elem
 
 /**
  * Wire up the mocks etc.
@@ -38,11 +39,14 @@ class ApiHelper {
 
   /** Provide checking trickery */
   class Checker(v: Any) {
+    def shouldBe(xml: Elem) :Unit = shouldBe(xml.toString)
     def shouldBe(a: Any) = if (v != a) fail("expected " + a.toString + " but was " + v.toString)
     def shouldMatch(pattern: String) = {
       if (!v.isInstanceOf[String]) fail("Can only match on string")
       if (!v.asInstanceOf[String].matches(pattern)) fail(v + " does not match with " + pattern)
     }
+
+    def shouldMatch(xml: Elem) : Unit = shouldMatch(xml.toString)
   }
 
   case class TestResponse(m: HttpMethodBase) {

@@ -38,9 +38,9 @@ class NewApplicationTest extends ApiHelper {
 
 
 
-    get("/applications").body shouldBe <applications/>.toString
-    post("/applications/something.war", "data".getBytes, "application/octet-stream").body shouldMatch("<status>")
-    get("/applications") shouldMatch("<application name=\"something\">")
+    get("/applications").body shouldBe <applications/>
+    post("/applications/something.war", "data".getBytes, "application/octet-stream").body shouldMatch(<application name="something.war"><link href="status"/></application>)
+    get("/applications").body shouldMatch(<applications><link name="something"/></applications>)
     //put("/applications/something.war", "data".getBytes)  shouldMatch  ("status")
     
 
