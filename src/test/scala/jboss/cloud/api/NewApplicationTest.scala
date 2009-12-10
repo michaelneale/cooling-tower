@@ -21,14 +21,6 @@ class NewApplicationTest extends ApiHelper {
 
     Services.database.listApplications.size shouldBe 0
 
-
-
-    //configure cloud images
-    //configure cloud flavors
-
-    //configure any existing instances
-
-
     var currentStatus = "PENDING"
 
     val cloud = MockCloud(List(Flavor("id", 42, 42, "x86")), List(Image("img1", "jboss-as")))
@@ -41,30 +33,17 @@ class NewApplicationTest extends ApiHelper {
     
     get("/applications").body shouldBe <applications/>
 
-    post("/applications/something.war", "data".getBytes, "application/octet-stream")
-            .body shouldMatch <application name="something.war"><link href="status"/></application>
+    val resp = post("/applications/something.war", "data".getBytes, "application/octet-stream")
+    resp.statusCode shouldBe 201
+    resp.header("Location") shouldBe "http://localhost:8888/api/applications/something"
 
-    println(Services.database.applications.getAbsolutePath)
-
-    get("/applications")
-            .body shouldMatch <applications><link href="something"/></applications>
-    
-    //put("/applications/something.war", "data".getBytes)  shouldMatch  ("status")
-    
-
-
-
-
-
-
+    get("/applications").body shouldMatch <applications><application href="something"/></applications>
+    get("/applications/something").body shouldMatch <application name="something" status="PENDING"><addresses/></application>
 
 
     println("ok")
 
     //val appList = listApplications
-
-
-
     //check app listing
     //POST an app
     //check app listing for it

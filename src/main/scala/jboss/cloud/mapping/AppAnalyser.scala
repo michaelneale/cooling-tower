@@ -15,12 +15,12 @@ class AppAnalyser {
   /**
    * name should include file extension.
    */
-  def parseApplication(name: String, ins: InputStream) : (Application, Array[Byte])   = {
-    val nm = name.split('.')
-    val bytes = IOUtils.toByteArray(ins)
-    val app = Application(nm(0), nm(1), true, 0.2f, 4, 0, 1, System.currentTimeMillis, System.currentTimeMillis)
-    (app, bytes)
-  }
+  def parseApplication(appName: String, appType: String, ins: InputStream) : (Application, Array[Byte])   =
+    (
+     Application(appName, appType, true, 0.2f, 4, 0, 1, System.currentTimeMillis, System.currentTimeMillis),
+     IOUtils.toByteArray(ins)
+    )
+
 
 
 }

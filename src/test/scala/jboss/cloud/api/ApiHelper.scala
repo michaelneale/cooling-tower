@@ -51,6 +51,8 @@ class ApiHelper {
 
   case class TestResponse(m: HttpMethodBase) {
     def body = m.getResponseBodyAsString
+    def statusCode = m.getStatusCode
+    def header(name: String) = m.getResponseHeader(name).getValue
   }
 
 

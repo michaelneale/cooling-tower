@@ -19,12 +19,12 @@ class NewApplication {
   /**
    * Deploy an app.
    */
-  def deploy(name: String, app: InputStream) : Option[Failed] = {
+  def deploy(appName: String, appType: String, app: InputStream) : Option[Failed] = {
     val instances = Services.database.listInstances
     val images = Services.deltaCloud.images
     val realms = Services.deltaCloud.realms
     val flavors = Services.deltaCloud.flavors
-    val (application, appBinary) = Services.analyser.parseApplication(name, app)
+    val (application, appBinary) = Services.analyser.parseApplication(appName, appType, app)
 
     Services.database.saveApplication(application)
     Services.database.saveApplicationBinary(application, appBinary) //stores it as version 1
