@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse
 import javax.ws.rs.core.Response
 import javax.ws.rs.core.Response.Status
 
+
 /**
  * This is for creating apps.  
  * @author Michael Neale
@@ -53,19 +54,7 @@ class NewApplication {
     }
   }
 
-  def status(appName: String) = {
-    val outstandingTasks = Services.database.listTasks.filter(_ match  {
-      case d: DeployApplication => d.appName == appName
-      case c: CreateInstance => c.req.application.name == appName
-    })
 
-    if (outstandingTasks.size == 0) {
-      //it is ok and running??
-    } else {
-      //it is pending??
-    }
-    println("OK")
-  }
 
 
 

@@ -38,7 +38,7 @@ class NewApplicationTest extends ApiHelper {
     resp.header("Location") shouldBe "http://localhost:8888/api/applications/something"
 
     get("/applications").body shouldMatch <applications><application href="something"/></applications>
-    get("/applications/something").body shouldMatch <application name="something" status="PENDING"><addresses/></application>
+    get("/applications/something").body shouldMatch <application state="PENDING" name="something"><addresses/></application>
 
 
     println("ok")

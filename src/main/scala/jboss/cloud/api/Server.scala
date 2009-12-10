@@ -9,10 +9,6 @@ import javax.ws.rs.core.Response.Status
 import javax.ws.rs.core.{MediaType, Response, Context, Request}
 @Path("/api") class Server(@Context request: Request) {
 
-    @GET @Path("/applications/{appName}")
-    def appDetails(@PathParam("appName") name: String) = <foo/>.toString
-
-
     @GET @Path("/applications/")
     def listing = Response.ok(<applications>{Services.database.listApplications.map(a => <application href={a.name}/>)}</applications>.toString, MediaType.APPLICATION_XML).build 
 
@@ -23,6 +19,13 @@ import javax.ws.rs.core.{MediaType, Response, Context, Request}
         case None => Response.created(new URI("/api/applications/" + appName)).build
       }
     }
+
+    @GET @Path("/applications/{appName}")
+    def appDetails(@PathParam("appName") name: String) = {
+      val state = (new Applications).stateOfApp(name)
+      <application name={name} state={state.state}><addresses>{state.addresses.map(ad => <address>{ad}</address>)}</addresses></application>
+    }
+
 
 
 

@@ -31,7 +31,6 @@ class LocalDatabase {
   def saveApplication(a: Application) = xstream.toXML(a, new FileOutputStream(new File(applications, a.name + ".xml")))
   def listApplications = applications.listFiles.filter(_.getName.endsWith(".xml")).map((f: File) => xstream.fromXML(new FileInputStream(f)).asInstanceOf[Application])
 
-
   def loadApplicationBinary(application: Application) : Array[Byte] = {
     val f = new File(applications, application.name + "." + application.applicationType + "." + application.version)
     IOUtils.toByteArray(new FileInputStream(f))      
