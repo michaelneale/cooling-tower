@@ -77,7 +77,7 @@
       <file leaf-file-name="NewApplicationTest.scala" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/api/NewApplicationTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="4" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.8694267">
+            <state line="9" column="46" selection-start="143" selection-end="143" vertical-scroll-proportion="-0.38535032">
               <folding />
             </state>
           </provider>
@@ -149,7 +149,7 @@
       <file leaf-file-name="Mockery.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/api/Mockery.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="1" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
+            <state line="13" column="6" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -1366,21 +1366,21 @@
       <recent name="jboss.cloud.mapping" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.NewApplicationTest.testCreate">
-    <tempConfiguration default="false" name="NewApplicationTest.testCreate" type="TestNG" factoryName="TestNG" enabled="false" merge="false" sample_coverage="true" runner="emma">
+  <component name="RunManager" selected="TestNG.NewApplicationTest">
+    <tempConfiguration default="false" name="NewApplicationTest" type="TestNG" factoryName="TestNG" enabled="false" merge="false" runner="emma">
       <module name="cooling-tower" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="SUITE_NAME" value="" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
       <option name="PACKAGE_NAME" value="jboss.cloud.api" />
       <option name="MAIN_CLASS_NAME" value="jboss.cloud.api.NewApplicationTest" />
-      <option name="METHOD_NAME" value="testCreate" />
-      <option name="GROUP_NAME" value="" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
       <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
@@ -1388,7 +1388,7 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
       </option>
-      <option name="PROPERTIES_FILE" value="" />
+      <option name="PROPERTIES_FILE" />
       <envs />
       <properties />
       <listeners />
@@ -1494,7 +1494,7 @@
       <setting name="params" value="" />
     </configuration>
     <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="TestNG.NewApplicationTest.testCreate" />
+      <item index="0" class="java.lang.String" itemvalue="TestNG.NewApplicationTest" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -1543,7 +1543,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1174" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
@@ -1564,7 +1564,7 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3510942" sideWeight="0.987797" order="2" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3510942" sideWeight="0.987797" order="2" side_tool="false" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33620688" sideWeight="0.4846871" order="2" side_tool="false" />
@@ -1694,13 +1694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/api/Mockery.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="1" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/api/Applications.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="110" selection-start="484" selection-end="594" vertical-scroll-proportion="0.0">
@@ -1708,9 +1701,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/api/Mockery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="6" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/api/NewApplicationTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="4" selection-start="1401" selection-end="1401" vertical-scroll-proportion="0.8694267">
+        <state line="9" column="46" selection-start="143" selection-end="143" vertical-scroll-proportion="-0.38535032">
           <folding />
         </state>
       </provider>

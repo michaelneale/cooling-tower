@@ -37,43 +37,26 @@ class NewApplicationTest extends ApiHelper {
 
     cloud.instances.size shouldBe 1
 
+    //update the state and addresses of the cloud (ie server has started).
     val ins = Services.database.listInstances.filter(_.applications.filter(_.name == "something").size > 0)(0)
-
     cloud.instances(ins.id).publicAddresses = Array("foo.bar.com")
     cloud.instances(ins.id).state = "RUNNING"
 
 
-    Thread.sleep(500)
+    Thread.sleep(500)    //give it time to catch up
 
     get("/applications/something").body shouldMatch <application state="RUNNING" name="something"><addresses><address>foo.bar.com</address></addresses></application>
-
-
-
-    
-
-
-
-    
-
-
-
-
-    //val appList = listApplications
-    //check app listing
-    //POST an app
-    //check app listing for it
-    //check status on it...
-    //when ready...
-    //PUT a new version...
-    //check status...
-    //DELETE it...
-    //check app listing...
-    
-    
-
-
-    //POST something... create that app - reserve the name...
-    //POST app
+    deployer.app.name shouldBe "something"
+    deployer.ins.id shouldBe ins.id
 
   }
+
+
+  def checkAllocateToExistingInstances = {}
+  def checkUpdateExisitingApp = {}
+  def checkShowExplanation = {}
+  def checkDecommissionElasticNess = {}
+  def checkReadCloudConfig = {}
+
+
 }
