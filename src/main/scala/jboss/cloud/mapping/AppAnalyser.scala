@@ -13,7 +13,7 @@ class AppAnalyser {
 
 
   /**
-   * name should include file extension.
+   * TODO: This should peer inside the war/ear for a cloud.config properties file. 
    */
   def parseApplication(appName: String, appType: String, ins: InputStream) : (Application, Array[Byte])   =
     (

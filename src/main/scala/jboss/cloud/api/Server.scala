@@ -9,6 +9,10 @@ import javax.ws.rs.core.Response.Status
 import javax.ws.rs.core.{MediaType, Response, Context, Request}
 @Path("/api") class Server(@Context request: Request) {
 
+
+    @GET @Path("/")
+    def root = <api version="1.0"><link href="applications"/></api>
+
     @GET @Path("/applications/")
     def listing = Response.ok(<applications>{Services.database.listApplications.map(a => <application href={a.name}/>)}</applications>.toString, MediaType.APPLICATION_XML).build 
 

@@ -32,4 +32,7 @@ case class MockCloud(flvs: Seq[Flavor], imgs: Seq[Image]) extends CloudClient {
     ins
   }
   def realms = List(Realm("1", "AU", "AVAILABLE"))
+
+
+
 }
