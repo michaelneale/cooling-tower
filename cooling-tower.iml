@@ -101,6 +101,18 @@
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/lib/" />
           </containerElement>
+          <containerElement type="library" name="Maven: org.drools.solver:drools-solver-core:5.0.1" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
+          <containerElement type="library" name="Maven: commons-lang:commons-lang:2.3" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
+          <containerElement type="library" name="Maven: org.apache.commons:commons-io:1.3.2" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
           <containerElement type="library" name="Maven: com.thoughtworks.xstream:xstream:1.3.1" level="project">
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/lib/" />
@@ -175,6 +187,9 @@
     <orderEntry type="library" exported="" name="Maven: org.antlr:antlr-runtime:3.1.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.eclipse.jdt:core:3.4.2.v_883_R34x" level="project" />
     <orderEntry type="library" exported="" name="Maven: janino:janino:2.5.15" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.drools.solver:drools-solver-core:5.0.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: commons-lang:commons-lang:2.3" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.apache.commons:commons-io:1.3.2" level="project" />
     <orderEntry type="library" exported="" name="Maven: com.thoughtworks.xstream:xstream:1.3.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />

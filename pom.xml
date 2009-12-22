@@ -95,6 +95,13 @@
           <version>5.0.1</version>
       </dependency>
 
+      <!-- for balancer -->
+      <dependency>
+        <groupId>org.drools.solver</groupId>
+        <artifactId>drools-solver-core</artifactId>
+        <version>5.0.1</version>
+      </dependency>
+
 
       <dependency>
           <groupId>com.thoughtworks.xstream</groupId>
@@ -119,14 +126,7 @@
       </dependency>
 
 
-       <!--
-      <dependency>
-         <groupId>commons-httpclient</groupId>
-         <artifactId>commons-httpclient</artifactId>
-         <version>2.0.2</version>
-         <scope>test</scope>
-      </dependency>
-      -->
+
      <dependency>
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>httpclient</artifactId>
@@ -155,14 +155,13 @@
         <version>2.7.4-0.1</version>
       </dependency>
 
-
+       
+    <!-- for SSH deploying -->
     <dependency>
         <groupId>ch.ethz.ganymed</groupId>
         <artifactId>ganymed-ssh2</artifactId>
         <version>build210</version>
     </dependency>
-
-
     <dependency>
         <groupId>com.jcraft</groupId>
         <artifactId>jsch</artifactId>

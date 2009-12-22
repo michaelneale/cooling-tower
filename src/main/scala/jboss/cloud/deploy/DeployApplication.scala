@@ -17,6 +17,8 @@ case class CreateInstance(req: InstanceCreateRequest) extends Task
  * For managing background tasks.
  * Should only be one instance of this running at a time ideally.
  *
+ * TODO: have a startup task to load up any tasks before accepting more...
+ *
  * @author Michael Neale
  */
 class TaskManager {
