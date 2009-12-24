@@ -13,6 +13,8 @@ class NewApplicationTest extends ApiHelper {
 
   @Test def testCreate = {
 
+
+    Services.db = TestDB.getDB
     Services.taskManager.WAIT_FOR_STATE = 50
     Services.database.listApplications.size shouldBe 0
 
@@ -26,6 +28,7 @@ class NewApplicationTest extends ApiHelper {
     get("/applications").body shouldBe <applications/>
 
     cloud.instances.size shouldBe 0
+    
     
     val resp = post("/applications/something.war", "data".getBytes, "application/octet-stream")
     resp.statusCode shouldBe 201

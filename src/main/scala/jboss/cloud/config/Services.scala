@@ -11,7 +11,7 @@ import org.apache.commons.io.IOUtils
  * Launching point for getting access to services.
  *
  * Design notes:
- *  Config items: creds for ∂-cloud, creds for installation, pre/post install scripts
+ *  Config items: creds for ∂-cloud, creds for installation, pre/post install scripts, root of local db
  *  Pluggable items: Deployer, Cloud Client. 
  *
  * @author Michael Neale
