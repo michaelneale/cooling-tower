@@ -54,10 +54,10 @@ class NewApplicationTest extends ApiHelper {
 
   }
 
-
-  def checkAllocateToExistingInstances = {}
   def checkUpdateExisitingApp = {}
+  def checkAllocateToExistingInstances = {}
   def checkShowExplanation = {}
+  def checkDecommission = {}
   def checkDecommissionElasticNess = {}
   def checkReadCloudConfig = {}
 

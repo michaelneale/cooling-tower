@@ -9,9 +9,12 @@ import reflect.BeanProperty
  */
 class Balance
 
-case class Server(@BeanProperty var appServers: List[AppServerInstance])
-case class AppServerInstance(@BeanProperty var apps: List[Application])
-case class Application(name: String)
+case class AppServerInstance(@BeanProperty var apps: List[Application]) {
+  def copy = AppServerInstance(apps.map(_.copy))
+}
+case class Application(name: String) {
+  def copy = Application(name)
+}
 
 
 

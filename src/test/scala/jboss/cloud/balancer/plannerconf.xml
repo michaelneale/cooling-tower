@@ -10,9 +10,11 @@
     <selector>
         <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
     </selector>
+    <!--
     <accepter>
         <completeUndoMoveTabuSize>10</completeUndoMoveTabuSize>
     </accepter>
+    -->
     <forager>
         <foragerType>MAX_SCORE_OF_ALL</foragerType>
     </forager>
