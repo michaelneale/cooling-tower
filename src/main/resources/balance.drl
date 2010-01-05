@@ -1,0 +1,37 @@
+package jboss.cloud.balancer
+
+
+import org.drools.solver.core.score.calculator.SimpleScoreCalculator
+import org.drools.solver.core.score.constraint.UnweightedConstraintOccurrence
+import org.drools.solver.core.score.constraint.ConstraintType
+import jboss.cloud.balancer.AppServerInstance
+
+global SimpleScoreCalculator scoreCalculator
+
+// ############################################################################
+// Hard constraints
+// ############################################################################
+
+rule "tooManyApps"
+    when
+        app : AppServerInstance(apps.size > 4)
+    then
+        insertLogical(new UnweightedConstraintOccurrence("too many apps", app));
+end
+
+
+
+
+// ############################################################################
+// Calculate score
+// ############################################################################
+
+rule "hardConstraintsBroken"
+    when
+        $occurrenceCount : Number() from accumulate(
+            $unweightedConstraintOccurrence : UnweightedConstraintOccurrence(),
+            count($unweightedConstraintOccurrence)
+        );
+    then
+        scoreCalculator.setScore(- $occurrenceCount.intValue());
+end

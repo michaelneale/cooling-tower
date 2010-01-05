@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <localSearchSolver>
-    <scoreDrl>/jboss/cloud/balancer/balance.drl</scoreDrl>
+    <scoreDrl>/balance.drl</scoreDrl>
     <scoreDefinition>
-        <scoreDefinitionType>HARD_AND_SOFT</scoreDefinitionType>
+        <scoreDefinitionType>SIMPLE</scoreDefinitionType>
     </scoreDefinition>
-    <termination>
-        <maximumUnimprovedStepCount>10</maximumUnimprovedStepCount>
-    </termination>
+    <finish>
+        <feasableScore>0</feasableScore>
+    </finish>
     <selector>
         <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
     </selector>
-    <!--
     <accepter>
-        <completeUndoMoveTabuSize>10</completeUndoMoveTabuSize>
+        <completeSolutionTabuSize>1000</completeSolutionTabuSize>
     </accepter>
-    -->
     <forager>
         <foragerType>MAX_SCORE_OF_ALL</foragerType>
     </forager>

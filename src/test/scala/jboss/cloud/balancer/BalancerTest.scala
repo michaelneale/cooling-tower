@@ -1,6 +1,8 @@
 package jboss.cloud.balancer
 
 
+import org.drools.solver.config.XmlSolverConfigurer
+import org.drools.solver.core.Solver
 import org.testng.annotations.Test
 import org.testng.Assert._
 import org.scala_tools.javautils.Imports._
@@ -42,8 +44,23 @@ class BalancerTest {
 
       val move = list.get(0)
       assertTrue(move.isMoveDoable(null))
+  }
 
 
+  @Test def basicSolution = {
+    val initialSolution = BalanceSolution(List(
+                          AppServerInstance(List(Application("foo"), Application("bar"))),
+                          AppServerInstance(List(Application("wing"), Application("wang")))))
 
+
+    val configurer = new XmlSolverConfigurer
+    configurer.configure("/jboss/cloud/balancer/plannerconf.xml");
+    val solver = configurer.buildSolver
+    solver.setStartingSolution(initialSolution)
+    solver.solve
+
+    val solution = solver.getBestSolution
+    assertNotNull(solution)
+    
   }
 }
