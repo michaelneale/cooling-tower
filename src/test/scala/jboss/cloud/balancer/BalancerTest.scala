@@ -3,6 +3,7 @@ package jboss.cloud.balancer
 
 import org.testng.annotations.Test
 import org.testng.Assert._
+import org.scala_tools.javautils.Imports._
 
 /**
  * 
@@ -24,7 +25,25 @@ class BalancerTest {
 
   }
 
+  /**
+   * Test the possible moves, that make sense
+   * Note that the solver will compose these moves together in wonderful wacky ways...
+   */
   @Test def permutationCity = {
-    
+      val initialSolution = BalanceSolution(List(
+                            AppServerInstance(List(Application("foo"), Application("bar"))),
+                            AppServerInstance(List(Application("wing"), Application("wang")))))
+
+      val mm = new MoveMaker
+      val list = mm.createCachedMoveList(initialSolution)
+
+      //assertTrue(list.size > 0)
+      assertEquals(list.size, 4) //only for combinations that make sense, not with itself. 
+
+      val move = list.get(0)
+      assertTrue(move.isMoveDoable(null))
+
+
+
   }
 }
