@@ -77,7 +77,7 @@ class BalancerTest {
 
 
 
-    assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0)
+    assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0, solution.toString)
     println("solution is: " + solution)
     println("OK")
 
