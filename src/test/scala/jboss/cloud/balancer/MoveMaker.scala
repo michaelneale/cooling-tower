@@ -28,10 +28,16 @@ case class AppMove(@BeanProperty var target: AppServerInstance,
                   @BeanProperty var source: AppServerInstance,
                   @BeanProperty var app: Application) extends Move {
   def doMove(wm: WorkingMemory) = {
+    wm.retract(wm.getFactHandle(source))
+    wm.retract(wm.getFactHandle(target))
+    moveApp
+    wm.insert(source)
+    wm.insert(target)
+  }
+
+  def moveApp = {
     source.apps = source.apps.remove(_ == app)
-    target.apps = app :: source.apps
-    wm.update(wm.getFactHandle(source), source)
-    wm.update(wm.getFactHandle(target), target)
+    target.apps = app :: target.apps
   }
 
   def isMoveDoable(wm: WorkingMemory) = true

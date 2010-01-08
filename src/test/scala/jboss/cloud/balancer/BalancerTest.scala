@@ -34,20 +34,33 @@ class BalancerTest {
   @Test def permutationCity = {
       val initialSolution = BalanceSolution(List(
                             AppServerInstance(List(Application("foo"), Application("bar"))),
-                            AppServerInstance(List(Application("wing"), Application("wang")))))
+                            AppServerInstance(List(Application("foo"), Application("bar")))))
 
       val mm = new MoveMaker
       val list = mm.createCachedMoveList(initialSolution)
 
       //assertTrue(list.size > 0)
-      assertEquals(list.size, 4) //only for combinations that make sense, not with itself. 
+      assertEquals(list.size, 4) //only for combinations that make sense, not with itself.
+
+      println(list)
+
 
       val move = list.get(0)
       assertTrue(move.isMoveDoable(null))
   }
 
+  @Test def move = {
+    val target = AppServerInstance(List(Application("wee"), Application("waa")))
+    val source = AppServerInstance(List(Application("foo"), Application("bar")))
+    val move = AppMove(target, source, Application("bar"))
+    assertEquals(source.apps.size, 2)
+    move.moveApp
+    assertEquals(source.apps.size, 1)
+    assertEquals(target.apps.size, 3)
+  }
 
-  @Test def basicSolution = {
+
+  @Test def basicSolutionTry = {
     val initialSolution = BalanceSolution(List(
                           AppServerInstance(List(Application("foo"), Application("bar"))),
                           AppServerInstance(List(Application("wing"), Application("wang")))))
@@ -59,8 +72,17 @@ class BalancerTest {
     solver.setStartingSolution(initialSolution)
     solver.solve
 
-    val solution = solver.getBestSolution
+    val solution = solver.getBestSolution.asInstanceOf[BalanceSolution]
     assertNotNull(solution)
+
+
+
+    assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0)
+    println("solution is: " + solution)
+    println("OK")
+
+
+
     
   }
 }

@@ -2,17 +2,26 @@
 <localSearchSolver>
     <scoreDrl>/balance.drl</scoreDrl>
     <scoreDefinition>
-        <scoreDefinitionType>SIMPLE</scoreDefinitionType>
+        <scoreDefinitionType>HARD_AND_SOFT</scoreDefinitionType>
     </scoreDefinition>
+
+    <finish>
+        <maximumSecondsSpend>10</maximumSecondsSpend>
+    </finish>
+    <!--
     <finish>
         <feasableScore>0</feasableScore>
     </finish>
+
+    -->
     <selector>
         <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
     </selector>
+    <!--
     <accepter>
         <completeSolutionTabuSize>1000</completeSolutionTabuSize>
     </accepter>
+    -->
     <forager>
         <foragerType>MAX_SCORE_OF_ALL</foragerType>
     </forager>

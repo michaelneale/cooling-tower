@@ -1,12 +1,14 @@
 package jboss.cloud.balancer
 
 
-import org.drools.solver.core.score.calculator.SimpleScoreCalculator
-import org.drools.solver.core.score.constraint.UnweightedConstraintOccurrence
+import org.drools.solver.core.score.calculator.HardAndSoftConstraintScoreCalculator;
+import org.drools.solver.core.score.constraint.IntConstraintOccurrence;
 import org.drools.solver.core.score.constraint.ConstraintType
+import java.util.ArrayList
+
 import jboss.cloud.balancer.AppServerInstance
 
-global SimpleScoreCalculator scoreCalculator
+global HardAndSoftConstraintScoreCalculator scoreCalculator
 
 // ############################################################################
 // Hard constraints
@@ -14,10 +16,20 @@ global SimpleScoreCalculator scoreCalculator
 
 rule "tooManyApps"
     when
-        app : AppServerInstance(apps.size > 4)
+        app : AppServerInstance(apps.size > 5)
     then
-        insertLogical(new UnweightedConstraintOccurrence("too many apps", app));
+        insertLogical(new IntConstraintOccurrence("too many apps", ConstraintType.NEGATIVE_HARD, app.getApps().size(), app));
 end
+
+
+rule "favourFewerAppServers"
+    when
+        AppServerInstance(apps.size == 0)
+    then
+        //score one up for a free app server
+        insertLogical(new IntConstraintOccurrence("free server", ConstraintType.POSITIVE, 1));        
+end
+
 
 
 
@@ -26,12 +38,27 @@ end
 // Calculate score
 // ############################################################################
 
+// Accumulate hard constraints
 rule "hardConstraintsBroken"
+        salience -1 // Do the other rules first (optional, for performance)
     when
-        $occurrenceCount : Number() from accumulate(
-            $unweightedConstraintOccurrence : UnweightedConstraintOccurrence(),
-            count($unweightedConstraintOccurrence)
+        $hardTotal : Number() from accumulate(
+            IntConstraintOccurrence(constraintType == ConstraintType.NEGATIVE_HARD, $weight : weight),
+            sum($weight) // Vote for http://jira.jboss.com/jira/browse/JBRULES-1075
         );
     then
-        scoreCalculator.setScore(- $occurrenceCount.intValue());
+        scoreCalculator.setHardConstraintsBroken($hardTotal.intValue());
 end
+
+// Accumulate soft constraints
+rule "softConstraintsBroken"
+        salience -1 // Do the other rules first (optional, for performance)
+    when
+        $softTotal : Number() from accumulate(
+            IntConstraintOccurrence(constraintType == ConstraintType.POSITIVE, $weight : weight),
+            sum($weight) // Vote for http://jira.jboss.com/jira/browse/JBRULES-1075
+        );
+    then
+        scoreCalculator.setSoftConstraintsBroken(-$softTotal.intValue());
+end
+
