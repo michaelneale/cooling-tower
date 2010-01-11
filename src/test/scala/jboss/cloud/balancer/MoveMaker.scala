@@ -19,9 +19,7 @@ class MoveMaker extends CachedMoveFactory {
                      app <- source.apps;
                      target <- solution.applicationServers filter(_ != source))
                 yield (AppMove(target, source, app).asInstanceOf[Move])
-    val ls = moves.asJava
-    println("Number of moves: " + ls.size)
-    ls
+    moves.asJava
   }
 
 }
@@ -42,7 +40,7 @@ case class AppMove(@BeanProperty var target: AppServerInstance,
     target.apps = app :: target.apps
   }
 
-  def isMoveDoable(wm: WorkingMemory) = true
+  def isMoveDoable(wm: WorkingMemory) = !target.apps.contains(app) && source.apps.contains(app)
 
   def createUndoMove(wm: WorkingMemory) = AppMove(source, target, app)
 }

@@ -34,12 +34,11 @@ class BalancerTest {
   @Test def permutationCity = {
       val initialSolution = BalanceSolution(List(
                             AppServerInstance(List(Application("foo"), Application("bar"))),
-                            AppServerInstance(List(Application("foo"), Application("bar")))))
+                            AppServerInstance(List(Application("wee"), Application("waa")))))
 
       val mm = new MoveMaker
       val list = mm.createCachedMoveList(initialSolution)
 
-      //assertTrue(list.size > 0)
       assertEquals(list.size, 4) //only for combinations that make sense, not with itself.
 
       println(list)
@@ -47,16 +46,33 @@ class BalancerTest {
 
       val move = list.get(0)
       assertTrue(move.isMoveDoable(null))
+
+      //should be zero, as no point in moving anything... 
+      assertEquals(0, mm.createCachedMoveList(BalanceSolution(List(
+                            AppServerInstance(List(Application("foo"), Application("bar"))),
+                            AppServerInstance(List(Application("foo"), Application("bar")))))).size)
+
   }
+
+
 
   @Test def move = {
     val target = AppServerInstance(List(Application("wee"), Application("waa")))
     val source = AppServerInstance(List(Application("foo"), Application("bar")))
     val move = AppMove(target, source, Application("bar"))
     assertEquals(source.apps.size, 2)
+    assertTrue(move.isMoveDoable(null))
     move.moveApp
     assertEquals(source.apps.size, 1)
     assertEquals(target.apps.size, 3)
+
+
+    val nilMove = AppMove(AppServerInstance(List(Application("bar"))), AppServerInstance(List(Application("baz"))), Application("bar"))
+    assertFalse(nilMove.isMoveDoable(null), "Shouldn't move as already has bar !")
+
+
+    
+
   }
 
 
@@ -73,6 +89,8 @@ class BalancerTest {
 
     val solution = solver.getBestSolution.asInstanceOf[BalanceSolution]
     assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0, solution.toString)
+    System.err.println(solution.toString)
+
   }
 
   @Test def lessBasicSolutionTry = {

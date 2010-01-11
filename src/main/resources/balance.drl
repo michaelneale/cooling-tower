@@ -30,7 +30,7 @@ rule "favourFewerAppServers"
         insertLogical(new IntConstraintOccurrence("free server", ConstraintType.POSITIVE, 10));        
 end
 
-rule "punishNonFree"
+rule "punishNoneFree"
     when
         not AppServerInstance(apps.size == 0)
     then
