@@ -3,3 +3,14 @@ target
 DS_Store
 test-output
 testdb
+pom.xml~
+.gitignore~
+#.gitignore#
+*.ipr
+*.iws
+*.iml
+target
+nbproject
+.settings
+.wtpmodules
+.metadata
