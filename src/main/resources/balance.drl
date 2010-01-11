@@ -27,8 +27,17 @@ rule "favourFewerAppServers"
         AppServerInstance(apps.size == 0)
     then
         //score one up for a free app server
-        insertLogical(new IntConstraintOccurrence("free server", ConstraintType.POSITIVE, 1));        
+        insertLogical(new IntConstraintOccurrence("free server", ConstraintType.POSITIVE, 10));        
 end
+
+rule "punishNonFree"
+    when
+        not AppServerInstance(apps.size == 0)
+    then
+        insertLogical(new IntConstraintOccurrence("none free", ConstraintType.POSITIVE, -10));
+end
+
+        
 
 
 

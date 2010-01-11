@@ -19,7 +19,9 @@ class MoveMaker extends CachedMoveFactory {
                      app <- source.apps;
                      target <- solution.applicationServers filter(_ != source))
                 yield (AppMove(target, source, app).asInstanceOf[Move])
-    moves.asJava
+    val ls = moves.asJava
+    println("Number of moves: " + ls.size)
+    ls
   }
 
 }

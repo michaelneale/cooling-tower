@@ -83,28 +83,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BalancerTest.scala" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="BalancerTest.scala" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/BalancerTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="12" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Score.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/drools/solver/drools-solver-core/5.0.1/drools-solver-core-5.0.1.jar!/org/drools/solver/core/score/Score.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="55" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Solver.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/drools/solver/drools-solver-core/5.0.1/drools-solver-core-5.0.1.jar!/org/drools/solver/core/Solver.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="36" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0">
+            <state line="100" column="58" selection-start="3750" selection-end="3750" vertical-scroll-proportion="0.9081164">
               <folding />
             </state>
           </provider>
@@ -113,25 +95,16 @@
       <file leaf-file-name="plannerconf.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/plannerconf.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="34" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0">
+            <state line="12" column="18" selection-start="328" selection-end="328" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="balance.drl" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="balance.drl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/balance.drl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="50" selection-start="2130" selection-end="2130" vertical-scroll-proportion="0.816825">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConstraintType.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/drools/solver/drools-solver-core/5.0.1/drools-solver-core-5.0.1.jar!/org/drools/solver/core/score/constraint/ConstraintType.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="23" selection-start="222" selection-end="222" vertical-scroll-proportion="0.0">
+            <state line="31" column="60" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -140,16 +113,7 @@
       <file leaf-file-name="MoveMaker.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/MoveMaker.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="11" selection-start="1055" selection-end="1055" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WorkingMemoryEntryPoint.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/drools/drools-api/5.0.1/drools-api-5.0.1.jar!/org/drools/runtime/rule/WorkingMemoryEntryPoint.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="9" selection-start="348" selection-end="348" vertical-scroll-proportion="0.0">
+            <state line="23" column="6" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -513,9 +477,9 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -526,15 +490,15 @@
       <recent name="jboss.cloud.mapping" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.BalancerTest.basicSolutionTry">
-    <tempConfiguration default="false" name="BalancerTest.basicSolutionTry" type="TestNG" factoryName="TestNG" enabled="false" merge="false" sample_coverage="true" runner="emma">
+  <component name="RunManager" selected="TestNG.BalancerTest.lessBasicSolutionTry">
+    <tempConfiguration default="false" name="BalancerTest.lessBasicSolutionTry" type="TestNG" factoryName="TestNG" enabled="false" merge="false" sample_coverage="true" runner="emma">
       <module name="cooling-tower" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="jboss.cloud.balancer" />
       <option name="MAIN_CLASS_NAME" value="jboss.cloud.balancer.BalancerTest" />
-      <option name="METHOD_NAME" value="basicSolutionTry" />
+      <option name="METHOD_NAME" value="lessBasicSolutionTry" />
       <option name="GROUP_NAME" value="" />
       <option name="TEST_OBJECT" value="METHOD" />
       <option name="VM_PARAMETERS" value="" />
@@ -686,7 +650,7 @@
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="TestNG.AllTests" />
-      <item index="1" class="java.lang.String" itemvalue="TestNG.BalancerTest.basicSolutionTry" />
+      <item index="1" class="java.lang.String" itemvalue="TestNG.BalancerTest.lessBasicSolutionTry" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -734,8 +698,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="18" y="25" width="1920" height="1174" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1920" height="1174" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
@@ -747,16 +711,16 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51474786" sideWeight="0.98869723" order="7" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51398134" sideWeight="0.98869723" order="7" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980132" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32959402" sideWeight="0.74595624" order="0" side_tool="false" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14636752" sideWeight="0.64795434" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24738345" sideWeight="0.987797" order="2" side_tool="false" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34538534" sideWeight="0.987797" order="2" side_tool="false" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3360043" sideWeight="0.7450048" order="2" side_tool="false" />
@@ -865,23 +829,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/plannerconf.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/balancer/Balance.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="34" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0">
+        <state line="11" column="11" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/balance.drl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="60" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/MoveMaker.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="11" selection-start="1055" selection-end="1055" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/jboss/cloud/balancer/Balance.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="11" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
+        <state line="23" column="6" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -893,16 +857,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/BalancerTest.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/plannerconf.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="12" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.0">
+        <state line="12" column="18" selection-start="328" selection-end="328" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/balance.drl">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/jboss/cloud/balancer/BalancerTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="50" selection-start="2130" selection-end="2130" vertical-scroll-proportion="0.816825">
+        <state line="100" column="58" selection-start="3750" selection-end="3750" vertical-scroll-proportion="0.9081164">
           <folding />
         </state>
       </provider>

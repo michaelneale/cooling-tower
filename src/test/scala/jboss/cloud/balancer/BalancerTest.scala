@@ -65,6 +65,27 @@ class BalancerTest {
                           AppServerInstance(List(Application("foo"), Application("bar"))),
                           AppServerInstance(List(Application("wing"), Application("wang")))))
 
+    val configurer = new XmlSolverConfigurer
+    configurer.configure("/jboss/cloud/balancer/plannerconf.xml");
+    val solver = configurer.buildSolver
+    solver.setStartingSolution(initialSolution)
+    solver.solve
+
+    val solution = solver.getBestSolution.asInstanceOf[BalanceSolution]
+    assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0, solution.toString)
+  }
+
+  @Test def lessBasicSolutionTry = {
+    val initialSolution = BalanceSolution(List(
+                          AppServerInstance(List(Application("foo"), Application("bar"))),
+                          AppServerInstance(List(Application("wing"), Application("wang"))),
+                          AppServerInstance(List(Application("mee"))),
+                          AppServerInstance(List(Application("bang"), Application("bing"))),
+                          AppServerInstance(List(Application("mee2"))),
+                          AppServerInstance(List(Application("mee3"))),
+                          AppServerInstance(List(Application("mee4")))
+                          ))
+
 
     val configurer = new XmlSolverConfigurer
     configurer.configure("/jboss/cloud/balancer/plannerconf.xml");
@@ -73,16 +94,12 @@ class BalancerTest {
     solver.solve
 
     val solution = solver.getBestSolution.asInstanceOf[BalanceSolution]
-    assertNotNull(solution)
-
-
-
     assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0, solution.toString)
-    println("solution is: " + solution)
-    println("OK")
+    System.err.println("SOLUTION: \n" + solution)
 
-
-
+    System.err.println("BEST SCORE:" + solver.getBestScore)
     
+
+
   }
 }

@@ -6,7 +6,7 @@
     </scoreDefinition>
 
     <finish>
-        <maximumSecondsSpend>10</maximumSecondsSpend>
+        <maximumSecondsSpend>3</maximumSecondsSpend>
     </finish>
     <!--
     <finish>
@@ -17,11 +17,9 @@
     <selector>
         <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
     </selector>
-    <!--
     <accepter>
         <completeSolutionTabuSize>1000</completeSolutionTabuSize>
     </accepter>
-    -->
     <forager>
         <foragerType>MAX_SCORE_OF_ALL</foragerType>
     </forager>
