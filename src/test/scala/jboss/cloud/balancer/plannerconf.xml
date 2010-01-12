@@ -8,16 +8,18 @@
     <finish>
         <maximumSecondsSpend>3</maximumSecondsSpend>
     </finish>
-    <!--
-    <finish>
-        <feasableScore>0</feasableScore>
-    </finish>
-
-    -->
     <selector>
-        <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
+        <selector>
+            <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
+            <relativeSelection>0.5</relativeSelection>
+        </selector>
+        <selector>
+            <moveFactoryClass>jboss.cloud.balancer.BulkMoveMaker</moveFactoryClass>
+            <relativeSelection>0.5</relativeSelection>
+        </selector>
     </selector>
-    <accepter>
+
+    <accepter>                              
         <completeSolutionTabuSize>1000</completeSolutionTabuSize>
     </accepter>
     <forager>

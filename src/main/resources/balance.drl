@@ -37,6 +37,9 @@ rule "punishNoneFree"
         insertLogical(new IntConstraintOccurrence("none free", ConstraintType.POSITIVE, -10));
 end
 
+#rule idea: favour unloading of heavily loaded servers
+
+
         
 
 
