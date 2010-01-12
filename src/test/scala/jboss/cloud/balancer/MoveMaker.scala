@@ -1,6 +1,7 @@
 package jboss.cloud.balancer
 
 
+import java.io.File
 import org.drools.solver.core.move.factory.CachedMoveFactory
 import org.drools.solver.core.move.Move
 import org.drools.solver.core.solution.Solution
@@ -42,13 +43,15 @@ class HybridMoveMaker extends CachedMoveFactory {
 case class AppMove(val target: AppServerInstance,
                   val source: AppServerInstance,
                   val app: Application) extends Move {
-  def doMove(wm: WorkingMemory) = {
+  def doMove(wm: WorkingMemory)   = {
     wm.retract(wm.getFactHandle(source))
     wm.retract(wm.getFactHandle(target))
     moveApp
     wm.insert(source)
     wm.insert(target)
+
   }
+
 
   def moveApp = {
     source.apps = source.apps.remove(_ == app)
@@ -63,7 +66,7 @@ case class AppMove(val target: AppServerInstance,
 class BulkMoveMaker extends CachedMoveFactory {
   def createCachedMoveList(sol: Solution) = {
     val solution = sol.asInstanceOf[BalanceSolution]
-    val moves = for (source <- solution.applicationServers;
+    val moves = for (source <- solution.applicationServers filter(_.apps.size > 1);
                      target <- solution.applicationServers filter(_ != source))
                 yield (BulkAppMove(target, source, source.apps).asInstanceOf[Move])
     moves.asJava

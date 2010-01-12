@@ -97,6 +97,7 @@ class BalancerTest {
   }
 
 
+  /** This shows trying 2 moves to trim down the number of servers needed */
   @Test def basicSolutionTry = {
     val initialSolution = BalanceSolution(List(
                           AppServerInstance(List(Application("foo"), Application("bar"))),
@@ -109,7 +110,7 @@ class BalancerTest {
     solver.solve
 
     val solution = solver.getBestSolution.asInstanceOf[BalanceSolution]
-    assertTrue(solution.applicationServers.filter(_.apps.size == 0).size > 0, solution.toString)
+    assertTrue(solution.applicationServers.filter(_.apps.size == 0).size == 1, solution.toString)
     System.err.println(solution.toString)
 
   }

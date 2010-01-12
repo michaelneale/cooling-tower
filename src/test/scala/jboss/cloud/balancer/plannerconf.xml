@@ -9,6 +9,8 @@
         <maximumSecondsSpend>3</maximumSecondsSpend>
     </finish>
     <selector>
+        <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
+        <!--
         <selector>
             <moveFactoryClass>jboss.cloud.balancer.MoveMaker</moveFactoryClass>
             <relativeSelection>0.5</relativeSelection>
@@ -17,9 +19,10 @@
             <moveFactoryClass>jboss.cloud.balancer.BulkMoveMaker</moveFactoryClass>
             <relativeSelection>0.5</relativeSelection>
         </selector>
+        -->
     </selector>
 
-    <accepter>                              
+    <accepter>
         <completeSolutionTabuSize>1000</completeSolutionTabuSize>
     </accepter>
     <forager>
