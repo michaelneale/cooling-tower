@@ -24,9 +24,24 @@ class MoveMaker extends CachedMoveFactory {
 
 }
 
-case class AppMove(@BeanProperty var target: AppServerInstance,
-                  @BeanProperty var source: AppServerInstance,
-                  @BeanProperty var app: Application) extends Move {
+/** OK this one is a stab in the dark. Combine the single moves with the bulk moves */ 
+class HybridMoveMaker extends CachedMoveFactory {
+   def createCachedMoveList(sol: Solution) : java.util.List[Move] = {
+    val solution = sol.asInstanceOf[BalanceSolution]
+    val moves = for (source <- solution.applicationServers;
+                     app <- source.apps;
+                     target <- solution.applicationServers filter(_ != source))
+                yield (AppMove(target, source, app).asInstanceOf[Move])
+    val moreMoves = for (source <- solution.applicationServers filter(_.apps.size > 1);
+                        target <- solution.applicationServers filter(_ != source))
+                    yield (BulkAppMove(target, source, source.apps).asInstanceOf[Move])
+    (moves ++ moreMoves).asJava
+  }
+}
+
+case class AppMove(val target: AppServerInstance,
+                  val source: AppServerInstance,
+                  val app: Application) extends Move {
   def doMove(wm: WorkingMemory) = {
     wm.retract(wm.getFactHandle(source))
     wm.retract(wm.getFactHandle(target))
