@@ -1,9 +1,10 @@
 package jboss.cloud.dns
 
 import java.io.File
-import org.testng.annotations.{BeforeTest, AfterSuite, BeforeSuite, Test}
 import org.testng.Assert._
-
+import java.text.SimpleDateFormat
+import java.util.Date
+import org.testng.annotations._
 
 
 class RegistrarTest {
@@ -15,14 +16,19 @@ class RegistrarTest {
     val reg = Registrar(zoneDirectory, "8.8.8.8")
 
     assertEquals(0, reg.listDomains.size)
-    val zone = reg.registerNewDomain("samplezone.com", "4.4.4.4")
+    reg.registerNewDomain("samplezone.com", "4.4.4.4")
+    val initialZoneFile = reg.zoneFileFor("samplezone.com")
     assertEquals(1, reg.listDomains.size)
+
 
     var doms = reg.listSubDomains("samplezone.com")
     assertEquals(doms.size, 2)
     assertEquals("samplezone.com", doms(0))
 
     reg.bindSubDomain("samplezone.com", "wee", "1.1.1.1")
+
+
+
     assertEquals(1, reg.listDomains.size)
 
     doms = reg.listSubDomains("samplezone.com")
@@ -37,8 +43,7 @@ class RegistrarTest {
 
     doms = reg.listSubDomains("samplezone.com")
     assertEquals(doms.size, 3)
-    doms.contains("wee")
-
+    assertTrue(doms.contains("wee.samplezone.com"))
   }
 
   @Test def subDomains = {
@@ -61,21 +66,37 @@ class RegistrarTest {
     assertEquals(reg.subDomainAddress("samplezone.com", "tom"), "1.2.3.5")
 
 
+
     reg.removeSubDomain("samplezone.com", "harry")
     assertFalse(reg.listSubDomains("samplezone.com").contains("harry.samplezone.com"))
     assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
 
+  }
 
+  @Test def shouldUpdateSerial = {
+    
+    val reg = Registrar(zoneDirectory, "8.8.8.8")
+    val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
+    val zoneFile = reg.registerNewDomain("foo.com", "1.1.1.1")
+    assertEquals(reg.zoneFileFor("foo.com"), zoneFile)
+    reg.bindSubDomain("foo.com", "bar", "1.2.3.4")
+    val newZone = reg.zoneFileFor("foo.com")
+    assertFalse(newZone == zoneFile)
+    val newSerial = "" + (serial + 1)
+    assertTrue(newZone.indexOf(newSerial) > 0, newZone)
 
   }
 
 
-  @BeforeTest def directory = {
-    delete(zoneDirectory )
+  @BeforeMethod def directory = {
+    delete(zoneDirectory)
     if (!zoneDirectory.exists) zoneDirectory.mkdir
   }
 
-  @AfterSuite def cleanup = delete(zoneDirectory)
+  @AfterTest def cleanup = {
+    delete(zoneDirectory)
+    zoneDirectory.delete
+  }
 
 
 

@@ -1,13 +1,13 @@
 package jboss.cloud.dns
 
 
-import java.io.{FileOutputStream, File}
 import java.net.InetAddress
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.apache.commons.io.IOUtils
 import org.xbill.DNS._
 import org.scala_tools.javautils.Imports._
+import java.io.{FileInputStream, FileOutputStream, File}
 
 /**
  * Manage the database of name registrations for the cloud servers
@@ -21,7 +21,7 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
   def registerNewDomain(domain: String, defaultAddress: String) = {
     val adminEmailAddress = Name.fromString("admin." + domain, Name.root)
     val domainName = Name.fromString(domain, Name.root)
-    val serial = new SimpleDateFormat("yyyymmdd").format(new Date).toInt
+    val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
     val refresh = 86400 //1d
     val expiry = 2419200 //4w
     val retry = 120
@@ -33,10 +33,11 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     val nsEntry = new NSRecord(domainName, DClass.IN, 2419200, defaultDNSName)
     val zone = new Zone(domainName, Array[Record](soa, nsEntry, dnsRecord))
     if (defaultAddress != null && !defaultAddress.isEmpty)  zone.addRecord(new ARecord(domainName, DClass.IN, TTL, InetAddress.getByName(defaultAddress)))
-    saveZone(zone, domain)
+    IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
     zone.toMasterFile
   }
 
+  def zoneFileFor(domain: String) :String = IOUtils.toString(new FileInputStream(new File(rootDirectory, domain)))
   def listDomains = rootDirectory.listFiles.map(_.getName)
 
   def listSubDomains(domain: String) = {
@@ -48,7 +49,6 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
   /** Probably can have optional params for TTL etc... */
   def bindSubDomain(domain: String, subDomain: String, address: String)  = {
-    //need to whip through RRset and Records to find the right one... then remove it, create a new one from it.
     val zone = loadZone(domain)
     val name = Name.fromString(subDomain, zone.getOrigin)
     recordsFor(zone).find(_.getName == name).map(zone.removeRecord(_))
@@ -85,7 +85,14 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
 
   private def loadZone(domain: String) : Zone = new Zone(Name.fromString(domain, Name.root), new File(rootDirectory, domain).getPath)
-  private def saveZone(zone: Zone, domain: String) =  IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
+  private def saveZone(zone: Zone, domain: String) =  {
+    //need to update serial !
+    val old = zone.getSOA
+    zone.removeRecord(old)
+    val soa = new SOARecord(old.getName, DClass.IN, TTL, old.getHost, old.getAdmin, old.getSerial + 1, old.getRefresh, old.getRetry, old.getExpire, old.getMinimum)
+    zone.addRecord(soa)
+    IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
+  }
 
 
   private def recordsFor(z: Zone) : Seq[Record] = {
