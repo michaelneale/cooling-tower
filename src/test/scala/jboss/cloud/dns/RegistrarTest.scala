@@ -25,7 +25,7 @@ class RegistrarTest {
     assertEquals(doms.size, 2)
     assertEquals("samplezone.com", doms(0))
 
-    reg.bindSubDomain("samplezone.com", "wee", "1.1.1.1")
+    reg.updateSubDomain("samplezone.com", "wee", "1.1.1.1")
 
 
 
@@ -52,21 +52,18 @@ class RegistrarTest {
     val zone = reg.registerNewDomain("samplezone.com", "")
     assertEquals(1, reg.listDomains.size)
 
-    reg.bindSubDomain("samplezone.com", "tom", "1.2.3.4")
+    reg.updateSubDomain("samplezone.com", "tom", "1.2.3.4")
     assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
 
-    reg.bindSubDomain("samplezone.com", "harry", "2.2.3.4")
+    reg.updateSubDomain("samplezone.com", "harry", "2.2.3.4")
     assertTrue(reg.listSubDomains("samplezone.com").contains("harry.samplezone.com"))
     assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
 
     assertEquals(reg.subDomainAddress("samplezone.com", "tom"), "1.2.3.4")
     assertEquals(reg.subDomainAddress("samplezone.com", "harry"), "2.2.3.4")
 
-    reg.bindSubDomain("samplezone.com", "tom", "1.2.3.5")
+    reg.updateSubDomain("samplezone.com", "tom", "1.2.3.5")
     assertEquals(reg.subDomainAddress("samplezone.com", "tom"), "1.2.3.5")
-
-
-
     reg.removeSubDomain("samplezone.com", "harry")
     assertFalse(reg.listSubDomains("samplezone.com").contains("harry.samplezone.com"))
     assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
@@ -74,17 +71,21 @@ class RegistrarTest {
   }
 
   @Test def shouldUpdateSerial = {
-    
     val reg = Registrar(zoneDirectory, "8.8.8.8")
     val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
     val zoneFile = reg.registerNewDomain("foo.com", "1.1.1.1")
     assertEquals(reg.zoneFileFor("foo.com"), zoneFile)
-    reg.bindSubDomain("foo.com", "bar", "1.2.3.4")
+    reg.updateSubDomain("foo.com", "bar", "1.2.3.4")
     val newZone = reg.zoneFileFor("foo.com")
     assertFalse(newZone == zoneFile)
     val newSerial = "" + (serial + 1)
     assertTrue(newZone.indexOf(newSerial) > 0, newZone)
+  }
 
+  /** For the default address of something.com */
+  @Test def defaultAddress = {
+    //val reg = Registrar(zoneDirectory, "8.8.8.8")
+            
   }
 
 

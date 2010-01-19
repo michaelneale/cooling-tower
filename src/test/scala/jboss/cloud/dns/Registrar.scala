@@ -23,15 +23,21 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     val domainName = Name.fromString(domain, Name.root)
     val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
     val refresh = 86400 //1d
-    val expiry = 2419200 //4w
+    val FOUR_WEEKS = 2419200
+    val expiry = FOUR_WEEKS //4w
     val retry = 120
     val minimum = 60
-    val defaultDNSName = Name.fromString("dns", domainName)
+    val primaryDNSName = Name.fromString("dns", domainName) 
+    
+    /* start of authority */
+    val soa = new SOARecord(domainName, DClass.IN, TTL, primaryDNSName, adminEmailAddress, serial, refresh, retry, expiry, minimum)
 
-    val soa = new SOARecord(domainName, DClass.IN, TTL, defaultDNSName, adminEmailAddress, serial, refresh, retry, expiry, minimum)
-    val dnsRecord = new ARecord(defaultDNSName, DClass.IN, 2419200, InetAddress.getByName(dnsServerAddress))
-    val nsEntry = new NSRecord(domainName, DClass.IN, 2419200, defaultDNSName)
-    val zone = new Zone(domainName, Array[Record](soa, nsEntry, dnsRecord))
+    /* The NS stuff (should really have 2 of them, but this is the primary) : */
+    val primaryDNSARecord = new ARecord(primaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(dnsServerAddress))
+    val primaryNSRecord = new NSRecord(domainName, DClass.IN, FOUR_WEEKS, primaryDNSName)
+
+    
+    val zone = new Zone(domainName, Array[Record](soa, primaryNSRecord, primaryDNSARecord))
     if (defaultAddress != null && !defaultAddress.isEmpty)  zone.addRecord(new ARecord(domainName, DClass.IN, TTL, InetAddress.getByName(defaultAddress)))
     IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
     zone.toMasterFile
@@ -48,7 +54,7 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
 
   /** Probably can have optional params for TTL etc... */
-  def bindSubDomain(domain: String, subDomain: String, address: String)  = {
+  def updateSubDomain(domain: String, subDomain: String, address: String)  = {
     val zone = loadZone(domain)
     val name = Name.fromString(subDomain, zone.getOrigin)
     recordsFor(zone).find(_.getName == name).map(zone.removeRecord(_))
@@ -109,5 +115,5 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     ls.asScala
   }
 
-  
+
 }
