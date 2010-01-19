@@ -26,16 +26,18 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     val expiry = 2419200 //4w
     val retry = 120
     val minimum = 60
-    val defaultDNSName = Name.fromString("dns." + domain, Name.root)
+    val defaultDNSName = Name.fromString("dns", domainName)
+
     val soa = new SOARecord(domainName, DClass.IN, TTL, defaultDNSName, adminEmailAddress, serial, refresh, retry, expiry, minimum)
     val dnsRecord = new ARecord(defaultDNSName, DClass.IN, 2419200, InetAddress.getByName(dnsServerAddress))
     val nsEntry = new NSRecord(domainName, DClass.IN, 2419200, defaultDNSName)
     val zone = new Zone(domainName, Array[Record](soa, nsEntry, dnsRecord))
     if (defaultAddress != null && !defaultAddress.isEmpty)  zone.addRecord(new ARecord(domainName, DClass.IN, TTL, InetAddress.getByName(defaultAddress)))
-    IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
+    saveZone(zone, domain)
     zone.toMasterFile
   }
 
+  def listDomains = rootDirectory.listFiles.map(_.getName)
 
   def listSubDomains(domain: String) = {
     val zone = loadZone(domain)
@@ -48,23 +50,43 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
   def bindSubDomain(domain: String, subDomain: String, address: String)  = {
     //need to whip through RRset and Records to find the right one... then remove it, create a new one from it.
     val zone = loadZone(domain)
-    val name = Name.fromString(subDomain + "." + domain, Name.root)
+    val name = Name.fromString(subDomain, zone.getOrigin)
     recordsFor(zone).find(_.getName == name).map(zone.removeRecord(_))
     zone.addRecord(new ARecord(name, DClass.IN, TTL, InetAddress.getByName(address)))
-    IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
-
+    saveZone(zone, domain)
   }
+
+  def subDomainAddress(domain: String, subDomain: String) = {
+    //whoops - shouldn't be FQDN for subdomains? 
+    val name = Name.fromString(subDomain, Name.fromString(domain, Name.root))
+    recordsFor(loadZone(domain)).find(_.getName == name) match {
+      case Some(record) => record match {
+        case a: ARecord => a.getAddress.getHostAddress
+        case c: CNAMERecord => c.getTarget.toString
+        case _ => ""
+      }
+      case None => ""
+    }
+  }
+
+  def removeSubDomain(domain: String, subDomain: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(subDomain, Name.fromString(domain, Name.root))    
+    recordsFor(zone).filter(_.getName == name).map(zone.removeRecord(_))
+    saveZone(zone, domain)
+  }
+
 
   def aliasSubDomain(domain: String, subDomain: String, targetURI: String) = null
   
-  def listDomains = rootDirectory.listFiles.map(_.getName) 
 
 
-  def currentAddress(domain: String, subDomain: String) = null
 
 
 
   private def loadZone(domain: String) : Zone = new Zone(Name.fromString(domain, Name.root), new File(rootDirectory, domain).getPath)
+  private def saveZone(zone: Zone, domain: String) =  IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
+
 
   private def recordsFor(z: Zone) : Seq[Record] = {
     val ls = new java.util.ArrayList[Record]
