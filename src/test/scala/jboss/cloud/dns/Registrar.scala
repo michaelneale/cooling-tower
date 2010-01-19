@@ -18,7 +18,7 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
   val TTL = 60
 
-  def registerNewDomain(domain: String, defaultAddress: String) = {
+  def registerNewDomain(domain: String) = {
     val adminEmailAddress = Name.fromString("admin." + domain, Name.root)
     val domainName = Name.fromString(domain, Name.root)
     val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
@@ -38,9 +38,24 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
     
     val zone = new Zone(domainName, Array[Record](soa, primaryNSRecord, primaryDNSARecord))
-    if (defaultAddress != null && !defaultAddress.isEmpty)  zone.addRecord(new ARecord(domainName, DClass.IN, TTL, InetAddress.getByName(defaultAddress)))
     IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
     zone.toMasterFile
+  }
+
+  def removeDomain(domain: String) = new File(rootDirectory, domain).delete
+
+  def updateDefaultAddress(domain: String, address: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(domain, Name.root)
+    recordsFor(zone).find(r => r.getName == name && (r.isInstanceOf[ARecord] || r.isInstanceOf[CNAMERecord])).map(zone.removeRecord(_))
+    zone.addRecord(makeRecord(name, address))
+    saveZone(zone, domain)
+  }
+
+  def defaultAddressFor(domain: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(domain, Name.root)
+    getAddress(recordsFor(zone).find(r => r.getName == name && (r.isInstanceOf[ARecord] || r.isInstanceOf[CNAMERecord])))
   }
 
   def zoneFileFor(domain: String) :String = IOUtils.toString(new FileInputStream(new File(rootDirectory, domain)))
@@ -51,21 +66,30 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     recordsFor(zone).filter(_.isInstanceOf[ARecord]).map(_.getName.toString).map(n => n.substring(0, n.length -1))
   }
 
-
-
   /** Probably can have optional params for TTL etc... */
   def updateSubDomain(domain: String, subDomain: String, address: String)  = {
     val zone = loadZone(domain)
     val name = Name.fromString(subDomain, zone.getOrigin)
     recordsFor(zone).find(_.getName == name).map(zone.removeRecord(_))
-    zone.addRecord(new ARecord(name, DClass.IN, TTL, InetAddress.getByName(address)))
+    zone.addRecord(makeRecord(name, address))
     saveZone(zone, domain)
   }
 
+  private def makeRecord(name: Name, address: String) = {
+    if (address.matches("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+") || address.indexOf(":") > -1) {
+      new ARecord(name, DClass.IN, TTL, InetAddress.getByName(address))
+    } else {
+      new CNAMERecord(name, DClass.IN, TTL, Name.fromString(address, Name.root))
+    }
+  }
+
   def subDomainAddress(domain: String, subDomain: String) = {
-    //whoops - shouldn't be FQDN for subdomains? 
     val name = Name.fromString(subDomain, Name.fromString(domain, Name.root))
-    recordsFor(loadZone(domain)).find(_.getName == name) match {
+    getAddress(recordsFor(loadZone(domain)).find(_.getName == name))
+  }
+
+  private def getAddress(rec: Option[Record]) : String = {
+    rec match {
       case Some(record) => record match {
         case a: ARecord => a.getAddress.getHostAddress
         case c: CNAMERecord => c.getTarget.toString
@@ -81,13 +105,6 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     recordsFor(zone).filter(_.getName == name).map(zone.removeRecord(_))
     saveZone(zone, domain)
   }
-
-
-  def aliasSubDomain(domain: String, subDomain: String, targetURI: String) = null
-  
-
-
-
 
 
   private def loadZone(domain: String) : Zone = new Zone(Name.fromString(domain, Name.root), new File(rootDirectory, domain).getPath)
@@ -114,6 +131,8 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     }
     ls.asScala
   }
+
+  
 
 
 }
