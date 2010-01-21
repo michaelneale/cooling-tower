@@ -88,7 +88,7 @@ class RegistrarTest {
     assertEquals(reg.defaultAddressFor("blah.com"), "2.2.2.2")
   }
 
-  @Test def handleCNames = {
+  @Test def shouldHandleCNamesTransparently = {
     val reg = Registrar(zoneDirectory, "8.8.8.8")
     reg.registerNewDomain("something.com")
     reg.updateSubDomain("something.com", "news", "www.smh.com.au")

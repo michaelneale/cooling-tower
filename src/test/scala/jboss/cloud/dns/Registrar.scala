@@ -94,7 +94,7 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
         case a: ARecord => a.getAddress.getHostAddress
         case c: CNAMERecord => {
           val nm = c.getTarget.toString
-          nm.substring(0, nm.size -1)
+          nm.substring(0, nm.size - 1)
         }
         case _ => ""
       }
