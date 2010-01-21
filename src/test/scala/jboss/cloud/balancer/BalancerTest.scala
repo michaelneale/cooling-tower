@@ -104,7 +104,7 @@ class BalancerTest {
                           AppServerInstance(List(Application("wing"), Application("wang")))))
 
     val configurer = new XmlSolverConfigurer
-    configurer.configure("/jboss/cloud/balancer/plannerconf.xml");
+    configurer.configure("/balancer/plannerconf.xml");
     val solver = configurer.buildSolver
     solver.setStartingSolution(initialSolution)
     solver.solve
@@ -128,7 +128,7 @@ class BalancerTest {
 
 
     val configurer = new XmlSolverConfigurer
-    configurer.configure("/jboss/cloud/balancer/plannerconf.xml");
+    configurer.configure("/balancer/plannerconf.xml");
     val solver = configurer.buildSolver
     solver.setStartingSolution(initialSolution)
     solver.solve
@@ -152,7 +152,7 @@ class BalancerTest {
     val initialSolution = BalanceSolution(servers)
 
     val configurer = new XmlSolverConfigurer
-    configurer.configure("/jboss/cloud/balancer/plannerconf.xml");
+    configurer.configure("/balancer/plannerconf.xml");
     val solver = configurer.buildSolver
     solver.setStartingSolution(initialSolution)
     solver.solve

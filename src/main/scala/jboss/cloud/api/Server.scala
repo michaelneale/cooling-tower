@@ -1,12 +1,13 @@
 package jboss.cloud.api
 
 
-import config.Services
 import java.io.InputStream
 import java.net.URI
 import javax.ws.rs._
 import javax.ws.rs.core.Response.Status
 import javax.ws.rs.core.{MediaType, Response, Context, Request}
+import jboss.cloud.config.Services
+
 @Path("/api") class Server(@Context request: Request) {
 
 

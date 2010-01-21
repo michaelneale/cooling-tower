@@ -1,12 +1,10 @@
 package jboss.cloud.api
 
 
-import config.Services
-import deltacloud.CloudClient
 import org.testng.annotations.Test
 import org.testng.Assert._
-
-
+import jboss.cloud.config.Services
+import jboss.cloud.{Image, Flavor, TestDB}
 
 class NewApplicationTest extends ApiHelper {
 

@@ -1,7 +1,6 @@
 package jboss.cloud.api
 
 
-import config.Services
 import java.io.ByteArrayInputStream
 import org.apache.commons.httpclient.methods.{PostMethod, GetMethod}
 import org.apache.commons.httpclient.{HttpClient, HttpMethodBase}
@@ -9,6 +8,8 @@ import org.jboss.resteasy.plugins.server.servlet.{ResteasyBootstrap, HttpServlet
 import org.mortbay.jetty.servlet.Context
 import org.testng.Assert._
 import xml.Elem
+import jboss.cloud.TestDB
+import jboss.cloud.config.Services
 
 /**
  * Wire up the mocks etc.
