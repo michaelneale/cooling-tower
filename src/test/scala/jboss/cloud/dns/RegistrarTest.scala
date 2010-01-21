@@ -8,9 +8,7 @@ import org.testng.annotations._
 
 
 class RegistrarTest {
-
   var zoneDirectory: File = new File("_test_zone_directory_")  //for naughty testing purposes
-
 
   @Test def createNewZone = {
     val reg = Registrar(zoneDirectory, "8.8.8.8")
@@ -26,7 +24,6 @@ class RegistrarTest {
     assertEquals("dns.samplezone.com", doms(0))
 
     reg.updateSubDomain("samplezone.com", "wee", "1.1.1.1")
-
 
 
     assertEquals(1, reg.listDomains.size)
@@ -67,7 +64,6 @@ class RegistrarTest {
     reg.removeSubDomain("samplezone.com", "harry")
     assertFalse(reg.listSubDomains("samplezone.com").contains("harry.samplezone.com"))
     assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
-
   }
 
   @Test def shouldUpdateSerial = {
@@ -93,8 +89,10 @@ class RegistrarTest {
   }
 
   @Test def handleCNames = {
-
-    fail("CNAMEs are aliases - should detect them transparently")
+    val reg = Registrar(zoneDirectory, "8.8.8.8")
+    reg.registerNewDomain("something.com")
+    reg.updateSubDomain("something.com", "news", "www.smh.com.au")
+    assertEquals(reg.subDomainAddress("something.com", "news"), "www.smh.com.au")
   }
 
   @Test def removeDomain = {

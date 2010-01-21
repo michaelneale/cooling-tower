@@ -92,7 +92,10 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     rec match {
       case Some(record) => record match {
         case a: ARecord => a.getAddress.getHostAddress
-        case c: CNAMERecord => c.getTarget.toString
+        case c: CNAMERecord => {
+          val nm = c.getTarget.toString
+          nm.substring(0, nm.size -1)
+        }
         case _ => ""
       }
       case None => ""
