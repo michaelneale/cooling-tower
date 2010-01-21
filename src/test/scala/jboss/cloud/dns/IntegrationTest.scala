@@ -1,15 +1,22 @@
 package jboss.cloud.dns
 
-/**
- * Created by IntelliJ IDEA.
- * User: michaelneale
- * Date: Jan 21, 2010
- * Time: 3:29:04 PM
- * To change this template use File | Settings | File Templates.
- */
 
-class IntegrationTest {
-  
+class DNSIntegrationTest {
+  /**
+   * get("/naming") returns list of domains under management
+   * get("/naming/domain.com") returns list of subdomains
+   * get("/naming/domain.com/subdomain") returns its IP or CNAME
+   *
+   * post("/naming") - post a new zone to manage
+   * post("/naming/domain") - post a new subdomain
+   * put....
+   * delete....
+   *
+   * Architectural Change:
+   * Change RESTEasy to use Application, and have it return the resources in it (programmatic conf). Perhaps have some content providers??
+   * Also refactor test helper for HTTP tests into a trait to mix in to the test? 
+   *
+   */
 
   
 }
