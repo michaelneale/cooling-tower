@@ -28,4 +28,6 @@
     </welcome-file-list>
 
 
+    <!-- secure the URLS as appropriate down here ! -->
+
 </web-app>

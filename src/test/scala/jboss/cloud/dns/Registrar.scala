@@ -12,7 +12,6 @@ import java.io.{FileInputStream, FileOutputStream, File}
 /**
  * Manage the database of name registrations for the cloud servers
  * Pass in the root of the directory to hold the zone files, and the IP of the DNS server itself
- * TODO: MX records? 
  */
 case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
@@ -61,9 +60,15 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
   def zoneFileFor(domain: String) :String = IOUtils.toString(new FileInputStream(new File(rootDirectory, domain)))
   def listDomains = rootDirectory.listFiles.map(_.getName)
 
+
+  /** Show a list of subdomains, excluding DNS and such */
   def listSubDomains(domain: String) = {
     val zone = loadZone(domain)
-    recordsFor(zone).filter(_.isInstanceOf[ARecord]).map(_.getName.toString).map(n => n.substring(0, n.length -1))
+    recordsFor(zone)
+            .filter(r => r.isInstanceOf[ARecord] || r.isInstanceOf[CNAMERecord])
+            .filter(_.getName.toString != domain)
+            .map(_.getName.toString.split("\\.")(0))
+            .filter(!_.startsWith("dns"))   //do not want DNS or default entries showing up
   }
 
   /** Probably can have optional params for TTL etc... */
@@ -111,8 +116,9 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
 
 
   private def loadZone(domain: String) : Zone = new Zone(Name.fromString(domain, Name.root), new File(rootDirectory, domain).getPath)
+
+  /** Update serial and save */
   private def saveZone(zone: Zone, domain: String) =  {
-    //need to update serial !
     val old = zone.getSOA
     zone.removeRecord(old)
     val soa = new SOARecord(old.getName, DClass.IN, TTL, old.getHost, old.getAdmin, old.getSerial + 1, old.getRefresh, old.getRetry, old.getExpire, old.getMinimum)

@@ -20,8 +20,7 @@ class RegistrarTest {
 
 
     var doms = reg.listSubDomains("samplezone.com")
-    assertEquals(doms.size, 1)
-    assertEquals("dns.samplezone.com", doms(0))
+    assertEquals(doms.size, 0)
 
     reg.updateSubDomain("samplezone.com", "wee", "1.1.1.1")
 
@@ -29,7 +28,7 @@ class RegistrarTest {
     assertEquals(1, reg.listDomains.size)
 
     doms = reg.listSubDomains("samplezone.com")
-    assertEquals(doms.size, 2)
+    assertEquals(doms.size, 1)
     doms.contains("wee")
 
     assertEquals(reg.subDomainAddress("samplezone.com", "wee"), "1.1.1.1")
@@ -39,8 +38,11 @@ class RegistrarTest {
     assertTrue(reg.listDomains.contains("michael.org"))
 
     doms = reg.listSubDomains("samplezone.com")
-    assertEquals(doms.size, 2)
-    assertTrue(doms.contains("wee.samplezone.com"))
+    assertEquals(doms.size, 1)
+    assertTrue(doms.contains("wee"))
+
+    assertTrue(reg.zoneFileFor("samplezone.com").contains("wee.samplezone.com"))
+
   }
 
   @Test def subDomains = {
@@ -50,11 +52,11 @@ class RegistrarTest {
     assertEquals(1, reg.listDomains.size)
 
     reg.updateSubDomain("samplezone.com", "tom", "1.2.3.4")
-    assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
+    assertTrue(reg.listSubDomains("samplezone.com").contains("tom"))
 
     reg.updateSubDomain("samplezone.com", "harry", "2.2.3.4")
-    assertTrue(reg.listSubDomains("samplezone.com").contains("harry.samplezone.com"))
-    assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
+    assertTrue(reg.listSubDomains("samplezone.com").contains("harry"))
+    assertTrue(reg.listSubDomains("samplezone.com").contains("tom"))
 
     assertEquals(reg.subDomainAddress("samplezone.com", "tom"), "1.2.3.4")
     assertEquals(reg.subDomainAddress("samplezone.com", "harry"), "2.2.3.4")
@@ -62,9 +64,22 @@ class RegistrarTest {
     reg.updateSubDomain("samplezone.com", "tom", "1.2.3.5")
     assertEquals(reg.subDomainAddress("samplezone.com", "tom"), "1.2.3.5")
     reg.removeSubDomain("samplezone.com", "harry")
-    assertFalse(reg.listSubDomains("samplezone.com").contains("harry.samplezone.com"))
-    assertTrue(reg.listSubDomains("samplezone.com").contains("tom.samplezone.com"))
+    assertFalse(reg.listSubDomains("samplezone.com").contains("harry"))
+    assertTrue(reg.listSubDomains("samplezone.com").contains("tom"))
+
+    //should store it as a CNAME
+    reg.updateSubDomain("samplezone.com", "boo", "www.smh.com.au")
+    assertEquals(reg.subDomainAddress("samplezone.com", "boo"), "www.smh.com.au")
+    reg.updateDefaultAddress("samplezone.com", "2.5.4.3")
+    assertTrue(reg.listSubDomains("samplezone.com") contains ("boo"))
+    assertFalse(reg.listSubDomains("samplezone.com") contains ("dns"))
+
+    println(reg.listSubDomains("samplezone.com"))
+
+
+
   }
+
 
   @Test def shouldUpdateSerial = {
     val reg = Registrar(zoneDirectory, "8.8.8.8")
