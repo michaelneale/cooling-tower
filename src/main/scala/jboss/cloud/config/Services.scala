@@ -1,12 +1,16 @@
 package jboss.cloud.config
 
 
-import deltacloud.{CloudClient, DeltaClient}
-import deploy.{SSHDeployer, Deployer, TaskManager}
+//import deltacloud.{CloudClient, DeltaClient}
+//import deploy.{SSHDeployer, Deployer, TaskManager}
 import java.io.{File, FileInputStream}
 import java.util.Properties
-import mapping.{LocalDatabase, AppAnalyser}
+import jboss.cloud.deploy.{SSHDeployer, Deployer, TaskManager}
+import jboss.cloud.deltacloud.{DeltaClient, CloudClient}
+//import mapping.{LocalDatabase, AppAnalyser}
 import org.apache.commons.io.IOUtils
+import jboss.cloud.mapping._
+
 /**
  * Launching point for getting access to services.
  *
@@ -53,11 +57,14 @@ object Services {
     if (key != null) newInstanceConfig.privateKey = IOUtils.toString(new FileInputStream(key))
 
     db.ROOT = new File(properties.getProperty("database-root"))
-
   }
 
 
 
+  /**
+   * TODO: Refactor this to read from sys properties, or conf file mentioned in sys properties/environment etc... 
+   * Perhaps can have servlet context specify where conf is as well.
+   */
   val properties = {
     val props = new Properties
     props.load(Services.getClass.getResourceAsStream("/cooling-tower.config"))
