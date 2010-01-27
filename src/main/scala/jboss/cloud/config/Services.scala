@@ -34,15 +34,17 @@ object Services {
   var deltaCloudConfig = new DeltaCloudConfig
   var newInstanceConfig = new NewInstanceConfig
 
+  var dnsPrimary = properties.getProperty("dns-primary")
+  var dnsSecondary = properties.getProperty("dns-secondary")
+  var dnsZoneFolder = properties.getProperty("dns-zone-folder")
+
+
   def deltaCloud = deltaClient
   def analyser = appAnalyser
   def database = db
   def tasks = taskManager
   def deployer = dep
 
-  def dnsPrimary = properties.getProperty("dns-primary")
-  def dnsSecondary = properties.getProperty("dns-secondary")
-  def dnsZoneFolder = properties.getProperty("dns-zone-folder")
 
 
   /** Load up the dependencies */
@@ -70,10 +72,7 @@ object Services {
 
 
 
-  /**
-   * Load up properties...
-   */
-  val properties = {
+  def properties = {
     val props = new Properties
     System.getProperty("cooling.tower.conf", "NONE") match {
       case "NONE" => {

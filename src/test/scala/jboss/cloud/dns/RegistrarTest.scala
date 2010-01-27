@@ -138,7 +138,7 @@ class RegistrarTest {
 
 
 
-  private def delete(f: File) : Unit = if (f.isDirectory) f.listFiles.map(delete) else f.delete
+  def delete(f: File) : Unit = if (f.isDirectory) f.listFiles.map(delete) else f.delete
 
 
 

@@ -1,7 +1,12 @@
 package jboss.cloud.dns
 
+import jboss.cloud.api.ApiHelper
+import jboss.cloud.config.Services
+import org.testng.annotations.{BeforeTest, BeforeMethod, AfterTest, Test}
+import java.io.File
 
-class DNSIntegrationTest {
+class DNSIntegrationTest extends ApiHelper {
+  var zoneDirectory: File = new File("_test_zone_directory_")  //for naughty testing purposes
   /**
    * get("/naming") returns list of domains under management, and links to zone info, current default address
    * get("/naming/domain.com") returns list of subdomains
@@ -21,5 +26,21 @@ class DNSIntegrationTest {
    *
    */
 
-  
+   @Test def shouldList = {
+      get("/naming").body shouldBe <api><link href="/api/naming/domains" rel="domains"></link></api>
+   }
+
+  @BeforeTest def before = Services.dnsZoneFolder = zoneDirectory.getPath
+
+
+  @BeforeMethod def directory = {
+    delete(zoneDirectory)
+    if (!zoneDirectory.exists) zoneDirectory.mkdir
+  }
+
+  @AfterTest def cleanup = {
+    delete(zoneDirectory)
+    zoneDirectory.delete
+  }
+
 }

@@ -1,7 +1,6 @@
 package jboss.cloud.api
 
 
-import java.io.ByteArrayInputStream
 import org.apache.commons.httpclient.methods.{PostMethod, GetMethod}
 import org.apache.commons.httpclient.{HttpClient, HttpMethodBase}
 import org.jboss.resteasy.plugins.server.servlet.{ResteasyBootstrap, HttpServletDispatcher}
@@ -10,6 +9,7 @@ import org.testng.Assert._
 import xml.Elem
 import jboss.cloud.TestDB
 import jboss.cloud.config.Services
+import java.io.{File, ByteArrayInputStream}
 
 /**
  * Wire up the mocks etc.
@@ -77,7 +77,7 @@ class ApiHelper {
 
       def params = {
         val hm = new java.util.HashMap[String, String]
-        hm.put("resteasy.resources", "jboss.cloud.api.Server")
+        hm.put("resteasy.resources", "jboss.cloud.api.Server, jboss.cloud.dns.Registrar")
         hm
       }
 
@@ -93,6 +93,8 @@ class ApiHelper {
           TestResponse(method)
         }
     }
-  
+
+
+    def delete(f: File) : Unit = if (f.isDirectory) f.listFiles.map(delete) else f.delete
 
 }
