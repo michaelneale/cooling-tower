@@ -2,9 +2,11 @@ package jboss.cloud.mapping
 
 
 import com.thoughtworks.xstream.XStream
-import deploy.Task
 import java.io.{FileInputStream, FileOutputStream, File, InputStream}
 import org.apache.commons.io.IOUtils
+import jboss.cloud.Instance
+import jboss.cloud.deploy.Task
+
 /**
  * Local persistence of data.
  * A Very dumb database.

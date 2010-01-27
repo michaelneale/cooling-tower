@@ -8,16 +8,27 @@ import org.apache.commons.io.IOUtils
 import org.xbill.DNS._
 import org.scala_tools.javautils.Imports._
 import java.io.{FileInputStream, FileOutputStream, File}
+import javax.ws.rs._
+import jboss.cloud.config.Services
 
 /**
  * Manage the database of name registrations for the cloud servers
  * Pass in the root of the directory to hold the zone files, and the IP of the DNS server itself
  */
-case class Registrar(rootDirectory: File, dnsServerAddress: String) {
+@Path("/api/naming") class Registrar {
 
   val TTL = 60
+  var rootDirectory = new File(Services.dnsZoneFolder)
+  var primaryDNS = Services.dnsPrimary
+  var secondaryDNS = Services.dnsSecondary
 
-  def registerNewDomain(domain: String) = {
+  @GET @Path("/") def root = <api><link rel="domains" href="/api/naming/domains"/></api>.toString
+  //@GET @Path("/domains") def domainListing 
+
+  def listDomains = rootDirectory.listFiles.map(_.getName)
+
+  @POST @Path("/domains")
+  def registerNewDomain(@QueryParam("name") domain: String) = {
     val adminEmailAddress = Name.fromString("admin." + domain, Name.root)
     val domainName = Name.fromString(domain, Name.root)
     val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
@@ -26,24 +37,35 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     val expiry = FOUR_WEEKS //4w
     val retry = 120
     val minimum = 60
-    val primaryDNSName = Name.fromString("dns", domainName) 
-    
+
+    val primaryDNSName = if (isIP(primaryDNS)) Name.fromString("dns", domainName) else Name.fromString(primaryDNS, Name.root)
+    val secondaryDNSName = if (isIP(secondaryDNS)) Name.fromString("dns2", domainName) else Name.fromString(secondaryDNS, Name.root)
+
+
     /* start of authority */
     val soa = new SOARecord(domainName, DClass.IN, TTL, primaryDNSName, adminEmailAddress, serial, refresh, retry, expiry, minimum)
 
     /* The NS stuff (should really have 2 of them, but this is the primary) : */
-    val primaryDNSARecord = new ARecord(primaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(dnsServerAddress))
     val primaryNSRecord = new NSRecord(domainName, DClass.IN, FOUR_WEEKS, primaryDNSName)
+    val secondaryNSRecord = new NSRecord(domainName, DClass.IN, FOUR_WEEKS, secondaryDNSName)
 
-    
-    val zone = new Zone(domainName, Array[Record](soa, primaryNSRecord, primaryDNSARecord))
+
+    val zone = new Zone(domainName, Array[Record](soa, primaryNSRecord, secondaryNSRecord))
+
+    //may need to add A recs for in-zone DNS
+    if (isIP(primaryDNS)) zone.addRecord(new ARecord(primaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(primaryDNS)))
+    if (isIP(secondaryDNS)) zone.addRecord(new ARecord(secondaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(secondaryDNS)))
+
+
     IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
     zone.toMasterFile
   }
 
-  def removeDomain(domain: String) = new File(rootDirectory, domain).delete
+  @Path("domains/{name}") @DELETE
+  def removeDomain(@PathParam("name") domain: String) = new File(rootDirectory, domain).delete
 
-  def updateDefaultAddress(domain: String, address: String) = {
+  @Path("domains/{name}/default") @PUT
+  def updateDefaultAddress(@PathParam("name") domain: String, @QueryParam("address")  address: String) = {
     val zone = loadZone(domain)
     val name = Name.fromString(domain, Name.root)
     recordsFor(zone).find(r => r.getName == name && (r.isInstanceOf[ARecord] || r.isInstanceOf[CNAMERecord])).map(zone.removeRecord(_))
@@ -51,17 +73,20 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
     saveZone(zone, domain)
   }
 
-  def defaultAddressFor(domain: String) = {
+  @Path("domains/{name}/default")
+  def defaultAddressFor(@PathParam("name") domain: String) = {
     val zone = loadZone(domain)
     val name = Name.fromString(domain, Name.root)
     getAddress(recordsFor(zone).find(r => r.getName == name && (r.isInstanceOf[ARecord] || r.isInstanceOf[CNAMERecord])))
   }
 
-  def zoneFileFor(domain: String) :String = IOUtils.toString(new FileInputStream(new File(rootDirectory, domain)))
-  def listDomains = rootDirectory.listFiles.map(_.getName)
+  @GET @Path("domains/{name}/zoneFile")
+  def zoneFileFor(@PathParam("name") domain: String) :String = IOUtils.toString(new FileInputStream(new File(rootDirectory, domain)))
+
 
 
   /** Show a list of subdomains, excluding DNS and such */
+  @GET @Path("domains/{name}")
   def listSubDomains(domain: String) = {
     val zone = loadZone(domain)
     recordsFor(zone)
@@ -81,12 +106,12 @@ case class Registrar(rootDirectory: File, dnsServerAddress: String) {
   }
 
   private def makeRecord(name: Name, address: String) = {
-    if (address.matches("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+") || address.indexOf(":") > -1) {
-      new ARecord(name, DClass.IN, TTL, InetAddress.getByName(address))
-    } else {
-      new CNAMERecord(name, DClass.IN, TTL, Name.fromString(address, Name.root))
-    }
+    if (isIP(address))  new ARecord(name, DClass.IN, TTL, InetAddress.getByName(address))
+    else                new CNAMERecord(name, DClass.IN, TTL, Name.fromString(address, Name.root))
   }
+
+  /** Return true if it is an IP address, false means it is a domain name and should be treated via CNAME etc not A record */
+  def isIP(address: String) = address.matches("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+") || address.indexOf(":") > -1
 
   def subDomainAddress(domain: String, subDomain: String) = {
     val name = Name.fromString(subDomain, Name.fromString(domain, Name.root))

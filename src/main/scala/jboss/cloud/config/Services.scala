@@ -15,12 +15,17 @@ import jboss.cloud.mapping._
  * Launching point for getting access to services.
  *
  * Design notes:
- *  Config items: creds for ∂-cloud, creds for installation, pre/post install scripts, root of local db
+ *  Config items:
+ *      creds for ∂-cloud, creds for installation, pre/post install scripts, root of local db.
+ *      These are specified in a config file, which is either root of classpath, called cooling-tower.config, or else
+ *      set a System property called  cooling.tower.conf to the path to the config file. 
+ *
  *  Pluggable items: Deployer, Cloud Client. 
  *
  * @author Michael Neale
  */
 object Services {
+
   var deltaClient : CloudClient = new DeltaClient
   var appAnalyser = new AppAnalyser
   var db = new LocalDatabase
@@ -34,6 +39,10 @@ object Services {
   def database = db
   def tasks = taskManager
   def deployer = dep
+
+  def dnsPrimary = properties.getProperty("dns-primary")
+  def dnsSecondary = properties.getProperty("dns-secondary")
+  def dnsZoneFolder = properties.getProperty("dns-zone-folder")
 
 
   /** Load up the dependencies */
@@ -62,12 +71,20 @@ object Services {
 
 
   /**
-   * TODO: Refactor this to read from sys properties, or conf file mentioned in sys properties/environment etc... 
-   * Perhaps can have servlet context specify where conf is as well.
+   * Load up properties...
    */
   val properties = {
     val props = new Properties
-    props.load(Services.getClass.getResourceAsStream("/cooling-tower.config"))
+    System.getProperty("cooling.tower.conf", "NONE") match {
+      case "NONE" => {
+        println("Loading config from classpath")
+        props.load(Services.getClass.getResourceAsStream("/cooling-tower.config"))
+      }
+      case path => {
+        println("Loading config from file: " + path)
+        props.load(new FileInputStream(new File(path)))
+      }
+    }
     props
   }
 

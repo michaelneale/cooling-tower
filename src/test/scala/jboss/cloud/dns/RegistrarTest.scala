@@ -9,9 +9,9 @@ import org.testng.annotations._
 
 class RegistrarTest {
   var zoneDirectory: File = new File("_test_zone_directory_")  //for naughty testing purposes
+  var reg = new Registrar
 
   @Test def createNewZone = {
-    val reg = Registrar(zoneDirectory, "8.8.8.8")
 
     assertEquals(0, reg.listDomains.size)
     reg.registerNewDomain("samplezone.com")
@@ -46,7 +46,6 @@ class RegistrarTest {
   }
 
   @Test def subDomains = {
-    val reg = Registrar(zoneDirectory, "8.8.8.8")
     assertEquals(0, reg.listDomains.size)
     val zone = reg.registerNewDomain("samplezone.com")
     assertEquals(1, reg.listDomains.size)
@@ -82,10 +81,8 @@ class RegistrarTest {
 
 
   @Test def shouldUpdateSerial = {
-    val reg = Registrar(zoneDirectory, "8.8.8.8")
     val serial = new SimpleDateFormat("yyyyMMdd").format(new Date).toInt
     val zoneFile = reg.registerNewDomain("foo.com")
-    assertEquals(reg.zoneFileFor("foo.com"), zoneFile)
     reg.updateSubDomain("foo.com", "bar", "1.2.3.4")
     val newZone = reg.zoneFileFor("foo.com")
     assertFalse(newZone == zoneFile)
@@ -95,7 +92,6 @@ class RegistrarTest {
 
   /** For the default address of something.com */
   @Test def defaultAddress = {
-    val reg = Registrar(zoneDirectory, "8.8.8.8")
     reg.registerNewDomain("blah.com")
     reg.updateDefaultAddress("blah.com", "1.1.1.1")
     assertEquals(reg.defaultAddressFor("blah.com"), "1.1.1.1")
@@ -104,14 +100,12 @@ class RegistrarTest {
   }
 
   @Test def shouldHandleCNamesTransparently = {
-    val reg = Registrar(zoneDirectory, "8.8.8.8")
     reg.registerNewDomain("something.com")
     reg.updateSubDomain("something.com", "news", "www.smh.com.au")
     assertEquals(reg.subDomainAddress("something.com", "news"), "www.smh.com.au")
   }
 
   @Test def removeDomain = {
-    val reg = Registrar(zoneDirectory, "8.8.8.8")
     reg.registerNewDomain("blah.com")
     reg.registerNewDomain("rlah.com")
     reg.removeDomain("blah.com")
@@ -124,6 +118,13 @@ class RegistrarTest {
 
 
 
+
+  @BeforeTest def before = {
+    reg.primaryDNS = "8.8.8.8"
+    reg.secondaryDNS = "8.4.4.4"
+    reg.rootDirectory = zoneDirectory
+    
+  }
 
   @BeforeMethod def directory = {
     delete(zoneDirectory)
