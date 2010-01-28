@@ -1,8 +1,6 @@
 package jboss.cloud.api
 
 
-import org.apache.commons.httpclient.methods.{PostMethod, GetMethod}
-import org.apache.commons.httpclient.{HttpClient, HttpMethodBase}
 import org.jboss.resteasy.plugins.server.servlet.{ResteasyBootstrap, HttpServletDispatcher}
 import org.mortbay.jetty.servlet.Context
 import org.testng.Assert._
@@ -10,6 +8,8 @@ import xml.Elem
 import jboss.cloud.TestDB
 import jboss.cloud.config.Services
 import java.io.{File, ByteArrayInputStream}
+import org.apache.commons.httpclient.{NameValuePair, HttpClient, HttpMethodBase}
+import org.apache.commons.httpclient.methods.{DeleteMethod, PostMethod, GetMethod}
 
 /**
  * Wire up the mocks etc.
@@ -33,7 +33,25 @@ class ApiHelper {
     pm.setRequestHeader("Content-Type", contentType)
     Client.call(pm)
   }
+
+
+  /**
+   * Pass a URL and name=value&morename=morevalue type of parameter list to be posted.
+   */
+  def post(url: String, params: String) = {
+    val pm = new PostMethod(HOST + url)
+    pm.setRequestBody(params.split("&").map(n => new NameValuePair(n.split("=")(0), n.split("=")(1))))
+    //pm.setRequestHeader("Content-Type", contentType)
+    Client.call(pm)
+  }
+  
   def put(url: String, data: Array[Byte]) = ""
+
+  def delete(url: String) = {
+    val d = new DeleteMethod(HOST + url)
+    Client.call(d)
+  }
+
 
   def deployer = Services.deployer.asInstanceOf[MockDeployer]
 
@@ -48,6 +66,19 @@ class ApiHelper {
     }
 
     def shouldMatch(xml: Elem) : Unit = shouldMatch(xml.toString)
+    def shouldContain(s: String) : Unit = {
+      if (!v.isInstanceOf[String]) fail("Can only do 'contain' on string")
+      if (!v.asInstanceOf[String].contains(s)) fail(v + " does not contain " + s)
+    }
+
+    def shouldNotContain(s: String) : Unit = {
+      if (!v.isInstanceOf[String]) fail("Can only do 'not contain' on string")
+      if (v.asInstanceOf[String].contains(s)) fail(v + " does contains " + s)
+    }
+
+    
+    def shouldContain(xml : Elem) : Unit = shouldContain(xml.toString)
+    def shouldNotContain(xml: Elem) : Unit = shouldNotContain(xml.toString)
   }
 
   case class TestResponse(m: HttpMethodBase) {

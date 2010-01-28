@@ -11,6 +11,8 @@ import jboss.cloud.config.Services
 @Path("/api") class Server(@Context request: Request) {
 
 
+    //TODO: Refactor to include DNS services as sub tree, perhaps move most of this to app provision api? 
+
     @GET @Path("/")
     def root = <api version="1.0"><link href="applications"/></api>
 

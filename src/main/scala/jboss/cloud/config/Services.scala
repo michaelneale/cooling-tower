@@ -22,10 +22,13 @@ import jboss.cloud.mapping._
  *
  *  Pluggable items: Deployer, Cloud Client. 
  *
+ *
  * @author Michael Neale
  */
 object Services {
 
+  //TODO: Need to have LISTENER context for startup - configure services? or can be lazy? REFACTOR !
+  //TODO: refactor config info from actual services - still need to be able to mock out.
   var deltaClient : CloudClient = new DeltaClient
   var appAnalyser = new AppAnalyser
   var db = new LocalDatabase
