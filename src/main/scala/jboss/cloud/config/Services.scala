@@ -75,6 +75,7 @@ object Services {
 
 
 
+  //TODO: Properties should really also be command line/environment properties if they are there, not conf files.
   def properties = {
     val props = new Properties
     System.getProperty("cooling.tower.conf", "NONE") match {
