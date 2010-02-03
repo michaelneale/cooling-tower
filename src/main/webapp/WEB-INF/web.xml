@@ -5,8 +5,8 @@
 
     <context-param>
         <!-- load up JAX-RS providers and resources etc -->
-        <param-name>resteasy.scan</param-name>
-        <param-value>true</param-value>
+        <param-name>resteasy.resources</param-name>
+        <param-value>jboss.cloud.api.Server, jboss.cloud.dns.Registrar</param-value>
     </context-param>
 
     <listener>
@@ -23,9 +23,6 @@
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
-        <welcome-file>/index.html</welcome-file>
-    </welcome-file-list>
 
 
     <!-- secure the URLS as appropriate down here ! -->

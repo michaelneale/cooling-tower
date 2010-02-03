@@ -37,9 +37,9 @@ object Services {
   var deltaCloudConfig = new DeltaCloudConfig
   var newInstanceConfig = new NewInstanceConfig
 
-  var dnsPrimary = properties.getProperty("dns-primary")
-  var dnsSecondary = properties.getProperty("dns-secondary")
-  var dnsZoneFolder = properties.getProperty("dns-zone-folder")
+  var dnsPrimary = property("dns-primary")
+  var dnsSecondary = property("dns-secondary")
+  var dnsZoneFolder = property("dns-zone-folder")
 
 
   def deltaCloud = deltaClient
@@ -60,23 +60,32 @@ object Services {
     deltaCloudConfig = new DeltaCloudConfig
     newInstanceConfig = new NewInstanceConfig
 
-    deltaCloudConfig.apiURL = properties.getProperty("deltacloud-url")
-    deltaCloudConfig.userName = properties.getProperty("deltacloud-username")
-    deltaCloudConfig.password = properties.getProperty("deltacloud-password")
+    deltaCloudConfig.apiURL = property("deltacloud-url")
+    deltaCloudConfig.userName = property("deltacloud-username")
+    deltaCloudConfig.password = property("deltacloud-password")
 
-    newInstanceConfig.userName = properties.getProperty("deploy-username")
-    newInstanceConfig.password = properties.getProperty("deploy-password")
-    newInstanceConfig.targetDir = properties.getProperty("deploy-target-dir")
-    val key = properties.getProperty("deploy-private-key")
+    newInstanceConfig.userName = property("deploy-username")
+    newInstanceConfig.password = property("deploy-password")
+    newInstanceConfig.targetDir = property("deploy-target-dir")
+    val key = property("deploy-private-key")
     if (key != null) newInstanceConfig.privateKey = IOUtils.toString(new FileInputStream(key))
 
-    db.ROOT = new File(properties.getProperty("database-root"))
+    db.ROOT = new File(property("database-root"))
   }
 
 
+  /**
+   * Load a property. Prefer to load as a system property, otherwise loading from a config file. Config file
+   * will be in root of classpath cooling-tower.config, or else specified by a path cooling.tower.conf in system properties.
+   */
+  private def property(key: String) = {
+       System.getProperty(key) match {
+         case null => properties.getProperty(key)
+         case v: String => v
+       }
+  }
 
-  //TODO: Properties should really also be command line/environment properties if they are there, not conf files.
-  def properties = {
+  private def properties = {
     val props = new Properties
     System.getProperty("cooling.tower.conf", "NONE") match {
       case "NONE" => {
