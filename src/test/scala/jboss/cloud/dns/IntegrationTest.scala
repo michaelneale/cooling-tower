@@ -32,7 +32,8 @@ class DNSIntegrationTest extends ApiHelper {
      post("/naming/domains/samplezone.org/default", "address=1.2.3.4")
      get ("/naming/domains/samplezone.org/default").body shouldBe "1.2.3.4"
      post("/naming/domains/samplezone.org/default", "address=1.2.3.5")
-     get ("/naming/domains/samplezone.org/default").body shouldBe "1.2.3.5"
+     post("/naming/domains/samplezone.org/default", "1.2.3.6".getBytes, "test/plain")
+     get ("/naming/domains/samplezone.org/default").body shouldBe "1.2.3.6"
 
      post("/naming/domains/samplezone.org", "subdomain=www&address=2.2.2.2")
      get ("/naming/domains/samplezone.org/www").body shouldBe "2.2.2.2"
@@ -49,6 +50,8 @@ class DNSIntegrationTest extends ApiHelper {
      get ("/naming/domains/samplezone.org").body shouldNotContain <link href="/api/naming/domains/samplezone.org/www" rel="address" />
 
    }
+
+   
 
 
 

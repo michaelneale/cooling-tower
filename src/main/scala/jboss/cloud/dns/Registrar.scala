@@ -68,11 +68,11 @@ import jboss.cloud.config.Services
   def removeDomain(@PathParam("name") domain: String) = new File(rootDirectory, domain).delete
 
   @PUT @POST @Path("/domains/{name}/default")
-  def updateDefaultAddress(@PathParam("name") domain: String, @FormParam("address")  address: String) = {
+  def updateDefaultAddress(@PathParam("name") domain: String, @FormParam("address")  address: String, addressBody: String) = {
     val zone = loadZone(domain)
     val name = Name.fromString(domain, Name.root)
     recordsFor(zone).find(r => r.getName == name && (r.isInstanceOf[ARecord] || r.isInstanceOf[CNAMERecord])).map(zone.removeRecord(_))
-    zone.addRecord(makeRecord(name, address))
+    zone.addRecord(makeRecord(name, if (address != null) address else addressBody))
     saveZone(zone, domain)
   }
 

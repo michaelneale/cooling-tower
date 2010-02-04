@@ -69,7 +69,7 @@ class RegistrarTest {
     //should store it as a CNAME
     reg.updateSubDomain("samplezone.com", "boo", "www.smh.com.au")
     assertEquals(reg.subDomainAddress("samplezone.com", "boo"), "www.smh.com.au")
-    reg.updateDefaultAddress("samplezone.com", "2.5.4.3")
+    reg.updateDefaultAddress("samplezone.com", "2.5.4.3", null)
     assertTrue(reg.listSubDomains("samplezone.com") contains ("boo"))
     assertFalse(reg.listSubDomains("samplezone.com") contains ("dns"))
 
@@ -93,9 +93,9 @@ class RegistrarTest {
   /** For the default address of something.com */
   @Test def defaultAddress = {
     reg.registerNewDomain("blah.com")
-    reg.updateDefaultAddress("blah.com", "1.1.1.1")
+    reg.updateDefaultAddress("blah.com", null, "1.1.1.1")
     assertEquals(reg.defaultAddressFor("blah.com"), "1.1.1.1")
-    reg.updateDefaultAddress("blah.com", "2.2.2.2")
+    reg.updateDefaultAddress("blah.com", "2.2.2.2", null)
     assertEquals(reg.defaultAddressFor("blah.com"), "2.2.2.2")
   }
 
