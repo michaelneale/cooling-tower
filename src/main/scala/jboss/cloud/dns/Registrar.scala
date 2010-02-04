@@ -45,20 +45,25 @@ import jboss.cloud.config.Services
     val minimum = 60
 
     val primaryDNSName = if (isIP(primaryDNS)) Name.fromString("dns", domainName) else Name.fromString(primaryDNS, Name.root)
-    val secondaryDNSName = if (isIP(secondaryDNS)) Name.fromString("dns2", domainName) else Name.fromString(secondaryDNS, Name.root)
+
 
     /* start of authority */
     val soa = new SOARecord(domainName, DClass.IN, TTL, primaryDNSName, adminEmailAddress, serial, refresh, retry, expiry, minimum)
 
     /* The NS stuff (should really have 2 of them, but this is the primary) : */
     val primaryNSRecord = new NSRecord(domainName, DClass.IN, FOUR_WEEKS, primaryDNSName)
-    val secondaryNSRecord = new NSRecord(domainName, DClass.IN, FOUR_WEEKS, secondaryDNSName)
 
-    val zone = new Zone(domainName, Array[Record](soa, primaryNSRecord, secondaryNSRecord))
-
-    //may need to add A recs for in-zone DNS
+    val zone = new Zone(domainName, Array[Record](soa, primaryNSRecord))
+    //may need to add A recs for in-zone DNS - I like the word "bailiwick"
     if (isIP(primaryDNS)) zone.addRecord(new ARecord(primaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(primaryDNS)))
-    if (isIP(secondaryDNS)) zone.addRecord(new ARecord(secondaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(secondaryDNS)))
+
+    if (secondaryDNS != null) {
+        val secondaryDNSName = if (isIP(secondaryDNS)) Name.fromString("dns2", domainName) else Name.fromString(secondaryDNS, Name.root)
+        val secondaryNSRecord = new NSRecord(domainName, DClass.IN, FOUR_WEEKS, secondaryDNSName)
+        zone.addRecord(secondaryNSRecord)
+        if (isIP(secondaryDNS)) zone.addRecord(new ARecord(secondaryDNSName, DClass.IN, FOUR_WEEKS, InetAddress.getByName(secondaryDNS)))
+    }
+
 
     IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
     zone.toMasterFile

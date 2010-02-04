@@ -116,6 +116,15 @@ class RegistrarTest {
 
 
 
+  @Test def noSecondary = {
+    reg.secondaryDNS = null
+    reg.registerNewDomain("blah.com")
+    reg.registerNewDomain("rlah.com")
+    reg.removeDomain("blah.com")
+    assertEquals(1, reg.listDomains.size)
+    assertTrue(reg.listDomains.contains("rlah.com"))
+
+  }
 
 
 

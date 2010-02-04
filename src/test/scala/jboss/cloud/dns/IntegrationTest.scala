@@ -18,8 +18,6 @@ class DNSIntegrationTest extends ApiHelper {
      get    ("/naming/domains").body shouldBe <domains><link href="/api/naming/domains/samplezone.org" rel="domain"></link></domains>
      delete ("/naming/domains/samplezone.org")
      get    ("/naming/domains").body shouldBe <domains/>
-
-
    }
 
    @Test def shouldBeAbleToSubDomain = {
