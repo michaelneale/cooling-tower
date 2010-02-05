@@ -24,6 +24,9 @@
     </servlet-mapping>
 
 
+    <welcome-file-list>
+        <welcome-file>/index.html</welcome-file>
+    </welcome-file-list>
 
     <!-- secure the URLS as appropriate down here ! -->
 
