@@ -5,5 +5,13 @@ package jboss.cloud.elastic
  */
 class ElasticScaler
 
-case class AppCluster(appServers: Seq[AppServerInstance])
-case class AppServerInstance(sessionCount: Int, cpuUsage: Int)
+
+case class AppCluster(id: String)
+case class AppServerInstance(id: String,
+                             busyConnectors: Int,
+                             heapUsage: Long,
+                             sessionCount: Int,
+                             cpuLoad: Int,
+                             server: Server,
+                             cluster: AppCluster)
+case class Server(id: String)
