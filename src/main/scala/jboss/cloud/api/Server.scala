@@ -14,6 +14,8 @@ import jboss.cloud.config.Services
 @Path("/api") class Server {
 
 
+    //TODO: rules should be also loaded from path, not from classpath, possibly. 
+
     @GET @Path("/")
     def root = <api version="1.0"><link href="/api/applications" rel="resource"/><link href="/api/naming" rel="resource"/></api>
 

@@ -1,11 +1,18 @@
 package jboss.cloud.elastic
 
+
+#Can have Metric generic object - many of them?
+#or a map on AppServer?
 rule "All loaded up"
     when
-        not AppServerInstance(busyConnectors < 20)
+        as: AppServer()
+        exist: Metric(appServer == as, name=="cpuIdle")
+        not Metric(appServer == as, name =="cpuIdle", value > 80)
     then
         requestNewApplicationServer("Connection busy")
 end
+
+
 
 rule "Empty server"
     when
@@ -16,6 +23,7 @@ rule "Empty server"
 end
 
 
+#more strongly typed??
 rule "Can scale down"
     when
        srv: Server()
