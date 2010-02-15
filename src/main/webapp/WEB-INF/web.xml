@@ -6,7 +6,7 @@
     <context-param>
         <!-- load up JAX-RS providers and resources etc -->
         <param-name>resteasy.resources</param-name>
-        <param-value>jboss.cloud.api.Server, jboss.cloud.dns.Registrar</param-value>
+        <param-value>jboss.cloud.api.Server, jboss.cloud.dns.Registrar, jboss.cloud.deploy.DeployResource</param-value>
     </context-param>
 
     <listener>

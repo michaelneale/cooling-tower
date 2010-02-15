@@ -108,7 +108,7 @@ class ApiHelper {
 
       def params = {
         val hm = new java.util.HashMap[String, String]
-        hm.put("resteasy.resources", "jboss.cloud.api.Server, jboss.cloud.dns.Registrar")
+        hm.put("resteasy.resources", "jboss.cloud.api.Server, jboss.cloud.dns.Registrar, jboss.cloud.deploy.DeployResource")
         hm
       }
 

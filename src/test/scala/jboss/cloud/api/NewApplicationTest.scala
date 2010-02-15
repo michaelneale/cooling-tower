@@ -22,7 +22,7 @@ class NewApplicationTest extends ApiHelper {
     Services.deltaClient = cloud
     Services.dep = deployer
 
-    get("/").body shouldBe <api version="1.0"><link href="applications"/></api>
+    get("/").body shouldBe <api version="1.0"><link href="/api/applications" rel="resource"/><link href="/api/naming" rel="resource"/></api>
     get("/applications").body shouldBe <applications/>
 
     cloud.instances.size shouldBe 0
