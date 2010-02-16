@@ -108,15 +108,66 @@ import jboss.cloud.config.Services
   def updateSubDomain(@PathParam("name") domain: String, @FormParam("subdomain") subDomain: String, @FormParam("address") address: String)  = {
     val zone = loadZone(domain)
     val name = Name.fromString(subDomain, zone.getOrigin)
-    recordsFor(zone).find(_.getName == name).map(zone.removeRecord(_))
+    recordsFor(zone).find(_.getName == name) foreach(zone.removeRecord(_))
     zone.addRecord(makeRecord(name, address))
     saveZone(zone, domain)
   }
 
+
+  /**
+   * Create/update a SRV entry - for the given domain. The service "name" typically follows the convention of:
+   *  _ServiceName._Protocol.Hostname
+   *
+   * eg:
+   *
+   *  _infinispan._https - would be passed in as the service parameter.
+   *
+   * A port number is provided for this service, as is a target name (which must be canonical name - ie have an A record, not a CNAME).
+   * 
+   * See here http://en.wikipedia.org/wiki/SRV_record1
+   * 
+   */
+  def updateService(domain: String, service: String, target: String, port: Int) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(service, zone.getOrigin)
+    recordsFor(zone).find(r => r.isInstanceOf[SRVRecord] && r.getName == name) foreach(zone.removeRecord(_))
+    zone.addRecord(new SRVRecord(name, DClass.IN, TTL, 1, 1, port, Name.fromString(target, Name.root)))
+    saveZone(zone, domain)
+  }
+
+  def listServices(domain: String) : Seq[String] = recordsFor(loadZone(domain)).filter(_.isInstanceOf[SRVRecord]).map(_.getName.toString.split("\\.")(0))
+
+  def removeService(domain: String, service: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(service, Name.fromString(domain, Name.root))    
+    recordsFor(zone).filter(r => r.isInstanceOf[SRVRecord] && r.getName == name) foreach(zone.removeRecord(_))
+    saveZone(zone, domain)
+  }
+
+
+  /** TXT is for random human readable info. name is the subdomain style name */
+  def updateTxt(domain: String, rname: String, text: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(rname, zone.getOrigin)
+    recordsFor(zone).find(r => r.isInstanceOf[TXTRecord] && r.getName == name) foreach(zone.removeRecord(_))
+    zone.addRecord(new TXTRecord(name, DClass.IN, TTL, text))
+    saveZone(zone, domain)
+  }
+
+  def listTxt(domain: String) : Seq[String] = recordsFor(loadZone(domain)).filter(_.isInstanceOf[TXTRecord]).map(_.getName.toString.split("\\.")(0))
+  def removeTxt(domain: String, rname: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(rname, Name.fromString(domain, Name.root))
+    recordsFor(zone).filter(r => r.isInstanceOf[TXTRecord] && r.getName == name) foreach(zone.removeRecord(_))
+    saveZone(zone, domain)
+  }
+
+
+
+
   @POST @PUT @Path("/domains/{name}/{subdomain}")
   def updateViaPath(@PathParam("name") name: String, @PathParam("subdomain") sub: String, @FormParam("address") addressParam: String, addressBody: String) =
     updateSubDomain(name, sub, if (addressParam != null) addressParam else addressBody)
-
 
 
 
@@ -126,6 +177,16 @@ import jboss.cloud.config.Services
     getAddress(recordsFor(loadZone(domain)).find(_.getName == name))
   }
 
+  
+
+
+  @DELETE @Path("/domains/{name}/{subdomain}")
+  def removeSubDomain(@PathParam("name") domain: String, @PathParam("subdomain") subDomain: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(subDomain, Name.fromString(domain, Name.root))
+    recordsFor(zone).filter(_.getName == name).map(zone.removeRecord(_))
+    saveZone(zone, domain)
+  }
 
 
   private def makeRecord(name: Name, address: String) = {
@@ -152,13 +213,7 @@ import jboss.cloud.config.Services
     }
   }
 
-  @DELETE @Path("/domains/{name}/{subdomain}")
-  def removeSubDomain(@PathParam("name") domain: String, @PathParam("subdomain") subDomain: String) = {
-    val zone = loadZone(domain)
-    val name = Name.fromString(subDomain, Name.fromString(domain, Name.root))    
-    recordsFor(zone).filter(_.getName == name).map(zone.removeRecord(_))
-    saveZone(zone, domain)
-  }
+
 
 
   private def loadZone(domain: String) : Zone = new Zone(Name.fromString(domain, Name.root), new File(rootDirectory, domain).getPath)
@@ -171,6 +226,7 @@ import jboss.cloud.config.Services
     zone.addRecord(soa)
     IOUtils.write(zone.toMasterFile, new FileOutputStream(new File(rootDirectory, domain)))
   }
+
 
 
   private def recordsFor(z: Zone) : Seq[Record] = {

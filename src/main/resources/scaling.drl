@@ -35,3 +35,5 @@ end
 
 
 #and so on...
+
+#what about CEP to have a stream of events - looking for a trend? can be as fast as we like... can use time windows? 

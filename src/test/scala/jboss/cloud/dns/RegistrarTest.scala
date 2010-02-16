@@ -45,6 +45,30 @@ class RegistrarTest {
 
   }
 
+
+  @Test def services = {
+    reg.registerNewDomain("samplezone.com")
+    reg.updateService("samplezone.com", "wallet.open", "www.apple.com", 443)
+    assertEquals(1, reg.listServices("samplezone.com").size)
+    reg.updateService("samplezone.com", "wallet.open", "www.apple.com", 80)
+    assertEquals(1, reg.listServices("samplezone.com").size)
+    assertTrue(reg.zoneFileFor("samplezone.com").indexOf("www.apple.com") > -1)
+    assertTrue(reg.zoneFileFor("samplezone.com").indexOf("SRV") > -1)
+    reg.removeService("samplezone.com", "wallet.open")
+    assertEquals(0, reg.listServices("samplezone.com").size)
+  }
+
+  @Test def txt = {
+    reg.registerNewDomain("samplezone.com")
+    reg.updateTxt("samplezone.com", "foo", "some text here")
+    assertEquals(1, reg.listTxt("samplezone.com").size)
+    assertTrue(reg.zoneFileFor("samplezone.com").indexOf("some text here") > -1)
+    reg.removeTxt("samplezone.com", "foo")
+    assertEquals(0, reg.listTxt("samplezone.com").size)
+
+  }
+
+
   @Test def subDomains = {
     assertEquals(0, reg.listDomains.size)
     val zone = reg.registerNewDomain("samplezone.com")
@@ -140,7 +164,7 @@ class RegistrarTest {
     if (!zoneDirectory.exists) zoneDirectory.mkdir
   }
 
-  @AfterTest def cleanup = {
+  @AfterSuite def cleanup = {
     delete(zoneDirectory)
     zoneDirectory.delete
   }
