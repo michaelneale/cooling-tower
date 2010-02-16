@@ -24,6 +24,8 @@ class DNSIntegrationTest extends ApiHelper {
      post("/naming/domains",  "name=samplezone.org")
      get ("/naming/domains/samplezone.org").body shouldContain <link href="/api/naming/domains/samplezone.org/default" rel="address" />
      get ("/naming/domains/samplezone.org").body shouldContain <link href="/api/naming/domains/samplezone.org/zoneFile" rel="file" />
+     get ("/naming/domains/samplezone.org").body shouldContain <link href="/api/naming/domains/samplezone.org/services" rel="services" />
+     get ("/naming/domains/samplezone.org").body shouldContain <link href="/api/naming/domains/samplezone.org/txt" rel="txt" />
      get ("/naming/domains/samplezone.org/zoneFile").body shouldContain "SOA"
 
      get ("/naming/domains/samplezone.org/default").body shouldBe ""
@@ -48,6 +50,30 @@ class DNSIntegrationTest extends ApiHelper {
      get ("/naming/domains/samplezone.org").body shouldNotContain <link href="/api/naming/domains/samplezone.org/www" rel="address" />
 
    }
+
+  @Test def serviceRecords = {
+    post("/naming/domains",  "name=samplezone.org")
+    get ("/naming/domains/samplezone.org").body shouldContain <link href="/api/naming/domains/samplezone.org/services" rel="services" />
+    get ("/naming/domains/samplezone.org").body shouldContain <link href="/api/naming/domains/samplezone.org/txt" rel="txt" />
+
+    get    ("/naming/domains/samplezone.org/services").body shouldBe <services/>
+    post   ("/naming/domains/samplezone.org/services", "service=_infinispan._http&port=8080&address=www.apple.com")
+    get    ("/naming/domains/samplezone.org/services").body shouldBe <services><link href="/api/naming/domains/samplezone.org/services/_infinispan._http" rel="service"/></services>
+    get    ("/naming/domains/samplezone.org/services/_infinispan._http").body shouldContain "www.apple.com"
+    delete ("/naming/domains/samplezone.org/services/_infinispan._http")
+    get    ("/naming/domains/samplezone.org/services").body shouldBe <services/>
+
+
+
+
+    /*
+    get    ("/naming/domains/samplezone.org/txt").body shouldBe <txt/>
+    post   ("/naming/domains/samplezone.org/txt", "key=foo&text=something")
+    get    ("/naming/domains/samplezone.org/txt").body shouldBe <txt><link href="/api/naming/domains/samplezone.org/txt/foo" rel="txt"/></txt>
+    */
+
+
+  }
 
    
 

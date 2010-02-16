@@ -28,8 +28,16 @@ import jboss.cloud.config.Services
     <domain name={domainName}>{listSubDomains(domainName).map(rec => <link href={"/api/naming/domains/" + domainName +"/" + rec} rel="address"/>)}
       <link href={"/api/naming/domains/" + domainName + "/default"} rel="address"/>
       <link href={"/api/naming/domains/" + domainName + "/zoneFile"} rel="file"/>
+      <link href={"/api/naming/domains/" + domainName + "/services"} rel="services"/>
+      <link href={"/api/naming/domains/" + domainName + "/txt"} rel="txt"/>
     </domain>.toString
   }
+
+  @GET @Path("/domains/{name}/services") def serviceListing(@PathParam("name") domain : String) =
+        <services>{listServices(domain).map(s => <link href={"/api/naming/domains/" + domain + "/services/" + s} rel="service"/>)}</services>
+  @GET @Path("/domains/{name}/txt") def txtListing(@PathParam("name") domain : String) =
+        <txt>{listServices(domain).map(s => <link href={"/api/naming/domains/" + domain + "/txt/" + s} rel="txt"/>)}</txt>
+
 
   def listDomains = rootDirectory.listFiles.map(_.getName)
 
@@ -127,7 +135,8 @@ import jboss.cloud.config.Services
    * See here http://en.wikipedia.org/wiki/SRV_record1
    * 
    */
-  def updateService(domain: String, service: String, target: String, port: Int) = {
+  @POST @PUT @Path("/domains/{name}/services")
+  def updateService(@PathParam("name") domain: String, @FormParam("service") service: String, @FormParam("address") target: String, @FormParam("port") port: Int) = {
     val zone = loadZone(domain)
     val name = Name.fromString(service, zone.getOrigin)
     recordsFor(zone).find(r => r.isInstanceOf[SRVRecord] && r.getName == name) foreach(zone.removeRecord(_))
@@ -135,9 +144,20 @@ import jboss.cloud.config.Services
     saveZone(zone, domain)
   }
 
-  def listServices(domain: String) : Seq[String] = recordsFor(loadZone(domain)).filter(_.isInstanceOf[SRVRecord]).map(_.getName.toString.split("\\.")(0))
+  def listServices(domain: String) : Seq[String] = recordsFor(loadZone(domain)).filter(_.isInstanceOf[SRVRecord]).map(name => name.getName.toString.split("\\.")(0) + "." + name.getName.toString.split("\\.")(1))
 
-  def removeService(domain: String, service: String) = {
+  @GET @Path("/domains/{name}/services/{service}")
+  def serviceInfo(@PathParam("name") domain: String, @PathParam("service") service: String) = {
+    val zone = loadZone(domain)
+    val name = Name.fromString(service, Name.fromString(domain, Name.root))
+    recordsFor(zone).find(_.getName == name) match {
+      case Some(r) => r.toString
+      case None => ""
+    }
+  }
+
+  @DELETE @Path("/domains/{name}/services/{service}")
+  def removeService(@PathParam("name") domain: String, @PathParam("service") service: String) = {
     val zone = loadZone(domain)
     val name = Name.fromString(service, Name.fromString(domain, Name.root))    
     recordsFor(zone).filter(r => r.isInstanceOf[SRVRecord] && r.getName == name) foreach(zone.removeRecord(_))
@@ -146,7 +166,8 @@ import jboss.cloud.config.Services
 
 
   /** TXT is for random human readable info. name is the subdomain style name */
-  def updateTxt(domain: String, rname: String, text: String) = {
+  @POST @PUT @Path("/domains/{name}/txt")
+  def updateTxt(@PathParam("name") domain: String, @FormParam("key") rname: String, @FormParam("text") text: String) = {
     val zone = loadZone(domain)
     val name = Name.fromString(rname, zone.getOrigin)
     recordsFor(zone).find(r => r.isInstanceOf[TXTRecord] && r.getName == name) foreach(zone.removeRecord(_))
