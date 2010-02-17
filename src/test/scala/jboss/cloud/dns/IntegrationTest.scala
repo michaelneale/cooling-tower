@@ -66,11 +66,8 @@ class DNSIntegrationTest extends ApiHelper {
 
 
 
-    /*
-    get    ("/naming/domains/samplezone.org/txt").body shouldBe <txt/>
-    post   ("/naming/domains/samplezone.org/txt", "key=foo&text=something")
-    get    ("/naming/domains/samplezone.org/txt").body shouldBe <txt><link href="/api/naming/domains/samplezone.org/txt/foo" rel="txt"/></txt>
-    */
+
+    
 
 
   }

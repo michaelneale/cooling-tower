@@ -165,9 +165,8 @@ import jboss.cloud.config.Services
   }
 
 
-  /** TXT is for random human readable info. name is the subdomain style name */
-  @POST @PUT @Path("/domains/{name}/txt")
-  def updateTxt(@PathParam("name") domain: String, @FormParam("key") rname: String, @FormParam("text") text: String) = {
+  /** TXT is for random human readable info. name is the subdomain style name - one day...  */
+  def updateTxt(domain: String, rname: String, text: String) = {
     val zone = loadZone(domain)
     val name = Name.fromString(rname, zone.getOrigin)
     recordsFor(zone).find(r => r.isInstanceOf[TXTRecord] && r.getName == name) foreach(zone.removeRecord(_))
