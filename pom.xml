@@ -91,8 +91,15 @@
 
       <dependency>
           <groupId>org.drools</groupId>
-          <artifactId>drools-compiler</artifactId>
+          <artifactId>drools-compiler</artifactId>    
           <version>5.0.1</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging</artifactId>
+          <version>3.0.0.Beta1</version>
       </dependency>
 
       <!-- for balancer -->

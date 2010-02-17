@@ -5,13 +5,18 @@ import org.testng.Assert._
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.testng.annotations._
+import org.jboss.logging.Logger
 
 
-class RegistrarTest {
+class RegistrarTest  {
   var zoneDirectory: File = new File("_test_zone_directory_")  //for naughty testing purposes
   var reg = new Registrar
 
+  val log = Logger.getLogger(getClass)
+
   @Test def createNewZone = {
+
+    log.infov("Here we go {0} !", 42)
 
     assertEquals(0, reg.listDomains.size)
     reg.registerNewDomain("samplezone.com")
