@@ -5,9 +5,18 @@ package jboss.cloud.elastic
  */
 class ElasticScaler {
 
-  def receiveMetric(name: String, value: Double, clusterNodeName: String) = {
-    
+  def updateMetric(serverName: String, name: String, value: Double, clusterNodeName: String) = {
+    //lookup which clusterNode it applies to... need a map of them...
   }
+
+
+  def addCluster(clusterName: String) = {}
+
+  def addServerInstance(serverName: String) = {}
+
+  def addClusterNode(serverName: String, clusterName: String, nodeName: String) = {}
+
+  
 
 }
 
