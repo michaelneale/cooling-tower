@@ -5,19 +5,18 @@ package jboss.cloud.elastic
 #or a map on AppServer?
 rule "All loaded up"
     when
-        as: AppServer()
-        exist: Metric(appServer == as, name=="cpuIdle")
-        not Metric(appServer == as, name =="cpuIdle", value > 80)
+        cluster: Cluster()
+        forall(Metric(cluster == c, name="cpu", value > 0.7))
     then
-        requestNewApplicationServer("Connection busy")
+        requestNewApplicationServer("to busy CPU")
 end
 
 
 
 rule "Empty server"
     when
-        srv: Server()
-        not AppServerInstance(server == srv)
+        srv: ServerInstance()
+        not ClusterNode(server == srv)
     then
         shutdown(srv)
 end
