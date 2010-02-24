@@ -1,38 +1,65 @@
 package jboss.cloud.elastic
 
 
+import jboss.cloud.elastic.Cluster
+
+
+
+declare NodeState
+   cluster: Cluster  #the cluster this is a member of
+   server: ServerInstance    #the instance this node is running on
+
+   averageServerLoad: Float #average CPU load for this node
+   busyConnectors: Integer  #percentage of connectors that are currently busy
+   activeSessions: Integer  #the number of sessions
+   receiveTraffic: Float    #traffic received in KB/s
+   sendTraffic: Float       #traffic outbound in KB/s
+   systemMemoryUsage: Float 
+   systemHeapUsage: Float
+end
+
 #Can have Metric generic object - many of them?
 #or a map on AppServer?
 rule "All loaded up"
     when
-        cluster: Cluster()
-        forall(Metric(cluster == c, name="cpu", value > 0.7))
+        c: Cluster()
+        forall(NoteState(cluster == c, averageServerLoad > 0.7))
     then
-        requestNewApplicationServer("to busy CPU")
+        requestNode("Too busy CPU", c)
 end
 
+rule "All busy connectors"
+   when
+       c: Cluster()
+       forall( NoteState(cluster == c, busyConnectors == 100) )
+   then
+       requestNode("no free connectors", c)
+end
 
-
-rule "Empty server"
+rule "Getting busy"
     when
-        srv: ServerInstance()
-        not ClusterNode(server == srv)
+        c: Cluster()
+        not NodeState(cluster == c, busyConnectors < 50)
     then
-        shutdown(srv)
+        requestNode("not enough free connectors in cluster", c)
 end
 
 
-#more strongly typed??
+
+
 rule "Can scale down"
     when
-       srv: Server()
-       as: AppServerInstance(sessionCount < 2, server == srv)
-       exists AppServerInstance(sessionCount < 5, server != srv)
+       c: Cluster()
+       ns: NodeState(cluster == c, busyConnectors == 0, activeSessions == 0)
+       exists: NodeState(this != ns)
     then
-       shutdownApplicationServer(as)
+       shutdownNode("no activity", ns)
 end
+
+
+
+
 
 
 #and so on...
 
-#what about CEP to have a stream of events - looking for a trend? can be as fast as we like... can use time windows? 

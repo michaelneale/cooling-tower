@@ -7,11 +7,7 @@ import reflect.BeanProperty
  */
 class ElasticScaler {
 
-  var nodes : Map[String, ClusterNode] = null
-  var servers : Map[String, ServerInstance] = null
-  var clusters : Map[String, Cluster] = null
 
-  //TODO: can refactor this to be more functional
   def updateMetric(nodeName: String, name: String, value: Double) = {
     //nodes get(nodeName) map(/* update metric here */)
     
@@ -53,9 +49,5 @@ case class Cluster(name: String)
  * (should use names derived from the JMX MBeans).
  *  
  */
-case class Metric(@BeanProperty val node: ClusterNode, name: String, value: Double) {
-  def getCluster = node.cluster
-}
-case class ClusterNode(server: ServerInstance, cluster: Cluster, name: String) //belongs to cluster and a ServerInstance
 case class ServerInstance(name: String) 
 
