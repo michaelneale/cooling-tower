@@ -34,20 +34,7 @@ case class Cluster(name: String)
 
 
 /**
- * Metrics are the readings of values from the cluster:
- *
- *  ActiveSessions - number of sessions active.
- *  BusyConnectors - percentage of connectors busy
- *  ReceiveTraffic - inbound traffic in KB/s
- *  SendTraffic    - outbound traffic in KB/s
- *  RequestCount   - requests per sec
- *  AverageSystemLoad - CPU load
- *  SystemMemoryUsage
- *  HeapMemoryUsage
- *
- * This and more from:  http://www.jboss.org/mod_cluster/java/load.html
- * (should use names derived from the JMX MBeans).
- *  
+ * Represents the state of the node - from mod_cluster/JMX metrics
  */
-case class ServerInstance(name: String) 
+case class NodeState(@BeanProperty name: String, @BeanProperty cluster: Cluster, @BeanProperty avgServerLoad: Float)
 

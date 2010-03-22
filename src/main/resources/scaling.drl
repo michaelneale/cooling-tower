@@ -1,14 +1,13 @@
 package jboss.cloud.elastic
-
-
 import jboss.cloud.elastic.Cluster
+global java.util.List actions
+dialect "mvel"
 
 
 
 declare NodeState
    cluster: Cluster  #the cluster this is a member of
    server: ServerInstance    #the instance this node is running on
-
    averageServerLoad: Float #average CPU load for this node
    busyConnectors: Integer  #percentage of connectors that are currently busy
    activeSessions: Integer  #the number of sessions
@@ -25,7 +24,7 @@ rule "All loaded up"
         c: Cluster()
         forall(NoteState(cluster == c, averageServerLoad > 0.7))
     then
-        requestNode("Too busy CPU", c)
+        actions.add(new NodeRequest(c, "CPU load too high"))
 end
 
 rule "All busy connectors"
