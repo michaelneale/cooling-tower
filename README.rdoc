@@ -1,5 +1,15 @@
 = Cooling Tower - java web app deployment via deltacloud
 
+= IMPORTANT NOTE
+== This project is deprecated, retired. 
+It's dead Jim. 
+
+Well not dead - it has come back to life as SteamCannon.org - so please head on over there for all the goodness. 
+
+Thanks for playing !
+
+
+
 == Summary
 CoolingTower builds on deltacloud.org to provide a simple way to intelligently deploy web apps. Deltacloud is an api that abstracts away the differences between cloud providers.
 With CoolingTower you deploy your web app (say, a war) and it will work out where to run it, how to run it, and start and stop instances of the appropriate type if needed (via deltacloud).
